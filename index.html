@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- SEO -->
+  <meta name="description" content="Raad Amin — high school student in Sylvania, Ohio. SKYWARN weather observer, student journalist, and builder of open-source academic resources.">
+  <meta name="author" content="Raad Amin">
+  <!-- Open Graph (Discord, iMessage, LinkedIn previews) -->
+  <meta property="og:title" content="Raad Amin">
+  <meta property="og:description" content="SKYWARN observer, journalist, and builder of open academic resources. Based in Sylvania, Ohio.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://Raad-Amin.github.io">
+  <meta property="og:image" content="https://Raad-Amin.github.io/images/me.jpg">
+  <title>Raad Amin</title>
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="apple-touch-icon" href="images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:            #f5f2ed;
+      --bg-2:          #eeeae3;
+      --bg-dark:       #1a1917;
+      --obsidian:      #1a1917;
+      --obsidian-soft: #2e2c29;
+      --obsidian-mid:  #3d3b38;
+      --obsidian-muted:#4a4844;
+      --obsidian-faint:#7a7774;
+      --rule:          #c8c3bb;
+      --rule-light:    #dedad3;
+      --off-white:     #f5f2ed;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--obsidian);
+      font-family: 'Merriweather', Georgia, serif;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 0 5rem;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg);
+      transition: border-bottom 0.4s;
+    }
+    nav.scrolled { border-bottom: 1px solid var(--rule); }
+    .nav-name {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 600;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--obsidian);
+      text-decoration: none;
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+    nav.scrolled .nav-name { opacity: 1; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 400;
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--obsidian-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--obsidian); }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: end;
+      padding: 0 5rem 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-diag {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .hero-line-h {
+      position: absolute;
+      bottom: 34%;
+      left: 0; right: 0;
+      height: 1px;
+      background: var(--rule-light);
+      transform: scaleX(0);
+      transform-origin: left;
+      animation: drawLine 1.6s cubic-bezier(0.77,0,0.175,1) 0.5s forwards;
+    }
+
+    .hero-content { position: relative; z-index: 2; }
+
+    .hero-label {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 400;
+      font-size: 0.66rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--obsidian-faint);
+      margin-bottom: 1.4rem;
+      opacity: 0;
+      transform: translateY(8px);
+      animation: riseIn 0.8s ease 1.2s forwards;
+    }
+
+    h1.hero-name {
+      font-family: 'Merriweather', serif;
+      font-weight: 700;
+      font-size: clamp(3.4rem, 7vw, 6.5rem);
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      color: var(--obsidian);
+      opacity: 0;
+      transform: translateY(18px);
+      animation: riseIn 1s ease 0.7s forwards;
+    }
+
+    .hero-sub {
+      margin-top: 1.8rem;
+      font-family: 'Merriweather', serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: clamp(0.9rem, 1.6vw, 1.1rem);
+      color: var(--obsidian-muted);
+      opacity: 0;
+      transform: translateY(8px);
+      animation: riseIn 0.8s ease 1.5s forwards;
+    }
+
+    .hero-right {
+      position: relative;
+      height: 100%;
+      min-height: 400px;
+    }
+
+    .hero-geo-wrap {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      animation: fadeIn 1.4s ease 0.4s forwards;
+    }
+
+    /* KEYFRAMES */
+    @keyframes fadeIn  { to { opacity: 1; } }
+    @keyframes drawLine { to { transform: scaleX(1); } }
+    @keyframes riseIn  { to { opacity: 1; transform: translateY(0); } }
+
+    .draw-path {
+      stroke-dasharray: 600;
+      stroke-dashoffset: 600;
+      transition: stroke-dashoffset 1.6s cubic-bezier(0.77,0,0.175,1);
+    }
+    .draw-path.drawn { stroke-dashoffset: 0; }
+
+    .draw-arc {
+      stroke-dasharray: 400;
+      stroke-dashoffset: 400;
+      transition: stroke-dashoffset 2s cubic-bezier(0.77,0,0.175,1) 0.3s;
+    }
+    .draw-arc.drawn { stroke-dashoffset: 0; }
+
+    /* SECTION SCAFFOLD */
+    .section-wrap {
+      padding: 7rem 5rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .section-wrap.full { max-width: none; }
+    .section-wrap.narrow { max-width: 860px; margin: 0 auto; }
+
+    .section-label {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 500;
+      font-size: 0.62rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--obsidian-faint);
+      margin-bottom: 0.7rem;
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+    }
+    .section-label::after {
+      content: '';
+      display: block;
+      height: 1px;
+      width: 36px;
+      background: var(--rule);
+    }
+
+    h2.section-title {
+      font-family: 'Merriweather', serif;
+      font-weight: 700;
+      font-size: clamp(1.5rem, 2.8vw, 2.1rem);
+      line-height: 1.2;
+      color: var(--obsidian);
+      margin-bottom: 2.5rem;
+    }
+
+    .hr { width: 100%; height: 1px; background: var(--rule-light); }
+
+    /* ABOUT */
+    #about .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    #about p {
+      font-size: 1rem;
+      line-height: 1.95;
+      color: var(--obsidian-soft);
+    }
+    #about p + p { margin-top: 1.2rem; }
+
+    .about-photo-col {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    .about-photo {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      background: var(--bg-2);
+      border: 1px solid var(--rule-light);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .about-photo img {
+      transition: transform 0.4s ease;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+    }
+    .about-photo:hover img { transform: scale(1.03); }
+
+    .about-aside {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .about-stat {
+      border-top: 1px solid var(--rule-light);
+      padding: 1.4rem 0;
+    }
+    .about-stat:last-child { border-bottom: 1px solid var(--rule-light); }
+
+    .about-stat-num {
+      font-family: 'Merriweather', serif;
+      font-weight: 700;
+      font-size: 2rem;
+      line-height: 1;
+      color: var(--obsidian);
+      letter-spacing: -0.02em;
+    }
+
+    .about-stat-label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--obsidian-faint);
+      margin-top: 0.35rem;
+    }
+
+    .about-quote {
+      margin-top: 2rem;
+      padding-left: 1.3rem;
+      border-left: 2px solid var(--obsidian);
+      font-style: italic;
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: var(--obsidian-muted);
+    }
+
+    /* PILLARS — dark band */
+    #featured {
+      background: var(--bg-dark);
+      color: var(--off-white);
+      padding: 7rem 5rem;
+    }
+
+    .featured-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    #featured .section-label { color: #6b6864; }
+    #featured .section-label::after { background: #3a3835; }
+    #featured h2.section-title { color: var(--off-white); margin-bottom: 3rem; }
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: 1.45fr 1fr;
+      gap: 0;
+      border-top: 1px solid #2e2c29;
+      border-left: 1px solid #2e2c29;
+    }
+
+    .pillar {
+      border-right: 1px solid #2e2c29;
+      border-bottom: 1px solid #2e2c29;
+      padding: 3rem 2.8rem;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+      color: inherit;
+    }
+    .pillar:hover { background: #222120; }
+
+    .pillar.featured-pillar { padding: 3.5rem 3.2rem; }
+
+    .pillar-stack {
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid #2e2c29;
+    }
+    .pillar-stack .pillar {
+      border-right: none;
+      flex: 1;
+    }
+    .pillar-stack .pillar + .pillar { border-top: 1px solid #2e2c29; }
+
+    .pillar-geo-bg {
+      position: absolute;
+      bottom: -10px; right: -10px;
+      opacity: 0.07;
+      pointer-events: none;
+    }
+
+    .pillar-number {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 300;
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      color: #5a5855;
+      margin-bottom: 1.5rem;
+    }
+
+    h3.pillar-title {
+      font-family: 'Merriweather', serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      line-height: 1.28;
+      color: var(--off-white);
+      margin-bottom: 1rem;
+    }
+    .pillar.featured-pillar h3.pillar-title { font-size: 1.35rem; }
+
+    .pillar-body {
+      font-family: 'Merriweather', serif;
+      font-weight: 300;
+      font-size: 0.85rem;
+      line-height: 1.88;
+      color: #9a9590;
+    }
+    .pillar.featured-pillar .pillar-body { font-size: 0.9rem; }
+
+    .pillar-tag {
+      display: inline-block;
+      margin-top: 1.8rem;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #5a5855;
+      border-bottom: 1px solid #2e2c29;
+      padding-bottom: 2px;
+    }
+
+    .pillar-caret {
+      position: absolute;
+      bottom: 2.4rem;
+      right: 2.4rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      font-family: 'Raleway', sans-serif;
+      color: #3a3835;
+      opacity: 0;
+      transform: translateX(-6px);
+      transition: opacity 0.25s, transform 0.25s, color 0.25s;
+    }
+    .pillar:hover .pillar-caret {
+      opacity: 1;
+      transform: translateX(0);
+      color: #6b6864;
+    }
+
+    /* WRITING */
+    .writing-inner {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .writing-intro {
+      position: sticky;
+      top: 80px;
+    }
+
+    .writing-intro p {
+      font-size: 0.88rem;
+      line-height: 1.8;
+      color: var(--obsidian-muted);
+      margin-top: 0.8rem;
+    }
+
+    .writing-all-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.6rem;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--obsidian-muted);
+      text-decoration: none;
+      border-bottom: 1px solid var(--rule-light);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .writing-all-link:hover { color: var(--obsidian); border-color: var(--rule); }
+
+    /* Writing sub-group labels */
+    .writing-group { margin-bottom: 0; }
+
+    .writing-group-label {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 500;
+      font-size: 0.58rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--obsidian-faint);
+      padding: 2rem 0 0.6rem;
+    }
+    .writing-group:first-child .writing-group-label { padding-top: 0; }
+
+    .article-item {
+      display: grid;
+      grid-template-columns: 1fr 28px;
+      align-items: start;
+      gap: 1rem;
+      padding: 2.2rem 0;
+      border-bottom: 1px solid var(--rule-light);
+      text-decoration: none;
+      color: inherit;
+      transition: opacity 0.2s;
+    }
+    .article-item:hover { opacity: 0.75; }
+    .article-item:first-of-type { border-top: 1px solid var(--rule-light); }
+
+    .article-meta {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--obsidian-faint);
+      margin-bottom: 0.45rem;
+    }
+
+    h3.article-title {
+      font-family: 'Merriweather', serif;
+      font-weight: 400;
+      font-size: 1rem;
+      color: var(--obsidian);
+      margin-bottom: 0.5rem;
+    }
+
+    .article-desc {
+      font-size: 0.85rem;
+      color: var(--obsidian-muted);
+      line-height: 1.75;
+    }
+
+    .article-arrow {
+      font-size: 1rem;
+      color: var(--rule);
+      margin-top: 0.3rem;
+      transition: color 0.2s, transform 0.2s;
+    }
+    .article-item:hover .article-arrow { color: var(--obsidian); transform: translateX(3px); }
+
+    /* PROJECTS */
+    .projects-list { margin-top: 0.5rem; }
+
+    .project-row {
+      display: grid;
+      grid-template-columns: 210px 1fr 28px;
+      gap: 2.5rem;
+      padding: 2.2rem 0;
+      border-bottom: 1px solid var(--rule-light);
+      align-items: start;
+      text-decoration: none;
+      color: inherit;
+    }
+    .project-row:first-child { border-top: 1px solid var(--rule-light); }
+    .project-row:hover .project-arrow { color: var(--obsidian); transform: translateX(3px); }
+
+    h3.project-name {
+      font-family: 'Merriweather', serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--obsidian);
+      line-height: 1.4;
+    }
+
+    .project-date {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      color: var(--obsidian-muted);
+      margin-top: 0.35rem;
+    }
+
+    .project-desc {
+      font-size: 0.85rem;
+      line-height: 1.8;
+      color: var(--obsidian-muted);
+    }
+
+    .project-arrow {
+      font-size: 1rem;
+      color: var(--rule);
+      margin-top: 0.3rem;
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    /* BACKGROUND — dark band */
+    #background {
+      background: var(--bg-dark);
+      color: var(--off-white);
+      padding: 7rem 5rem;
+    }
+
+    .background-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    #background .section-label { color: #6b6864; }
+    #background .section-label::after { background: #3a3835; }
+    #background h2.section-title { color: var(--off-white); }
+
+    .background-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border-top: 1px solid #2e2c29;
+      border-left: 1px solid #2e2c29;
+      margin-top: 0.5rem;
+    }
+
+    .bg-block {
+      border-right: 1px solid #2e2c29;
+      border-bottom: 1px solid #2e2c29;
+      padding: 2.4rem 2rem;
+    }
+
+    .bg-block-label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #8a8784;
+      margin-bottom: 1.2rem;
+    }
+
+    .bg-block ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .bg-block ul li {
+      font-family: 'Merriweather', serif;
+      font-weight: 300;
+      font-size: 0.82rem;
+      color: #9a9590;
+      line-height: 1.65;
+      padding-left: 1rem;
+      position: relative;
+    }
+    .bg-block ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: #3a3835;
+      font-size: 0.72rem;
+    }
+
+    /* CONTACT */
+    #contact {
+      padding: 7rem 5rem 8rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .contact-left h2 {
+      font-family: 'Merriweather', serif;
+      font-weight: 700;
+      font-size: clamp(1.9rem, 3.2vw, 2.8rem);
+      line-height: 1.12;
+      margin-bottom: 1.3rem;
+    }
+
+    .contact-left p {
+      font-size: 0.92rem;
+      color: var(--obsidian-muted);
+      line-height: 1.85;
+    }
+
+    .contact-links { display: flex; flex-direction: column; }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      text-decoration: none;
+      color: var(--obsidian);
+      font-size: 0.88rem;
+      transition: color 0.2s;
+      padding: 1.3rem 0;
+      border-bottom: 1px solid var(--rule-light);
+    }
+    .contact-link:first-child { border-top: 1px solid var(--rule-light); }
+    .contact-link:last-child { border-bottom: none; }
+    .contact-link:hover { color: var(--obsidian-muted); }
+
+    .contact-link-label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--obsidian-faint);
+      width: 56px;
+      flex-shrink: 0;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 1.6rem 5rem;
+      border-top: 1px solid var(--rule-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer span {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      color: var(--obsidian-faint);
+    }
+
+    /* SCROLL REVEAL */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.12s; }
+    .reveal-delay-2 { transition-delay: 0.24s; }
+    .reveal-delay-3 { transition-delay: 0.36s; }
+
+    /* RESPONSIVE */
+    @media (max-width: 1100px) {
+      .background-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 860px) {
+      nav, #hero, .section-wrap, #featured, #background, #contact, footer {
+        padding-left: 2rem; padding-right: 2rem;
+      }
+      #hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      #about .about-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .about-photo-col { flex-direction: row; gap: 2rem; flex-wrap: wrap; }
+      .about-photo { max-width: 180px; }
+      .writing-inner { grid-template-columns: 1fr; gap: 0; }
+      .writing-intro { position: static; margin-bottom: 2.5rem; }
+      .pillars-grid { grid-template-columns: 1fr; }
+      .pillar-stack { border-right: none; }
+      .background-grid { grid-template-columns: 1fr; }
+      #contact { grid-template-columns: 1fr; gap: 3rem; }
+      .project-row { grid-template-columns: 1fr; gap: 0.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="#hero" class="nav-name">Raad Amin</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#featured">Work</a></li>
+      <li><a href="article-home.html">Writing</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <svg class="hero-diag" viewBox="0 0 1400 900" preserveAspectRatio="none" fill="none" aria-hidden="true">
+      <line class="draw-path" x1="0" y1="900" x2="1400" y2="0" stroke="#dedad3" stroke-width="0.8"/>
+    </svg>
+    <div class="hero-line-h"></div>
+
+    <div class="hero-content">
+      <p class="hero-label">Sylvania, Ohio</p>
+      <h1 class="hero-name">Raad<br>Amin</h1>
+      <p class="hero-label">Aspiring Russian Oligarch</p>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-geo-wrap">
+        <svg width="100%" height="100%" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position:absolute;inset:0;">
+          <circle class="draw-arc" cx="310" cy="270" r="190" stroke="#c8c3bb" stroke-width="0.8" fill="none"/>
+          <path class="draw-arc" d="M 140 430 A 170 170 0 0 1 490 290" stroke="#dedad3" stroke-width="0.6" fill="none"/>
+          <polygon class="draw-path" points="410,55 478,415 90,390" stroke="#1a1917" stroke-width="1" fill="none"/>
+          <polygon points="385,82 428,155 342,155" fill="#1a1917" opacity="0.11"/>
+          <polygon points="120,205 150,205 135,182" fill="#1a1917" opacity="0.2"/>
+          <line x1="70" y1="255" x2="195" y2="255" stroke="#c8c3bb" stroke-width="0.8"/>
+          <line x1="290" y1="55" x2="478" y2="135" stroke="#dedad3" stroke-width="0.7"/>
+          <path class="draw-arc" d="M 375 435 A 65 65 0 0 0 460 375" stroke="#1a1917" stroke-width="1" fill="none" opacity="0.28"/>
+          <polygon points="238,308 262,332 238,356 214,332" stroke="#1a1917" stroke-width="0.9" fill="none" opacity="0.32"/>
+          <path class="draw-arc" d="M 60 120 A 80 80 0 0 1 180 80" stroke="#c8c3bb" stroke-width="0.7" fill="none"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-wrap reveal">
+      <p class="section-label">About</p>
+      <div class="about-inner">
+        <div>
+          <p>I'm a high school student in Sylvania, Ohio, and just about everything I do traces back to the same habit: noticing when something's broken, and then trying to do something about it (hopefully fix it, that is). A deeply flawed AI detection system creating false accusations willy-nilly, a gap in free, quality notes, or something that's just plain boring and could use some renovation.</p>
+          <p>That's produced a 36-page academic honesty defense, a district-wide guide on fighting positives from erroneous AI detectors, an open-licensed notes program used by over 100 students, and a couple of editorials that ruffled a few feathers. Besides that, I'm also a NOAA/NWS-certified SKYWARN severe weather observer, and a few years into a meteophotography archive documenting atmospheric events and cloud formations.</p>
+          <p>Extracurricular-wise, I try to keep myself busy. I've competed in Science Olympiad and Quizbowl since the 6th grade alongside Speech &amp; Debate, Student Government, Powerlifting, and far more Wikipedia edits than intended. I don't consider myself a writer, more of a hater, piecing out flaws and holes in the system to bring awareness and resolve them. Whether through reporting, satire, archival, or personal advocacy, I strive to make sure things <i>work</i>.</p>
+          <blockquote class="about-quote">
+            "I'm pretty sure he's an AI robot" — My government teacher after I disabled the Windows weather widget
+          </blockquote>
+        </div>
+
+        <div class="about-photo-col">
+          <div class="about-photo">
+            <img src="images/me.jpg" alt="Raad Amin" loading="lazy">
+          </div>
+
+          <div class="about-aside">
+            <div class="about-stat">
+              <div class="about-stat-num">100+</div>
+              <div class="about-stat-label">Students using Noteshare</div>
+            </div>
+            <div class="about-stat">
+              <div class="about-stat-num">1,000+</div>
+              <div class="about-stat-label">Wikipedia contributions</div>
+            </div>
+            <div class="about-stat">
+              <div class="about-stat-num">200+</div>
+              <div class="about-stat-label">Library patrons assisted</div>
+            </div>
+            <div class="about-stat">
+              <div class="about-stat-num">6</div>
+              <div class="about-stat-label">Peers cleared of false AI flags</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <!-- PILLARS — dark band -->
+  <section id="featured">
+    <div class="featured-inner">
+      <p class="section-label reveal">Three things worth knowing</p>
+      <h2 class="section-title reveal">A weather watching, open-source builder, and student who pushes back.</h2>
+
+      <div class="pillars-grid">
+
+        <a href="projects.html#skywarn" class="pillar featured-pillar reveal">
+          <svg class="pillar-geo-bg" width="220" height="220" viewBox="0 0 220 220" fill="none" aria-hidden="true">
+            <circle cx="110" cy="110" r="100" stroke="#f5f2ed" stroke-width="1.5" fill="none"/>
+            <circle cx="110" cy="110" r="60" stroke="#f5f2ed" stroke-width="0.7" fill="none"/>
+            <polygon points="110,10 210,195 10,195" stroke="#f5f2ed" stroke-width="0.8" fill="none"/>
+          </svg>
+          <p class="pillar-number">01</p>
+          <h3 class="pillar-title">SKYWARN &amp; Weather</h3>
+          <p class="pillar-body">NOAA/NWS-certified severe weather observer since May 2024. The certification matters less than the habit behind it: paying close attention to what's actually happening, rather than having an opinion about it. An ongoing meteophotography archive documents that attention: dramatic cloud formations, atmospheric optics, or just a pretty sunset. Select images are in the public domain.</p>
+          <span class="pillar-tag">SKYWARN · NOAA/NWS · Meteophotography · Public Domain</span>
+          <span class="pillar-caret">Read more →</span>
+        </a>
+
+        <div class="pillar-stack">
+          <a href="projects.html#noteshare" class="pillar reveal reveal-delay-1">
+            <svg class="pillar-geo-bg" width="150" height="140" viewBox="0 0 150 140" fill="none" aria-hidden="true">
+              <polygon points="75,5 145,135 5,135" stroke="#f5f2ed" stroke-width="1.2" fill="none"/>
+              <polygon points="75,30 115,110 35,110" fill="#f5f2ed" opacity="0.09"/>
+            </svg>
+            <p class="pillar-number">02</p>
+            <h3 class="pillar-title">The Noteshare Program</h3>
+            <p class="pillar-body">There was a gap in accessible study resources and free material, so I took it upon myself to fill it with the "F.R. LLC Noteshare Program" (aptly named after an inside joke). Structured, high-quality notes across a multitude of AP and Honors courses open-licensed CC BY-NC-SA 4.0, collaboratively maintained, free to adapt. Over 100 students across grade levels use them. <br>Everything's free to use, share, and modify. Nothing's kept behind closed doors.</br></p>
+            <span class="pillar-tag">CC BY-NC-SA · 100+ Students · Open Resource</span>
+            <span class="pillar-caret">Read more →</span>
+          </a>
+
+          <a href="projects.html#aidefense" class="pillar reveal reveal-delay-2">
+            <svg class="pillar-geo-bg" width="150" height="130" viewBox="0 0 150 130" fill="none" aria-hidden="true">
+              <rect x="10" y="10" width="130" height="110" stroke="#f5f2ed" stroke-width="0.8" fill="none"/>
+              <line x1="10" y1="10" x2="140" y2="120" stroke="#f5f2ed" stroke-width="0.6"/>
+              <line x1="140" y1="10" x2="10" y2="120" stroke="#f5f2ed" stroke-width="0.4" opacity="0.5"/>
+            </svg>
+            <p class="pillar-number">03</p>
+            <h3 class="pillar-title">The AI Detection Audit</h3>
+            <p class="pillar-body">Falsely flagged for AI use on my first-ever essay. Instead of rewriting it as offered, I built a 36-page defense that very night and presented it in person the next. That turned into a published editorial on Copyleaks' algorithmic failures, a documented software flaw, procurement data review, a spot on the Speech & Debate team, and support for six peers in the same situation. <br>It was a busy week :)</br></p>
+            <span class="pillar-tag">Investigative · Policy · Student Advocacy</span>
+            <span class="pillar-caret">Read more →</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <!-- WRITING -->
+  <section id="writing">
+    <div class="section-wrap full reveal">
+      <div class="writing-inner">
+
+        <div class="writing-intro">
+          <p class="section-label">Writing</p>
+          <h2 class="section-title" style="margin-bottom:0.8rem;">Published<br>works</h2>
+          <p>I hold position as the News Editor for <em>The Student Prints</em>, Northview High School's century-old (and still kicking!) newspaper. When taking a break from reporting the facts, I publish satire under <em>The Litter Box</em>.</p>
+          <a href="article-home.html" class="writing-all-link">All writing →</a>
+        </div>
+
+        <div>
+          <!-- NEWS -->
+          <div class="writing-group">
+            <p class="writing-group-label">News</p>
+            <a href="article-budget.html" class="article-item">
+              <div>
+                <p class="article-meta">News · Feb – Mar 2026 · <i>The Student Prints</i></p>
+                <h3 class="article-title">District Seeks First Levy Since 2016 Amid $4 Million Deficit</h3>
+                <p class="article-desc">Low per-pupil spending, tens of millions in reserve, and a AA credit rating might on paper sound like ideal finances for a school district, but a combination of hostile legislation — both 50 years old and modern — alongside sharply increasing prices created the perfect storm pulling Sylvania Schools' budget apart. In this article, I explored the interplay between these factors, and how a failed May ballot could lead to over 160 layoffs and a dire crisis for students and staff alike.</p>
+              </div>
+              <span class="article-arrow">→</span>
+            </a>
+          </div>
+
+          <!-- EDITORIAL -->
+          <div class="writing-group">
+            <p class="writing-group-label">Editorials</p>
+            <a href="article-flagpole.html" class="article-item">
+              <div>
+                <p class="article-meta">Editorial · Dec 2025 · <i>The Student Prints</i></p>
+                <h3 class="article-title">"The Land of Opportunity" — How a $75,000 Flagpole Only Raises Red Flags</h3>
+                <p class="article-desc">A $75,000 crowdfunding campaign to install a ludicrously massive flagpole raised hardly $1,000. I examined the (lack of) financial logic during a district-wide budgetary deficit, questioned administrative priorities, and proposed alternatives like crowdfunding toward veterans — something that would more honestly serve the community.</p>
+              </div>
+              <span class="article-arrow">→</span>
+            </a>
+
+            <a href="article-detector.html" class="article-item">
+              <div>
+                <p class="article-meta">Investigative Editorial · Mar – Apr 2025 · <i>The Student Prints</i></p>
+                <h3 class="article-title">The District's AI Detector Doesn't Work.</h3>
+                <p class="article-desc">An investigation into the district's use of Copyleaks as an AI detection tool. Covers a firsthand false-positive experience, procurement data, a documented software flaw, and a technical breakdown of how perplexity &amp; burstiness-based detection assigns guilt with <i>roughly</i> random accuracy.</p>
+              </div>
+              <span class="article-arrow">→</span>
+            </a>
+
+            <a href="article-hb8.html" class="article-item">
+              <div>
+                <p class="article-meta">Editorial · <i>The Student Prints</i></p>
+                <h3 class="article-title">House Bill 8 Strips Student Freedoms</h3>
+                <p class="article-desc">How a deceptive bill disguised as a parents' rights measure erodes the rights and autonomy of students. Written with fellow editor and queer student Haleigh Murphy, examining how mandatory reporting, selective targeting, and hostile legislation work against the district and student safety alike.</p>
+              </div>
+              <span class="article-arrow">→</span>
+            </a>
+          </div>
+
+          <!-- SATIRE -->
+          <div class="writing-group">
+            <p class="writing-group-label">Satire</p>
+            <a href="satire-flagpole.html" class="article-item">
+              <div>
+                <p class="article-meta">Administrative Satire · Spring 2025 · <i>The Litter Box</i></p>
+                <h3 class="article-title">School Raises $6.23 for $7,500,000 Flagpole: A Triumph</h3>
+                <p class="article-desc">Playing off the companion flagpole editorial, this piece applies administrative goals to the extreme to produce the ultimate show of patriotism.</p>
+              </div>
+              <span class="article-arrow">→</span>
+            </a>
+
+            <a href="satire-championship.html" class="article-item">
+              <div>
+                <p class="article-meta">Athletic Satire · Spring 2026 · <i>The Litter Box</i></p>
+                <h3 class="article-title">Quizbowl Team Charged with DUI Preceding State Championship</h3>
+                <p class="article-desc">The hockey team was caught drinking underage and driving under the influence mere days before the state championship, yet administration postponed all disciplinary action until after competition. Will the same courtesy extend to Quizbowl?</p>
+              </div>
+              <span class="article-arrow">→</span>
+            </a>
+
+            <a href="thelitterbox.html" class="article-item">
+              <div>
+                <p class="article-meta">Satire Archive · <i>The Litter Box</i></p>
+                <h3 class="article-title">More from The Litter Box →</h3>
+                <p class="article-desc">Short-form satire across athletics, administration, clubs, and anything else that needed mocking.</p>
+              </div>
+              <span class="article-arrow">→</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-wrap narrow reveal">
+      <p class="section-label">Projects</p>
+      <h2 class="section-title">Built things</h2>
+
+      <div class="projects-list">
+        <a href="projects.html#noteshare" class="project-row">
+          <div>
+            <h3 class="project-name">F.R. LLC Noteshare Program</h3>
+            <p class="project-date">Aug 2024 – Present</p>
+          </div>
+          <p class="project-desc">Open-licensed academic notes and study materials spanning every AP &amp; Honors course I've taken — AP World History, AP US History, AP Government, AP Seminar, AP &amp; Honors English, Honors Biology, and more. Collaboratively maintained, publicly shared, used by over 100 students. Licensed under CC BY-NC-SA 4.0.</p>
+          <span class="project-arrow">→</span>
+        </a>
+
+        <a href="projects.html#aidefense" class="project-row">
+          <div>
+            <h3 class="project-name">Academic Honesty Defense Guide</h3>
+            <p class="project-date">Apr 2025</p>
+          </div>
+          <p class="project-desc">A publicly distributed guide on structuring a defense against false AI-use accusations. What evidence to gather, what tone to use, what rights students have, and how to explain personal writing choices clearly. Shared and utilized district-wide.</p>
+          <span class="project-arrow">→</span>
+        </a>
+
+        <a href="projects.html#websites" class="project-row">
+          <div>
+            <h3 class="project-name">Team Websites</h3>
+            <p class="project-date">Ongoing</p>
+          </div>
+          <p class="project-desc">Built and maintain the official websites for Northview Science Olympiad, Speech &amp; Debate, and the school newspaper. Covers competition schedules, results, team galleries, member resources, logistics materials for hosted events, and most importantly — documents and preserves the amazing teams and mentors that make success possible.</p>
+          <span class="project-arrow">→</span>
+        </a>
+
+        <a href="projects.html#yearbook" class="project-row">
+          <div>
+            <h3 class="project-name">Science Olympiad Yearbook</h3>
+            <p class="project-date">Annual</p>
+          </div>
+          <p class="project-desc">Annual physical yearbook designed in Adobe InDesign and Photoshop. Handmade layouts, yearly-changing thematic design, competition highlights, and behind-the-scenes documentation from build nights, practices, and travel to keep a piece of team memory alive forever.</p>
+          <span class="project-arrow">→</span>
+        </a>
+
+        <a href="projects.html#skywarn" class="project-row">
+          <div>
+            <h3 class="project-name">Meteophotography Archive</h3>
+            <p class="project-date">Ongoing</p>
+          </div>
+          <p class="project-desc">An ever-growing collection of weather and atmospheric photography — severe formations, cloud structures, optical phenomena. Select images are in the public domain via Unsplash.</p>
+          <span class="project-arrow">→</span>
+        </a>
+
+        <a href="thelitterbox.html" class="project-row">
+          <div>
+            <h3 class="project-name"><i>The Litter Box</i></h3>
+            <p class="project-date">Ongoing</p>
+          </div>
+          <p class="project-desc">A private satire label. Mostly an excuse to write things that are true, but funnier when framed as fiction. Subject matter ranges from school policy to local politics to things that just <i>needed</i> to be mocked.</p>
+          <span class="project-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <!-- BACKGROUND — dark band -->
+  <section id="background">
+    <div class="background-inner">
+      <p class="section-label reveal">Background</p>
+      <h2 class="section-title reveal">The rest of it</h2>
+
+      <div class="background-grid">
+        <div class="bg-block reveal">
+          <p class="bg-block-label">Education</p>
+          <ul>
+            <li>Sylvania Northview High School, 2024–Present</li>
+            <li>Highest Honors, 2024–2025 &amp; 2025–2026</li>
+            <li>President's Award for Outstanding Academic Excellence, Apr 2024</li>
+          </ul>
+        </div>
+
+        <div class="bg-block reveal reveal-delay-1">
+          <p class="bg-block-label">Extracurriculars</p>
+          <ul>
+            <li>Science Olympiad — 2021–Present · 5× Regional Finalist, 2× State, 1× State Finalist</li>
+            <li>Speech &amp; Debate — Regional Champion (Intl. Extemporaneous), State Finalist · OSDA Recognition of Excellence</li>
+            <li>Student Government — 2× Representative</li>
+            <li>Quizbowl — 2021–Present</li>
+            <li>Powerlifting — 2024–Present</li>
+          </ul>
+        </div>
+
+        <div class="bg-block reveal reveal-delay-2">
+          <p class="bg-block-label">Volunteer Work</p>
+          <ul>
+            <li>Toledo Lucas County Public Library VolunTEEN, 2024–2026 · 200+ patrons served</li>
+            <li>AP United States Government &amp; Politics Teacher Aide, Northview HS</li>
+            <li>Wikipedia Editor — Wikimedia Foundation, Mar 2024–Present · 1,000+ contributions</li>
+          </ul>
+        </div>
+
+        <div class="bg-block reveal reveal-delay-3">
+          <p class="bg-block-label">Certifications</p>
+          <ul>
+            <li>SKYWARN Certified Weather Observer — NOAA / National Weather Service, May 2024</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-left reveal">
+      <p class="section-label">Contact</p>
+      <h2>Get in<br>touch</h2>
+      <p>I always love talking about policy, problems, or even just the weather. Feel free to reach out!</p>
+    </div>
+    <div class="contact-links reveal reveal-delay-1">
+      <a href="mailto:raadamin6101@gmail.com" class="contact-link">
+        <span class="contact-link-label">Gmail</span>
+        raadamin6101@gmail.com
+      </a>
+      <a href="mailto:raadamin@proton.me" class="contact-link">
+        <span class="contact-link-label">Proton Mail</span>
+        raadamin@proton.me
+      </a>
+      <a href="tel:6143124139" class="contact-link">
+        <span class="contact-link-label">Phone</span>
+        614-312-4139
+      </a>
+      <a href="https://www.linkedin.com/in/raad-amin-a0680235a" class="contact-link" target="_blank" rel="noopener">
+        <span class="contact-link-label">LinkedIn</span>
+        Raad Amin | Aspiring Russian Oligarch
+      </a>
+      <a href="https://github.com/Raad-Amin" class="contact-link" target="_blank" rel="noopener">
+        <span class="contact-link-label">GitHub</span>
+        Raad-Amin
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <span>Raad Amin · Sylvania, Ohio</span>
+    <span>© 2026</span>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.07 });
+    revealEls.forEach(el => revealObs.observe(el));
+
+    const drawEls = document.querySelectorAll('.draw-path, .draw-arc');
+    const drawObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { setTimeout(() => e.target.classList.add('drawn'), 150); drawObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+    drawEls.forEach(el => drawObs.observe(el));
+
+    document.querySelectorAll('#hero .draw-path, #hero .draw-arc').forEach(el => {
+      setTimeout(() => el.classList.add('drawn'), 500);
+    });
+  </script>
+
+</body>
+</html>
