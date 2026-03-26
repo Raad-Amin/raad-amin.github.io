@@ -336,13 +336,20 @@
       padding: 3rem 2.8rem;
       position: relative;
       overflow: hidden;
-      transition: background 0.3s;
+      /* ↓ enhanced: lift + shadow on hover, matching writing page tile style */
+      transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+      will-change: transform;
       cursor: pointer;
       text-decoration: none;
       display: block;
       color: inherit;
     }
-    .pillar:hover { background: #222120; }
+    .pillar:hover {
+      background: #222120;
+      transform: translateY(-4px);
+      box-shadow: 0 10px 36px rgba(0,0,0,0.45);
+      z-index: 2;
+    }
 
     .pillar.featured-pillar { padding: 3.5rem 3.2rem; }
 
@@ -396,7 +403,7 @@
       display: inline-block;
       margin-top: 1.8rem;
       font-family: 'Raleway', sans-serif;
-      font-size: 0.58rem;
+      font-size: 0.6rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: #5a5855;
@@ -592,7 +599,9 @@
       border-right: 1px solid #2e2c29;
       border-bottom: 1px solid #2e2c29;
       padding: 2.5rem 2rem;
+      transition: background 0.22s;
     }
+    .bg-block:hover { background: #222120; }
 
     .bg-block-label {
       font-family: 'Raleway', sans-serif;
@@ -732,6 +741,7 @@
       <li><a href="#featured">Work</a></li>
       <li><a href="article-home.html">Writing</a></li>
       <li><a href="#projects">Projects</a></li>
+      <li><a href="education.html">Education</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
