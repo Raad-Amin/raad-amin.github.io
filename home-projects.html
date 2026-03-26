@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Projects by Raad Amin — open-source notes, advocacy tools, websites, yearbooks, and meteophotography.">
+  <title>Projects — Raad Amin</title>
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── TOKENS ─────────────────────────────────────────────────── */
+    :root {
+      --bg:             #f5f2ed;
+      --bg-2:           #eeeae3;
+      --bg-dark:        #1a1917;
+      --obsidian:       #1a1917;
+      --obsidian-soft:  #2e2c29;
+      --obsidian-mid:   #3d3b38;
+      --obsidian-muted: #4a4844;
+      --obsidian-faint: #7a7774;
+      --rule:           #c8c3bb;
+      --rule-light:     #dedad3;
+      --off-white:      #f5f2ed;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--obsidian);
+      font-family: 'Merriweather', Georgia, serif;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 0 5rem;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg);
+      border-bottom: 1px solid var(--rule);
+    }
+    .nav-name {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 600;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--obsidian);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 400;
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--obsidian-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--obsidian); }
+
+    /* ── PAGE HEADER ─────────────────────────────────────────────── */
+    .page-header {
+      background: var(--bg-dark);
+      padding: 8rem 5rem 5rem;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid #2e2c29;
+    }
+    .page-header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: end;
+      gap: 4rem;
+    }
+    .header-geo { position: relative; height: 220px; }
+    .header-geo svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+    .page-label {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 400;
+      font-size: 0.66rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: #5a5855;
+      margin-bottom: 1rem;
+      opacity: 0;
+      transform: translateY(8px);
+      animation: riseIn 0.8s ease 0.6s forwards;
+    }
+    h1.page-title {
+      font-family: 'Merriweather', serif;
+      font-weight: 700;
+      font-size: clamp(2.4rem, 5vw, 4.2rem);
+      line-height: 1.04;
+      letter-spacing: -0.02em;
+      color: var(--off-white);
+      opacity: 0;
+      transform: translateY(18px);
+      animation: riseIn 1s ease 0.3s forwards;
+    }
+    .page-sub {
+      margin-top: 1.4rem;
+      font-family: 'Merriweather', serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: #6b6864;
+      opacity: 0;
+      transform: translateY(8px);
+      animation: riseIn 0.8s ease 0.9s forwards;
+    }
+
+    .draw-path {
+      stroke-dasharray: 600;
+      stroke-dashoffset: 600;
+      animation: drawStroke 1.8s cubic-bezier(0.77,0,0.175,1) 0.5s forwards;
+    }
+    .draw-arc {
+      stroke-dasharray: 400;
+      stroke-dashoffset: 400;
+      animation: drawStroke 2.2s cubic-bezier(0.77,0,0.175,1) 0.7s forwards;
+    }
+    .draw-arc-slow {
+      stroke-dasharray: 300;
+      stroke-dashoffset: 300;
+      animation: drawStroke 2.6s cubic-bezier(0.77,0,0.175,1) 1s forwards;
+    }
+
+    @keyframes drawStroke { to { stroke-dashoffset: 0; } }
+    @keyframes riseIn     { to { opacity: 1; transform: translateY(0); } }
+    @keyframes tileIn {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── FILTER BAR ─────────────────────────────────────────────── */
+    .filter-bar {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2.2rem 5rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .filter-label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--obsidian-faint);
+      margin-right: 0.8rem;
+    }
+    .filter-btn {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--obsidian-muted);
+      background: none;
+      border: 1px solid var(--rule-light);
+      padding: 0.35em 0.9em;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s, border-color 0.18s;
+      border-radius: 2px;
+    }
+    .filter-btn:hover { background: var(--bg-2); color: var(--obsidian); border-color: var(--rule); }
+    .filter-btn.active { background: var(--obsidian); color: var(--off-white); border-color: var(--obsidian); }
+
+    /* ── TILES GRID ─────────────────────────────────────────────── */
+    .tiles-wrap {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2.5rem 5rem 7rem;
+    }
+    .tiles-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border-top: 1px solid var(--rule-light);
+      border-left: 1px solid var(--rule-light);
+    }
+
+    /* ── TILE ────────────────────────────────────────────────────── */
+    .tile {
+      border-right: 1px solid var(--rule-light);
+      border-bottom: 1px solid var(--rule-light);
+      padding: 2.4rem 2.6rem;
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg);
+      opacity: 0;
+      transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+      will-change: transform;
+    }
+    .tile--visible { opacity: 1; }
+    .tile--animating { animation: tileIn 0.45s ease forwards; }
+
+    .tile:hover {
+      background: #f0ece4;
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(26,25,23,0.09);
+      z-index: 2;
+    }
+    .tile.hidden { display: none; }
+
+    /* Tiles with no href (non-linked) */
+    .tile--inert { cursor: default; }
+    .tile--inert:hover {
+      transform: none;
+      box-shadow: none;
+      background: var(--bg);
+    }
+
+    /* Geometric bg motif */
+    .tile-geo {
+      position: absolute;
+      bottom: -8px; right: -8px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .tile:hover .tile-geo { opacity: 0.06; }
+
+    /* Status badge variants */
+    .tile-cat {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.56rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.28em 0.7em;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .tile-cat[data-cat="School"]      { background: #1b2e40; color: #7ab0d8; }
+    .tile-cat[data-cat="Extracurricular"] { background: #162b16; color: #7abd7a; }
+    .tile-cat[data-cat="Personal"]    { background: #271535; color: #b07ad8; }
+
+    /* Status pip */
+    .tile-status {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.54rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .tile-status--active { color: #7abd7a; }
+    .tile-status--complete { color: var(--obsidian-faint); }
+
+    .tile-status--active::before {
+      content: '';
+      display: inline-block;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: #7abd7a;
+      flex-shrink: 0;
+    }
+    .tile-status--complete::before {
+      content: '';
+      display: inline-block;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--obsidian-faint);
+      flex-shrink: 0;
+    }
+
+    .tile-dot { width: 2px; height: 2px; border-radius: 50%; background: var(--rule); flex-shrink: 0; }
+    .tile-meta {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--obsidian-faint);
+    }
+
+    .tile-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 1.2rem;
+    }
+
+    h2.tile-title {
+      font-family: 'Merriweather', serif;
+      font-weight: 700;
+      font-size: 1rem;
+      line-height: 1.38;
+      color: var(--obsidian);
+      margin-bottom: 0.9rem;
+      flex-grow: 1;
+    }
+    .tile-summary {
+      font-family: 'Merriweather', serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: 0.8rem;
+      line-height: 1.75;
+      color: var(--obsidian-muted);
+      margin-bottom: 1.6rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .tile-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 1.2rem;
+      border-top: 1px solid var(--rule-light);
+    }
+    .tile-topic {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.56rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--obsidian-faint);
+    }
+    .tile-caret {
+      font-size: 0.75rem;
+      color: var(--rule);
+      transform: translateX(-4px);
+      opacity: 0;
+      transition: opacity 0.22s, transform 0.22s, color 0.22s;
+    }
+    .tile:not(.tile--inert):hover .tile-caret {
+      opacity: 1;
+      transform: translateX(0);
+      color: var(--obsidian-muted);
+    }
+
+    /* ── EMPTY STATE ─────────────────────────────────────────────── */
+    .empty-state {
+      display: none;
+      padding: 5rem 0;
+      text-align: center;
+      font-family: 'Merriweather', serif;
+      font-style: italic;
+      font-size: 0.9rem;
+      color: var(--obsidian-faint);
+    }
+    .empty-state.visible { display: block; }
+
+    /* ── FOOTER ──────────────────────────────────────────────────── */
+    .hr { width: 100%; height: 1px; background: var(--rule-light); }
+    footer {
+      padding: 1.6rem 5rem;
+      border-top: 1px solid var(--rule-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer span {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      color: var(--obsidian-faint);
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────────────────────── */
+    @media (max-width: 1100px) { .tiles-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 860px) {
+      nav, .page-header, .filter-bar, .tiles-wrap, footer { padding-left: 2rem; padding-right: 2rem; }
+      .page-header-inner { grid-template-columns: 1fr; }
+      .header-geo { display: none; }
+      .tiles-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-name">Raad Amin</a>
+    <ul class="nav-links">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#featured">Work</a></li>
+      <li><a href="writing.html">Writing</a></li>
+      <li><a href="projects.html" class="active">Projects</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <header class="page-header">
+    <div class="page-header-inner">
+      <div>
+        <p class="page-label">School · Extracurricular · Personal</p>
+        <h1 class="page-title">Built Things</h1>
+        <p class="page-sub">Open-source notes, advocacy tools, team websites, yearbooks, and a running weather archive for when journalism alone doesn't cut it.</p>
+      </div>
+      <div class="header-geo" aria-hidden="true">
+        <svg viewBox="0 0 460 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- outer rectangle -->
+          <rect class="draw-path" x="30" y="20" width="400" height="180" stroke="#3a3835" stroke-width="1" fill="none"/>
+          <!-- inner rectangle offset -->
+          <rect x="60" y="45" width="340" height="130" fill="#2e2c29" opacity="0.25"/>
+          <!-- diagonal cross -->
+          <line class="draw-path" x1="30" y1="20" x2="430" y2="200" stroke="#2e2c29" stroke-width="0.7"/>
+          <line class="draw-path" x1="430" y1="20" x2="30" y2="200" stroke="#2e2c29" stroke-width="0.5" opacity="0.6"/>
+          <!-- circle centered -->
+          <circle class="draw-arc" cx="230" cy="110" r="72" stroke="#3a3835" stroke-width="0.8" fill="none"/>
+          <!-- small diamond -->
+          <polygon points="230,52 258,110 230,168 202,110" stroke="#3a3835" stroke-width="0.8" fill="none" opacity="0.5"/>
+          <!-- accent arc -->
+          <path class="draw-arc-slow" d="M 80 185 A 55 55 0 0 1 155 148" stroke="#3a3835" stroke-width="0.7" fill="none"/>
+          <!-- top-right accent line -->
+          <line class="draw-path" x1="310" y1="25" x2="425" y2="75" stroke="#2e2c29" stroke-width="0.6"/>
+        </svg>
+      </div>
+    </div>
+  </header>
+
+  <div class="filter-bar">
+    <span class="filter-label">Filter</span>
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="School">School</button>
+    <button class="filter-btn" data-filter="Extracurricular">Extracurricular</button>
+    <button class="filter-btn" data-filter="Personal">Personal</button>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════════════
+       TILES — sorted by data-date (YYYY-MM), newest first.
+       data-cat: School | Extracurricular | Personal
+       data-status: active | complete
+       data-date: YYYY-MM
+  ════════════════════════════════════════════════════════════════ -->
+  <div class="tiles-wrap">
+    <div class="tiles-grid" id="tiles-grid">
+
+      <!-- F.R. LLC Noteshare Program -->
+      <a href="index.html#projects" class="tile" data-cat="School" data-date="2024-08" data-status="active">
+        <svg class="tile-geo" width="160" height="140" viewBox="0 0 160 140" fill="none">
+          <rect x="15" y="12" width="130" height="116" stroke="#1a1917" stroke-width="1.2" fill="none"/>
+          <rect x="35" y="32" width="90" height="76" stroke="#1a1917" stroke-width="0.6" fill="none"/>
+          <line x1="15" y1="12" x2="145" y2="128" stroke="#1a1917" stroke-width="0.5"/>
+        </svg>
+        <div class="tile-eyebrow">
+          <span class="tile-cat" data-cat="School">School</span>
+          <span class="tile-dot"></span>
+          <span class="tile-meta">Aug 2024 – Present</span>
+        </div>
+        <h2 class="tile-title">F.R. LLC Noteshare Program</h2>
+        <p class="tile-summary">Open-licensed academic notes across every AP &amp; Honors course I've taken. Collaboratively maintained, CC BY-NC-SA 4.0, used by over 100 students across grade levels.</p>
+        <div class="tile-footer">
+          <span class="tile-status tile-status--active">Active</span>
+          <span class="tile-caret">→</span>
+        </div>
+      </a>
+
+      <!-- Academic Honesty Defense Guide -->
+      <a href="index.html#projects" class="tile" data-cat="School" data-date="2025-04" data-status="complete">
+        <svg class="tile-geo" width="160" height="140" viewBox="0 0 160 140" fill="none">
+          <rect x="12" y="10" width="136" height="120" stroke="#1a1917" stroke-width="1" fill="none"/>
+          <line x1="12" y1="10" x2="148" y2="130" stroke="#1a1917" stroke-width="0.7"/>
+          <line x1="148" y1="10" x2="12" y2="130" stroke="#1a1917" stroke-width="0.5" opacity="0.5"/>
+          <circle cx="80" cy="70" r="30" stroke="#1a1917" stroke-width="0.7" fill="none"/>
+        </svg>
+        <div class="tile-eyebrow">
+          <span class="tile-cat" data-cat="School">School</span>
+          <span class="tile-dot"></span>
+          <span class="tile-meta">Apr 2025</span>
+        </div>
+        <h2 class="tile-title">How To Write an Academic Honesty Defense</h2>
+        <p class="tile-summary">A 36-page overnight defense turned into a district-wide guide. Covers tone, evidence, student rights, and how to explain personal writing choices without sounding defensive.</p>
+        <div class="tile-footer">
+          <span class="tile-status tile-status--complete">Published</span>
+          <span class="tile-caret">→</span>
+        </div>
+      </a>
+
+      <!-- Science Olympiad Website -->
+      <a href="index.html#projects" class="tile" data-cat="Extracurricular" data-date="2023-09" data-status="active">
+        <svg class="tile-geo" width="160" height="140" viewBox="0 0 160 140" fill="none">
+          <circle cx="80" cy="70" r="65" stroke="#1a1917" stroke-width="1.2" fill="none"/>
+          <circle cx="80" cy="70" r="36" stroke="#1a1917" stroke-width="0.6" fill="none"/>
+          <polygon points="80,5 155,130 5,130" stroke="#1a1917" stroke-width="0.7" fill="none"/>
+        </svg>
+        <div class="tile-eyebrow">
+          <span class="tile-cat" data-cat="Extracurricular">Extracurricular</span>
+          <span class="tile-dot"></span>
+          <span class="tile-meta">Ongoing</span>
+        </div>
+        <h2 class="tile-title">Science Olympiad Website</h2>
+        <p class="tile-summary">Built and maintain the official team site: competition schedules, results, member resources, photo gallery, and logistics materials for the invitation we host. Created on Google Sites to ensure longevity long after graduation.</p>
+        <div class="tile-footer">
+          <span class="tile-status tile-status--active">Active</span>
+          <span class="tile-caret">→</span>
+        </div>
+      </a>
+
+      <!-- Science Olympiad Yearbook -->
+      <a href="index.html#projects" class="tile" data-cat="Extracurricular" data-date="2022-05" data-status="active">
+        <svg class="tile-geo" width="160" height="140" viewBox="0 0 160 140" fill="none">
+          <rect x="20" y="15" width="120" height="110" stroke="#1a1917" stroke-width="1" fill="none"/>
+          <rect x="36" y="30" width="88" height="80" fill="#1a1917" opacity="0.08"/>
+          <line x1="20" y1="70" x2="140" y2="70" stroke="#1a1917" stroke-width="0.5"/>
+          <line x1="80" y1="15" x2="80" y2="125" stroke="#1a1917" stroke-width="0.5"/>
+        </svg>
+        <div class="tile-eyebrow">
+          <span class="tile-cat" data-cat="Extracurricular">Extracurricular</span>
+          <span class="tile-dot"></span>
+          <span class="tile-meta">Annual</span>
+        </div>
+        <h2 class="tile-title">Science Olympiad Yearbook</h2>
+        <p class="tile-summary">Annual physical yearbook designed in Adobe InDesign and Photoshop. Custom thematic layouts, competition highlights, and behind-the-scenes documentation from build nights through state travel.</p>
+        <div class="tile-footer">
+          <span class="tile-status tile-status--active">Annual</span>
+          <span class="tile-caret">→</span>
+        </div>
+      </a>
+
+      <!-- Meteophotography Archive -->
+      <a href="index.html#projects" class="tile" data-cat="Personal" data-date="2022-01" data-status="active">
+        <svg class="tile-geo" width="160" height="140" viewBox="0 0 160 140" fill="none">
+          <circle cx="80" cy="60" r="55" stroke="#1a1917" stroke-width="1.2" fill="none"/>
+          <circle cx="80" cy="60" r="28" stroke="#1a1917" stroke-width="0.6" fill="none"/>
+          <path d="M 25 110 Q 80 75 135 110" stroke="#1a1917" stroke-width="0.7" fill="none"/>
+        </svg>
+        <div class="tile-eyebrow">
+          <span class="tile-cat" data-cat="Personal">Personal</span>
+          <span class="tile-dot"></span>
+          <span class="tile-meta">Ongoing</span>
+        </div>
+        <h2 class="tile-title">Meteophotography Archive</h2>
+        <p class="tile-summary">An ongoing collection of severe weather formations, cloud structures, and atmospheric optics — part science project, part visual storytelling. Select images are in the public domain via Unsplash.</p>
+        <div class="tile-footer">
+          <span class="tile-status tile-status--active">Active</span>
+          <span class="tile-caret">→</span>
+        </div>
+      </a>
+
+      <!-- Personal Webpage -->
+      <a href="index.html" class="tile" data-cat="Personal" data-date="2025-06" data-status="active">
+        <svg class="tile-geo" width="160" height="140" viewBox="0 0 160 140" fill="none">
+          <polygon points="80,10 150,130 10,130" stroke="#1a1917" stroke-width="1" fill="none"/>
+          <circle cx="80" cy="88" r="26" stroke="#1a1917" stroke-width="0.7" fill="none"/>
+          <line x1="80" y1="10" x2="80" y2="62" stroke="#1a1917" stroke-width="0.5"/>
+        </svg>
+        <div class="tile-eyebrow">
+          <span class="tile-cat" data-cat="Personal">Personal</span>
+          <span class="tile-dot"></span>
+          <span class="tile-meta">In Progress</span>
+        </div>
+        <h2 class="tile-title">Personal Website</h2>
+        <p class="tile-summary">You're on it. Contemporary, font-driven, built as a hub for projects, writing, and open resources. Designed because Wix, WordPress, et al. charge hundreds for what I can do for free.</p>
+        <div class="tile-footer">
+          <span class="tile-status tile-status--active">Active</span>
+          <span class="tile-caret">→</span>
+        </div>
+      </a>
+
+      <!-- ════════════════════════════════════════════════════════
+           NEW PROJECT TEMPLATE — copy this block, fill in fields.
+
+      <a href="PROJECT-LINK.html" class="tile" data-cat="School" data-date="YYYY-MM" data-status="active">
+        <svg class="tile-geo" width="160" height="140" viewBox="0 0 160 140" fill="none">
+          <polygon points="80,8 152,132 8,132" stroke="#1a1917" stroke-width="1.2" fill="none"/>
+        </svg>
+        <div class="tile-eyebrow">
+          <span class="tile-cat" data-cat="School">School</span>
+          <span class="tile-dot"></span>
+          <span class="tile-meta">Date</span>
+        </div>
+        <h2 class="tile-title">Title</h2>
+        <p class="tile-summary">Summary.</p>
+        <div class="tile-footer">
+          <span class="tile-status tile-status--active">Active</span>
+          <span class="tile-caret">→</span>
+        </div>
+      </a>
+
+           data-cat:    School | Journalism | Extracurricular | Personal
+           data-status: active | complete
+           data-date:   YYYY-MM  (sorting — paste tiles in any order)
+           ════════════════════════════════════════════════════════ -->
+
+    </div>
+    <p class="empty-state" id="empty-state">No projects in this category yet.</p>
+  </div>
+
+  <div class="hr"></div>
+  <footer>
+    <span>Raad Amin · Sylvania, Ohio</span>
+    <span>© 2026</span>
+  </footer>
+
+  <script>
+    const grid  = document.getElementById('tiles-grid');
+    const tiles = Array.from(grid.querySelectorAll('.tile'));
+    const empty = document.getElementById('empty-state');
+
+    // ── 1. Sort newest → oldest ─────────────────────────────────────
+    tiles.sort((a, b) => b.dataset.date.localeCompare(a.dataset.date));
+    tiles.forEach(t => grid.appendChild(t));
+
+    // ── 2. Animate tiles in ─────────────────────────────────────────
+    function animateTiles(set) {
+      set.forEach((tile, i) => {
+        tile.classList.remove('tile--visible', 'tile--animating');
+        tile.style.animationDelay = '';
+        void tile.offsetWidth;
+
+        tile.style.animationDelay = (i * 0.07) + 's';
+        tile.classList.add('tile--animating');
+
+        function onEnd() {
+          tile.classList.remove('tile--animating');
+          tile.classList.add('tile--visible');
+          tile.style.animationDelay = '';
+          tile.removeEventListener('animationend', onEnd);
+        }
+        tile.addEventListener('animationend', onEnd);
+      });
+    }
+
+    animateTiles(tiles);
+
+    // ── 3. Filter ───────────────────────────────────────────────────
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filter = btn.dataset.filter;
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        let visible = 0;
+        tiles.forEach(tile => {
+          const show = filter === 'all' || tile.dataset.cat === filter;
+          tile.classList.remove('tile--visible', 'tile--animating');
+          tile.style.animationDelay = '';
+          if (show) { tile.classList.remove('hidden'); visible++; }
+          else       { tile.classList.add('hidden'); }
+        });
+
+        const nowVisible = tiles.filter(t => !t.classList.contains('hidden'));
+        animateTiles(nowVisible);
+        empty.classList.toggle('visible', visible === 0);
+      });
+    });
+  </script>
+
+</body>
+</html>
