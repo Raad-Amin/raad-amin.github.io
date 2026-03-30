@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="The Litter Box — short satire by Raad Amin, sorted by what's being mocked.">
+  <title>The Litter Box — Raad Amin</title>
+  <link rel="icon" type="image/png" href="../../images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── TOKENS ─────────────────────────────────────────────────── */
+    :root {
+      --bg:             #f5f2ed;
+      --bg-2:           #eeeae3;
+      --bg-dark:        #1a1917;
+      --obsidian:       #1a1917;
+      --obsidian-soft:  #2e2c29;
+      --obsidian-mid:   #3d3b38;
+      --obsidian-muted: #4a4844;
+      --obsidian-faint: #7a7774;
+      --rule:           #c8c3bb;
+      --rule-light:     #dedad3;
+      --off-white:      #f5f2ed;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--obsidian);
+      font-family: 'Merriweather', Georgia, serif;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 0 5rem;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg);
+      border-bottom: 1px solid var(--rule);
+    }
+    .nav-name {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 600;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--obsidian);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 400;
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--obsidian-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--obsidian); }
+
+    /* ── PAGE HEADER — dark, but lighter tone than writing.html ─── */
+    .page-header {
+      background: var(--bg-dark);
+      padding: 8rem 5rem 5rem;
+      border-bottom: 1px solid #2e2c29;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: end;
+      gap: 4rem;
+      position: relative;
+      z-index: 2;
+    }
+    .header-geo { position: relative; height: 200px; }
+    .header-geo svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+    .page-label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.66rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: #5a5855;
+      margin-bottom: 1rem;
+      opacity: 0;
+      transform: translateY(8px);
+      animation: riseIn 0.8s ease 0.6s forwards;
+    }
+    h1.page-title {
+      font-family: 'Merriweather', serif;
+      font-weight: 700;
+      font-size: clamp(2.4rem, 5vw, 4.2rem);
+      line-height: 1.04;
+      letter-spacing: -0.02em;
+      color: var(--off-white);
+      opacity: 0;
+      transform: translateY(18px);
+      animation: riseIn 1s ease 0.3s forwards;
+    }
+    .page-sub {
+      margin-top: 1.4rem;
+      font-family: 'Merriweather', serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: #6b6864;
+      opacity: 0;
+      transform: translateY(8px);
+      animation: riseIn 0.8s ease 0.9s forwards;
+    }
+
+    .draw-path {
+      stroke-dasharray: 500;
+      stroke-dashoffset: 500;
+      animation: drawStroke 1.8s cubic-bezier(0.77,0,0.175,1) 0.5s forwards;
+    }
+    .draw-arc {
+      stroke-dasharray: 380;
+      stroke-dashoffset: 380;
+      animation: drawStroke 2.2s cubic-bezier(0.77,0,0.175,1) 0.8s forwards;
+    }
+
+    @keyframes drawStroke { to { stroke-dashoffset: 0; } }
+    @keyframes riseIn     { to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeUp     { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ── MAIN CONTENT WRAPPER ────────────────────────────────────── */
+    .content-wrap {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 5rem 5rem 7rem;
+    }
+
+    /* ── CATEGORY SECTIONS ───────────────────────────────────────── */
+    /*
+      Layout: dark left column with category name + count,
+      right column holds the piece list.
+      Same dark-band / light-band alternation as the index pillars.
+    */
+    .satire-section {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 0;
+      border-top: 1px solid var(--rule-light);
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards;
+    }
+    .satire-section:nth-child(1) { animation-delay: 0.1s; }
+    .satire-section:nth-child(2) { animation-delay: 0.2s; }
+    .satire-section:nth-child(3) { animation-delay: 0.3s; }
+    .satire-section:last-child   { border-bottom: 1px solid var(--rule-light); }
+
+    /* Left column */
+    .section-col-label {
+      padding: 3rem 2.5rem 3rem 0;
+      border-right: 1px solid var(--rule-light);
+      position: sticky;
+      top: 80px;
+      align-self: start;
+    }
+    .section-cat-name {
+      font-family: 'Merriweather', serif;
+      font-weight: 700;
+      font-size: 1.3rem;
+      line-height: 1.2;
+      color: var(--obsidian);
+      margin-bottom: 0.5rem;
+    }
+    .section-count {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--obsidian-faint);
+    }
+
+    /* Right column — the pieces list */
+    .section-col-pieces {
+      padding: 0 0 0 0;
+    }
+
+    /* ── INDIVIDUAL PIECE ROW ────────────────────────────────────── */
+    /*
+      Each row: headline left, meta right.
+      Hover: headline slides right slightly, arrow appears.
+      No article page — these are archive-only headlines.
+      If a piece later gets its own page, just add href.
+    */
+    .piece-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: baseline;
+      gap: 2rem;
+      padding: 1.6rem 2.5rem;
+      border-bottom: 1px solid var(--rule-light);
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.2s;
+      position: relative;
+      cursor: default; /* most rows have no href yet */
+    }
+    .piece-row:first-child { border-top: none; }
+
+    /* rows that link somewhere */
+    .piece-row[href] { cursor: pointer; }
+    .piece-row[href]:hover { background: var(--bg-2); }
+    .piece-row[href]:hover .piece-title { transform: translateX(3px); }
+    .piece-row[href]:hover .piece-arrow { opacity: 1; transform: translateX(0); color: var(--obsidian-muted); }
+
+    .piece-title {
+      font-family: 'Merriweather', serif;
+      font-weight: 400;
+      font-size: 0.92rem;
+      line-height: 1.55;
+      color: var(--obsidian);
+      transition: transform 0.2s;
+    }
+    .piece-title em {
+      font-style: italic;
+      color: var(--obsidian-muted);
+    }
+
+    .piece-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-shrink: 0;
+    }
+    .piece-date {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--obsidian-faint);
+      white-space: nowrap;
+    }
+    .piece-arrow {
+      font-size: 0.72rem;
+      color: var(--rule);
+      opacity: 0;
+      transform: translateX(-4px);
+      transition: opacity 0.2s, transform 0.2s, color 0.2s;
+    }
+
+    /* ── BACK LINK BAR ───────────────────────────────────────────── */
+    .back-bar {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 5rem 2rem;
+    }
+    .back-link {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--obsidian-faint);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--obsidian); }
+
+    /* ── FOOTER ──────────────────────────────────────────────────── */
+    .hr { width: 100%; height: 1px; background: var(--rule-light); }
+    footer {
+      padding: 1.6rem 5rem;
+      border-top: 1px solid var(--rule-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer span {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      color: var(--obsidian-faint);
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────────────────────── */
+    @media (max-width: 860px) {
+      nav, .page-header, .content-wrap, .back-bar, footer { padding-left: 2rem; padding-right: 2rem; }
+      .page-header-inner { grid-template-columns: 1fr; }
+      .header-geo { display: none; }
+      .satire-section { grid-template-columns: 1fr; }
+      .section-col-label { position: static; padding: 2rem 0 1rem; border-right: none; border-bottom: 1px solid var(--rule-light); }
+      .piece-row { padding-left: 0; padding-right: 0; grid-template-columns: 1fr; gap: 0.3rem; }
+      .piece-meta { justify-content: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-name">Raad Amin</a>
+    <ul class="nav-links">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#featured">Work</a></li>
+      <li><a href="writing.html" class="active" >Writing</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="education.html">Education</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <header class="page-header">
+    <div class="page-header-inner">
+      <div>
+        <p class="page-label">Satire · The Litter Box</p>
+        <h1 class="page-title">The Litter<br>Box</h1>
+        <p class="page-sub">Things that are true, but funnier when framed as fiction.</p>
+      </div>
+      <div class="header-geo" aria-hidden="true">
+        <svg viewBox="0 0 440 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Nested rectangles — nod to the "box" -->
+          <rect class="draw-path" x="20" y="20" width="400" height="160" stroke="#3a3835" stroke-width="1" fill="none"/>
+          <rect class="draw-path" x="55" y="48" width="330" height="104" stroke="#2e2c29" stroke-width="0.7" fill="none"/>
+          <rect x="90" y="76" width="260" height="48" fill="#2e2c29" opacity="0.2"/>
+          <!-- Diagonal slash across the outer rect -->
+          <line class="draw-path" x1="20" y1="20" x2="420" y2="180" stroke="#2e2c29" stroke-width="0.6"/>
+          <!-- Small accent shapes -->
+          <circle class="draw-arc" cx="370" cy="50" r="22" stroke="#3a3835" stroke-width="0.7" fill="none"/>
+          <polygon points="50,160 68,176 50,192 32,176" stroke="#3a3835" stroke-width="0.7" fill="none" opacity="0.5"/>
+        </svg>
+      </div>
+    </div>
+  </header>
+
+  <div class="content-wrap">
+
+    <!-- ════════════════════════════════════════════════════════════
+         SATIRE CATEGORIES
+         To add a piece: paste a new .piece-row inside the right
+         .section-col-pieces. If the piece has its own page,
+         change the tag from <div> to <a href="..."> and remove
+         cursor:default. The count in .section-count is manual —
+         update it when you add pieces.
+         ════════════════════════════════════════════════════════════ -->
+
+    <!-- ── Athletics ───────────────────────────────────────────── -->
+    <div class="satire-section" id="athletics">
+      <div class="section-col-label">
+        <p class="section-cat-name">Athletics</p>
+        <p class="section-count">5 pieces</p>
+      </div>
+      <div class="section-col-pieces">
+
+        <div class="piece-row">
+          <p class="piece-title">Cross Country Team Overtaken by Supersonic F-16 — Coach Fulfills Promise to Outpace it by End of Season</p>
+          <div class="piece-meta"><span class="piece-date">—</span><span class="piece-arrow">→</span></div>
+        </div>
+
+        <div class="piece-row">
+          <p class="piece-title">Varsity Football to Play Junior High Team in 'Strategic Tactical Maneuver of Genius™'</p>
+          <div class="piece-meta"><span class="piece-date">—</span><span class="piece-arrow">→</span></div>
+        </div>
+
+        <div class="piece-row">
+          <p class="piece-title">Northview Varsity Football to Become Wildcat Water Boys' — Aims for a Splash in 2025 Season</p>
+          <div class="piece-meta"><span class="piece-date">—</span><span class="piece-arrow">→</span></div>
+        </div>
+
+        <div class="piece-row">
+          <p class="piece-title">Newly Renovated Football Stadium Declared 'Great Place to Sell Marijuana' Thanks to Record Low Attendance</p>
+          <div class="piece-meta"><span class="piece-date">—</span><span class="piece-arrow">→</span></div>
+        </div>
+
+        <div class="piece-row">
+          <p class="piece-title">Northview Football Aura Losses Recouped by E-Sports Team</p>
+          <div class="piece-meta"><span class="piece-date">—</span><span class="piece-arrow">→</span></div>
+        </div>
+
+        <!-- NEW ATHLETICS PIECE TEMPLATE:
+        <div class="piece-row">
+          <p class="piece-title">Headline Here</p>
+          <div class="piece-meta"><span class="piece-date">Month Year</span><span class="piece-arrow">→</span></div>
+        </div>
+        -->
+
+      </div>
+    </div>
+
+    <!-- ── Clubs & Students ──────────────────────────────────────── -->
+    <div class="satire-section" id="clubs">
+      <div class="section-col-label">
+        <p class="section-cat-name">Clubs &amp;<br>Students</p>
+        <p class="section-count">4 pieces</p>
+      </div>
+      <div class="section-col-pieces">
+
+        <div class="piece-row">
+          <p class="piece-title">Crochet Club to 'Shield the Building from Snow' and 'Eliminate' Heating Costs With 250,000ft² Blanket</p>
+          <div class="piece-meta"><span class="piece-date">—</span><span class="piece-arrow">→</span></div>
+        </div>
+
+        <div class="piece-row">
+          <p class="piece-title">Yearbook Prices Set at $80 — Parents Told to Refinance Mortgages</p>
+          <div class="piece-meta"><span class="piece-date">—</span><span class="piece-arrow">→</span></div>
+        </div>
+
+        <div class="piece-row">
+          <p class="piece-title">Meet Rebekah Repp: The Girl Who Purchased $4,000 Worth of NV Stanley Tumblers</p>
+          <div class="piece-meta"><span class="piece-date">—</span><span class="piece-arrow">→</span></div>
+        </div>
+
+        <div class="piece-row">
+          <p class="piece-title">3 Orchestra Students Stuffed in Tuba as Band-Orchestra Gang War Escalates</p>
+          <div class="piece-meta"><span class="piece-date">—</span><span class="piece-arrow">→</span></div>
+        </div>
+
+        <!-- NEW CLUBS PIECE TEMPLATE:
+        <div class="piece-row">
+          <p class="piece-title">Headline Here</p>
+          <div class="piece-meta"><span class="piece-date">Month Year</span><span class="piece-arrow">→</span></div>
+        </div>
+        -->
+
+      </div>
+    </div>
+
+    <!-- ── Administration ───────────────────────────────────────── -->
+    <div class="satire-section" id="administration">
+      <div class="section-col-label">
+        <p class="section-cat-name">Adminis&shy;tration</p>
+        <p class="section-count">3 pieces</p>
+      </div>
+      <div class="section-col-pieces">
+
+        <div class="piece-row">
+          <p class="piece-title">School Cafeteria Declines FOIA Request Amid Mystery Meat Allegations</p>
+          <div class="piece-meta"><span class="piece-date">—</span><span class="piece-arrow">→</span></div>
+        </div>
+
+        <div class="piece-row">
+          <p class="piece-title">Northview Students Resilient to Lead Thanks to Years of Exposure to Plumbum Piping</p>
+          <div class="piece-meta"><span class="piece-date">—</span><span class="piece-arrow">→</span></div>
+        </div>
+
+        <div class="piece-row">
+          <p class="piece-title">Chemistry Aficionado Mr. Roth Develops 'Revolutionary' 0.025-Ply Toilet Paper — District Claims Will Save Millions</p>
+          <div class="piece-meta"><span class="piece-date">—</span><span class="piece-arrow">→</span></div>
+        </div>
+
+        <!-- NEW ADMINISTRATION PIECE TEMPLATE:
+        <div class="piece-row">
+          <p class="piece-title">Headline Here</p>
+          <div class="piece-meta"><span class="piece-date">Month Year</span><span class="piece-arrow">→</span></div>
+        </div>
+        -->
+
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════════
+         ADD A NEW CATEGORY — copy this block:
+
+    <div class="satire-section" id="category-slug">
+      <div class="section-col-label">
+        <p class="section-cat-name">Category Name</p>
+        <p class="section-count">N pieces</p>
+      </div>
+      <div class="section-col-pieces">
+
+        <div class="piece-row">
+          <p class="piece-title">Headline</p>
+          <div class="piece-meta"><span class="piece-date">Month Year</span><span class="piece-arrow">→</span></div>
+        </div>
+
+      </div>
+    </div>
+         ════════════════════════════════════════════════════════════ -->
+
+  </div><!-- /content-wrap -->
+
+  <div class="back-bar">
+    <a href="writing.html" class="back-link">← Back to writing</a>
+  </div>
+
+  <div class="hr"></div>
+  <footer>
+    <span>Raad Amin · Sylvania, Ohio</span>
+    <span>© 2026</span>
+  </footer>
+
+</body>
+</html>

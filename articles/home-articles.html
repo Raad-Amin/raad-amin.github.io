@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Writing by Raad Amin — news, editorials, and satire published in The Student Prints and The Litter Box.">
+  <title>Writing — Raad Amin</title>
+  <link rel="icon" type="image/png" href="../images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── TOKENS ─────────────────────────────────────────────────── */
+    :root {
+      --bg:             #f5f2ed;
+      --bg-2:           #eeeae3;
+      --bg-dark:        #1a1917;
+      --obsidian:       #1a1917;
+      --obsidian-soft:  #2e2c29;
+      --obsidian-mid:   #3d3b38;
+      --obsidian-muted: #4a4844;
+      --obsidian-faint: #7a7774;
+      --rule:           #c8c3bb;
+      --rule-light:     #dedad3;
+      --off-white:      #f5f2ed;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--obsidian);
+      font-family: 'Merriweather', Georgia, serif;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 0 5rem;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg);
+      border-bottom: 1px solid var(--rule);
+    }
+    .nav-name {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 600;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--obsidian);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 400;
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--obsidian-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--obsidian); }
+
+    /* ── PAGE HEADER ─────────────────────────────────────────────── */
+    .page-header {
+      background: var(--bg-dark);
+      padding: 8rem 5rem 5rem;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid #2e2c29;
+    }
+    .page-header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: end;
+      gap: 4rem;
+    }
+    .header-geo { position: relative; height: 220px; }
+    .header-geo svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+    .page-label {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 400;
+      font-size: 0.66rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: #5a5855;
+      margin-bottom: 1rem;
+      opacity: 0;
+      transform: translateY(8px);
+      animation: riseIn 0.8s ease 0.6s forwards;
+    }
+    h1.page-title {
+      font-family: 'Merriweather', serif;
+      font-weight: 700;
+      font-size: clamp(2.4rem, 5vw, 4.2rem);
+      line-height: 1.04;
+      letter-spacing: -0.02em;
+      color: var(--off-white);
+      opacity: 0;
+      transform: translateY(18px);
+      animation: riseIn 1s ease 0.3s forwards;
+    }
+    .page-sub {
+      margin-top: 1.4rem;
+      font-family: 'Merriweather', serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: #6b6864;
+      opacity: 0;
+      transform: translateY(8px);
+      animation: riseIn 0.8s ease 0.9s forwards;
+    }
+
+    .draw-path {
+      stroke-dasharray: 600;
+      stroke-dashoffset: 600;
+      animation: drawStroke 1.8s cubic-bezier(0.77,0,0.175,1) 0.5s forwards;
+    }
+    .draw-arc {
+      stroke-dasharray: 400;
+      stroke-dashoffset: 400;
+      animation: drawStroke 2.2s cubic-bezier(0.77,0,0.175,1) 0.7s forwards;
+    }
+    .draw-arc-slow {
+      stroke-dasharray: 300;
+      stroke-dashoffset: 300;
+      animation: drawStroke 2.6s cubic-bezier(0.77,0,0.175,1) 1s forwards;
+    }
+
+    @keyframes drawStroke { to { stroke-dashoffset: 0; } }
+    @keyframes riseIn     { to { opacity: 1; transform: translateY(0); } }
+    @keyframes tileIn {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── FILTER BAR ─────────────────────────────────────────────── */
+    .filter-bar {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2.2rem 5rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .filter-label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--obsidian-faint);
+      margin-right: 0.8rem;
+    }
+    .filter-btn {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--obsidian-muted);
+      background: none;
+      border: 1px solid var(--rule-light);
+      padding: 0.35em 0.9em;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s, border-color 0.18s;
+      border-radius: 2px;
+    }
+    .filter-btn:hover { background: var(--bg-2); color: var(--obsidian); border-color: var(--rule); }
+    .filter-btn.active { background: var(--obsidian); color: var(--off-white); border-color: var(--obsidian); }
+
+    /* ── TILES GRID ─────────────────────────────────────────────── */
+    .tiles-wrap {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2.5rem 5rem 7rem;
+    }
+    .tiles-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border-top: 1px solid var(--rule-light);
+      border-left: 1px solid var(--rule-light);
+    }
+
+    /* ── TILE ────────────────────────────────────────────────────── */
+    /*
+      Hover-disappear fix:
+      Tiles start at opacity:0 (set by JS before animating).
+      The tileIn animation runs once. On animationend, JS adds
+      .tile--visible which sets opacity:1 permanently via a class rule.
+      CSS transition then handles hover lift cleanly — no animation
+      fill-mode fighting hover states.
+    */
+    .tile {
+      border-right: 1px solid var(--rule-light);
+      border-bottom: 1px solid var(--rule-light);
+      padding: 2.4rem 2.6rem;
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg);
+      opacity: 0;
+      transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+      will-change: transform;
+    }
+    .tile--visible { opacity: 1; }
+    .tile--animating { animation: tileIn 0.45s ease forwards; }
+
+    .tile:hover {
+      background: #f0ece4;
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(26,25,23,0.09);
+      z-index: 2;
+    }
+    .tile.hidden { display: none; }
+
+    /* Geometric bg motif — fades in on hover */
+    .tile-geo {
+      position: absolute;
+      bottom: -8px; right: -8px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .tile:hover .tile-geo { opacity: 0.06; }
+
+    /* Litter Box portal tile — slightly differentiated */
+    .tile--satire-link {
+      background: var(--bg-2);
+      border-style: dashed;
+    }
+    .tile--satire-link:hover { background: #e8e3da; }
+
+    /* ── TILE CONTENTS ───────────────────────────────────────────── */
+    .tile-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 1.2rem;
+    }
+    .tile-cat {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.56rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.28em 0.7em;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .tile-cat[data-cat="News"]                   { background: #1b2e40; color: #7ab0d8; }
+    .tile-cat[data-cat="Editorial"]              { background: #3b2215; color: #d8906a; }
+    .tile-cat[data-cat="Satire"]                 { background: #162b16; color: #7abd7a; }
+    .tile-cat[data-cat="Investigative Editorial"]{ background: #271535; color: #b07ad8; }
+
+    .tile-dot { width: 2px; height: 2px; border-radius: 50%; background: var(--rule); flex-shrink: 0; }
+    .tile-meta {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--obsidian-faint);
+    }
+
+    h2.tile-title {
+      font-family: 'Merriweather', serif;
+      font-weight: 700;
+      font-size: 1rem;
+      line-height: 1.38;
+      color: var(--obsidian);
+      margin-bottom: 0.9rem;
+      flex-grow: 1;
+    }
+    .tile-summary {
+      font-family: 'Merriweather', serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: 0.8rem;
+      line-height: 1.75;
+      color: var(--obsidian-muted);
+      margin-bottom: 1.6rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .tile-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 1.2rem;
+      border-top: 1px solid var(--rule-light);
+    }
+    .tile-topic {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.56rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--obsidian-faint);
+    }
+    .tile-caret {
+      font-size: 0.75rem;
+      color: var(--rule);
+      transform: translateX(-4px);
+      opacity: 0;
+      transition: opacity 0.22s, transform 0.22s, color 0.22s;
+    }
+    .tile:hover .tile-caret { opacity: 1; transform: translateX(0); color: var(--obsidian-muted); }
+
+    /* ── EMPTY STATE ─────────────────────────────────────────────── */
+    .empty-state {
+      display: none;
+      padding: 5rem 0;
+      text-align: center;
+      font-family: 'Merriweather', serif;
+      font-style: italic;
+      font-size: 0.9rem;
+      color: var(--obsidian-faint);
+    }
+    .empty-state.visible { display: block; }
+
+    /* ── FOOTER ──────────────────────────────────────────────────── */
+    .hr { width: 100%; height: 1px; background: var(--rule-light); }
+    footer {
+      padding: 1.6rem 5rem;
+      border-top: 1px solid var(--rule-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer span {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      color: var(--obsidian-faint);
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────────────────────── */
+    @media (max-width: 1100px) { .tiles-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 860px) {
+      nav, .page-header, .filter-bar, .tiles-wrap, footer { padding-left: 2rem; padding-right: 2rem; }
+      .page-header-inner { grid-template-columns: 1fr; }
+      .header-geo { display: none; }
+      .tiles-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-name">Raad Amin</a>
+    <ul class="nav-links">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#featured">Work</a></li>
+      <li><a href="writing.html" class="active" >Writing</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="education.html">Education</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <header class="page-header">
+    <div class="page-header-inner">
+      <div>
+        <p class="page-label">The Student Prints · The Litter Box</p>
+        <h1 class="page-title">Published Works</h1>
+        <p class="page-sub">News, editorials, and the occasional act of satire.</p>
+      </div>
+      <div class="header-geo" aria-hidden="true">
+        <svg viewBox="0 0 460 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polygon class="draw-path" points="380,18 448,200 60,200" stroke="#3a3835" stroke-width="1" fill="none"/>
+          <polygon points="380,44 422,168 84,168" fill="#2e2c29" opacity="0.35"/>
+          <circle class="draw-arc" cx="240" cy="128" r="105" stroke="#2e2c29" stroke-width="0.8" fill="none"/>
+          <path class="draw-arc-slow" d="M 100 195 A 58 58 0 0 1 188 145" stroke="#3a3835" stroke-width="0.7" fill="none"/>
+          <line class="draw-path" x1="30" y1="80" x2="160" y2="80" stroke="#2e2c29" stroke-width="0.7"/>
+          <line class="draw-path" x1="300" y1="22" x2="448" y2="90" stroke="#2e2c29" stroke-width="0.6"/>
+          <polygon points="52,125 68,141 52,157 36,141" stroke="#3a3835" stroke-width="0.8" fill="none" opacity="0.5"/>
+        </svg>
+      </div>
+    </div>
+  </header>
+
+  <div class="filter-bar">
+    <span class="filter-label">Filter</span>
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="News">News</button>
+    <button class="filter-btn" data-filter="Editorial">Editorial</button>
+    <button class="filter-btn" data-filter="Investigative Editorial">Investigative</button>
+    <button class="filter-btn" data-filter="Satire">Satire</button>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════════════
+       TILES  —  add new articles by copying the template at the bottom.
+       Paste in any order; JS sorts by data-date (YYYY-MM) newest first.
+       The Litter Box portal tile (data-cat="__always__") stays last.
+  ════════════════════════════════════════════════════════════════ -->
+  <div class="tiles-wrap">
+    <div class="tiles-grid" id="tiles-grid">
+
+      <a href="article-levy.html" class="tile" data-cat="News" data-date="2026-02">
+        <svg class="tile-geo" width="160" height="140" viewBox="0 0 160 140" fill="none">
+          <circle cx="80" cy="70" r="65" stroke="#1a1917" stroke-width="1.2" fill="none"/>
+          <circle cx="80" cy="70" r="36" stroke="#1a1917" stroke-width="0.6" fill="none"/>
+          <polygon points="80,5 155,130 5,130" stroke="#1a1917" stroke-width="0.7" fill="none"/>
+        </svg>
+        <div class="tile-eyebrow">
+          <span class="tile-cat" data-cat="News">News</span>
+          <span class="tile-dot"></span>
+          <span class="tile-meta">Mar 2026</span>
+        </div>
+        <h2 class="tile-title">District Seeks First Levy Since 2016 Amid $4 Million Deficit</h2>
+        <p class="tile-summary">Low per-pupil spending, tens of millions in reserve, and a AA credit rating — yet hostile legislation and sharply increasing costs are pulling Sylvania Schools' budget apart.</p>
+        <div class="tile-footer">
+          <span class="tile-topic">Budget &amp; Finances</span>
+          <span class="tile-caret">→</span>
+        </div>
+      </a>
+
+      <a href="article-flagpole.html" class="tile" data-cat="Editorial" data-date="2025-12">
+        <svg class="tile-geo" width="160" height="140" viewBox="0 0 160 140" fill="none">
+          <polygon points="80,8 152,132 8,132" stroke="#1a1917" stroke-width="1.2" fill="none"/>
+          <polygon points="80,34 122,112 38,112" fill="#1a1917" opacity="0.12"/>
+          <line x1="8" y1="70" x2="152" y2="70" stroke="#1a1917" stroke-width="0.5"/>
+        </svg>
+        <div class="tile-eyebrow">
+          <span class="tile-cat" data-cat="Editorial">Editorial</span>
+          <span class="tile-dot"></span>
+          <span class="tile-meta">Dec 2025</span>
+        </div>
+        <h2 class="tile-title">"The Land of Opportunity" — How a $75,000 Flagpole Only Raises Red Flags</h2>
+        <p class="tile-summary">A $75,000 crowdfunding campaign raised barely $1,000. I examined the (lack of) financial logic and questioned what community investment actually looks like.</p>
+        <div class="tile-footer">
+          <span class="tile-topic">Administration</span>
+          <span class="tile-caret">→</span>
+        </div>
+      </a>
+
+      <a href="satire-flagpole.html" class="tile" data-cat="Satire" data-date="2025-02">
+        <svg class="tile-geo" width="160" height="140" viewBox="0 0 160 140" fill="none">
+          <rect x="20" y="20" width="120" height="100" stroke="#1a1917" stroke-width="1" fill="none"/>
+          <rect x="40" y="40" width="80" height="60" stroke="#1a1917" stroke-width="0.6" fill="none"/>
+          <line x1="20" y1="20" x2="140" y2="120" stroke="#1a1917" stroke-width="0.5"/>
+        </svg>
+        <div class="tile-eyebrow">
+          <span class="tile-cat" data-cat="Satire">Satire</span>
+          <span class="tile-dot"></span>
+          <span class="tile-meta">Feb 2025</span>
+        </div>
+        <h2 class="tile-title">School Raises $6.23 for $7,500,000 Flagpole: A Triumph</h2>
+        <p class="tile-summary">Playing off the companion flagpole editorial, this piece takes administrative goals to their logical extreme in the ultimate show of patriotism.</p>
+        <div class="tile-footer">
+          <span class="tile-topic">Administrative Satire</span>
+          <span class="tile-caret">→</span>
+        </div>
+      </a>
+
+      <a href="article-aidetector.html" class="tile" data-cat="Investigative Editorial" data-date="2025-03">
+        <svg class="tile-geo" width="160" height="140" viewBox="0 0 160 140" fill="none">
+          <rect x="12" y="10" width="136" height="120" stroke="#1a1917" stroke-width="1" fill="none"/>
+          <line x1="12" y1="10" x2="148" y2="130" stroke="#1a1917" stroke-width="0.7"/>
+          <line x1="148" y1="10" x2="12" y2="130" stroke="#1a1917" stroke-width="0.5" opacity="0.5"/>
+          <circle cx="80" cy="70" r="30" stroke="#1a1917" stroke-width="0.7" fill="none"/>
+        </svg>
+        <div class="tile-eyebrow">
+          <span class="tile-cat" data-cat="Investigative Editorial">Investigative</span>
+          <span class="tile-dot"></span>
+          <span class="tile-meta">Apr 2025</span>
+        </div>
+        <h2 class="tile-title">The District's AI Detector Doesn't Work.</h2>
+        <p class="tile-summary">A firsthand false-positive on an essay revealed a deeper flaw into emergent AI detection technology obfuscated under layers of marketing and untrustworthy science.</p>
+        <div class="tile-footer">
+          <span class="tile-topic">Technology</span>
+          <span class="tile-caret">→</span>
+        </div>
+      </a>
+
+      <a href="article-hb8.html" class="tile" data-cat="Editorial" data-date="2025-09">
+        <svg class="tile-geo" width="160" height="140" viewBox="0 0 160 140" fill="none">
+          <circle cx="80" cy="70" r="62" stroke="#1a1917" stroke-width="1" fill="none"/>
+          <polygon points="80,8 148,130 12,130" stroke="#1a1917" stroke-width="0.6" fill="none"/>
+          <polygon points="80,28 122,108 38,108" fill="#1a1917" opacity="0.08"/>
+        </svg>
+        <div class="tile-eyebrow">
+          <span class="tile-cat" data-cat="Editorial">Editorial</span>
+          <span class="tile-dot"></span>
+          <span class="tile-meta">Sept 2025</span>
+        </div>
+        <h2 class="tile-title">House Bill 8 Strips Student Freedoms</h2>
+        <p class="tile-summary">A deceptive bill disguised as a parents' rights measure erodes the rights and autonomy of students. Written with fellow editor and queer student Haleigh Murphy, examining how mandatory reporting, selective targeting, and hostile legislation work against long-standing district policy and student safety alike.</p>
+        <div class="tile-footer">
+          <span class="tile-topic">Policy</span>
+          <span class="tile-caret">→</span>
+        </div>
+      </a>
+
+      <!-- Litter Box Short Story Portal -->
+      <a href="the-litter-box.html" class="tile tile--satire-link" data-cat="__always__" data-date="2025-02">
+        <svg class="tile-geo" width="160" height="140" viewBox="0 0 160 140" fill="none">
+          <polygon points="80,10 150,130 10,130" stroke="#1a1917" stroke-width="1" fill="none"/>
+          <circle cx="80" cy="88" r="26" stroke="#1a1917" stroke-width="0.7" fill="none"/>
+        </svg>
+        <div class="tile-eyebrow">
+          <span class="tile-cat" data-cat="Satire">Satire</span>
+          <span class="tile-dot"></span>
+          <span class="tile-meta">The Litter Box</span>
+        </div>
+        <h2 class="tile-title">Short satire by category →</h2>
+        <p class="tile-summary">Athletics, Administration, and Clubs &amp; Students — an anthology of shorter pieces each humoring the best (and worst) of Northview.</p>
+        <div class="tile-footer">
+          <span class="tile-topic">View The Litter Box</span>
+          <span class="tile-caret">→</span>
+        </div>
+      </a>
+
+      <a href="article-qbdui.html" class="tile" data-cat="Satire" data-date="2026-4">
+        <svg class="tile-geo" width="190" height="120" viewBox="0 0 160 140" fill="none">
+          <circle cx="80" cy="70" r="62" stroke="#1a1917" stroke-width="1" fill="none"/>
+          <polygon points="85,8 148,130 12,130" stroke="#1a1917" stroke-width="0.6" fill="none"/>
+          <polygon points="55,28 122,108 38,108" fill="#1a1917" opacity="0.08"/>
+        </svg>
+        <div class="tile-eyebrow">
+          <span class="tile-cat" data-cat="Satire">Satire</span>
+          <span class="tile-dot"></span>
+          <span class="tile-meta">April 2026</span>
+        </div>
+        <h2 class="tile-title">Quizbowl Team Charged with DUI Days before State Championship</h2>
+        <p class="tile-summary">The hockey team was caught drinking and driving under the influence mere days before the state championship, yet administration postponed all disciplinary action until after competition. Will the same courtesy extend to Northview's critically-acclaimed Quizbowl team?</p>
+        <div class="tile-footer">
+          <span class="tile-topic">Athletic Satire</span>
+          <span class="tile-caret">→</span>
+        </div>
+      </a>
+      <!-- ════════════════════════════════════════════════════════
+           NEW ARTICLE TEMPLATE — copy this block, fill in fields.
+
+      <a href="article-SLUG.html" class="tile" data-cat="Editorial" data-date="YYYY-MM">
+        <svg class="tile-geo" width="160" height="140" viewBox="0 0 160 140" fill="none">
+          <polygon points="80,8 152,132 8,132" stroke="#1a1917" stroke-width="1.2" fill="none"/>
+          <polygon points="80,34 122,112 38,112" fill="#1a1917" opacity="0.12"/>
+        </svg>
+        <div class="tile-eyebrow">
+          <span class="tile-cat" data-cat="Editorial">Editorial</span>
+          <span class="tile-dot"></span>
+          <span class="tile-meta">Month Year</span>
+        </div>
+        <h2 class="tile-title">Title</h2>
+        <p class="tile-summary">Summary.</p>
+        <div class="tile-footer">
+          <span class="tile-topic">Topic</span>
+          <span class="tile-caret">→</span>
+        </div>
+      </a>
+
+           data-cat: News | Editorial | Investigative Editorial | Satire
+           data-date: YYYY-MM  (sorting — paste tiles in any order)
+           ════════════════════════════════════════════════════════ -->
+
+    </div>
+    <p class="empty-state" id="empty-state">No articles in this category yet.</p>
+  </div>
+
+  <div class="hr"></div>
+  <footer>
+    <span>Raad Amin · Sylvania, Ohio</span>
+    <span>© 2026</span>
+  </footer>
+
+  <script>
+    const grid  = document.getElementById('tiles-grid');
+    const tiles = Array.from(grid.querySelectorAll('.tile'));
+    const empty = document.getElementById('empty-state');
+
+    // ── 1. Sort newest → oldest; __always__ tile pinned last ────────
+    tiles.sort((a, b) => {
+      if (a.dataset.cat === '__always__') return 1;
+      if (b.dataset.cat === '__always__') return -1;
+      return b.dataset.date.localeCompare(a.dataset.date);
+    });
+    tiles.forEach(t => grid.appendChild(t));
+
+    // ── 2. Animate a set of tiles in ────────────────────────────────
+    //    Each tile starts at opacity:0 (CSS default).
+    //    We add .tile--animating to run tileIn once, then on
+    //    animationend swap to .tile--visible (opacity:1, no animation).
+    //    Hover then works against a clean transition with no fill-mode.
+    function animateTiles(set) {
+      set.forEach((tile, i) => {
+        // Reset
+        tile.classList.remove('tile--visible', 'tile--animating');
+        tile.style.animationDelay = '';
+        void tile.offsetWidth; // force reflow
+
+        tile.style.animationDelay = (i * 0.07) + 's';
+        tile.classList.add('tile--animating');
+
+        function onEnd() {
+          tile.classList.remove('tile--animating');
+          tile.classList.add('tile--visible');
+          tile.style.animationDelay = '';
+          tile.removeEventListener('animationend', onEnd);
+        }
+        tile.addEventListener('animationend', onEnd);
+      });
+    }
+
+    // Initial load
+    animateTiles(tiles);
+
+    // ── 3. Filter ───────────────────────────────────────────────────
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filter = btn.dataset.filter;
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        let visible = 0;
+        tiles.forEach(tile => {
+          const cat      = tile.dataset.cat;
+          const isAlways = cat === '__always__';
+          const show     = filter === 'all'
+                        || cat === filter
+                        || (isAlways && filter === 'Satire');
+
+          tile.classList.remove('tile--visible', 'tile--animating');
+          tile.style.animationDelay = '';
+
+          if (show) { tile.classList.remove('hidden'); visible++; }
+          else       { tile.classList.add('hidden'); }
+        });
+
+        const nowVisible = tiles.filter(t => !t.classList.contains('hidden'));
+        animateTiles(nowVisible);
+        empty.classList.toggle('visible', visible === 0);
+      });
+    });
+  </script>
+
+</body>
+</html>
