@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Writing by Raad Amin — news, editorials, and satire published in The Student Prints and The Litter Box.">
+  <meta name="description" content="Writing by Raad Amin — news, editorials, features, and satire published in The Student Prints and The Litter Box.">
   <title>Writing — Raad Amin</title>
   <link rel="icon" type="image/png" href="../images/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -271,10 +271,35 @@
       border-radius: 2px;
       flex-shrink: 0;
     }
-    .tile-cat[data-cat="News"]                   { background: #1b2e40; color: #7ab0d8; }
-    .tile-cat[data-cat="Editorial"]              { background: #3b2215; color: #d8906a; }
-    .tile-cat[data-cat="Satire"]                 { background: #162b16; color: #7abd7a; }
-    .tile-cat[data-cat="Investigative Editorial"]{ background: #271535; color: #b07ad8; }
+    /* NEWS — blue */
+    .tile-cat[data-cat="News"] {
+      background: #1c2f45;
+      color: #6fb3ff;
+    }
+
+    /* SATIRE — green */
+    .tile-cat[data-cat="Satire"] {
+      background: #182d1c;
+      color: #6ee787;
+    }
+
+    /* FEATURE — rich purple */
+    .tile-cat[data-cat="Feature"] {
+      background: #2a1f3d;
+      color: #c084fc;
+    }
+
+    /* EDITORIAL — warm amber */
+    .tile-cat[data-cat="Editorial"] {
+      background: #3a2414;
+      color: #f4a261;
+    }
+
+    /* INVESTIGATIVE — deeper, serious purple */
+    .tile-cat[data-cat="Investigative Editorial"] {
+      background: #241530;
+      color: #b388ff;
+    }
 
     .tile-dot { width: 2px; height: 2px; border-radius: 50%; background: var(--rule); flex-shrink: 0; }
     .tile-meta {
@@ -387,9 +412,9 @@
   <header class="page-header">
     <div class="page-header-inner">
       <div>
-        <p class="page-label">The Student Prints · The Litter Box</p>
+        <p class="page-label">The Student Prints &amp; The Litter Box</p>
         <h1 class="page-title">Published Works</h1>
-        <p class="page-sub">News, editorials, and the occasional act of satire.</p>
+        <p class="page-sub">News, editorials, features, and the occasional act of satire all centered on student life.</p>
       </div>
       <div class="header-geo" aria-hidden="true">
         <svg viewBox="0 0 460 220" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -409,156 +434,238 @@
     <span class="filter-label">Filter</span>
     <button class="filter-btn active" data-filter="all">All</button>
     <button class="filter-btn" data-filter="News">News</button>
-    <button class="filter-btn" data-filter="Editorial">Editorial</button>
+    <button class="filter-btn" data-filter="Editorial">Editorials</button>
     <button class="filter-btn" data-filter="Investigative Editorial">Investigative</button>
+    <button class="filter-btn" data-filter="Feature">Features</button>
     <button class="filter-btn" data-filter="Satire">Satire</button>
   </div>
 
-  <!-- ════════════════════════════════════════════════════════════════
-       TILES  —  add new articles by copying the template at the bottom.
-       Paste in any order; JS sorts by data-date (YYYY-MM) newest first.
-       The Litter Box portal tile (data-cat="__always__") stays last.
-  ════════════════════════════════════════════════════════════════ -->
-  <div class="tiles-wrap">
-    <div class="tiles-grid" id="tiles-grid">
+<!-- ════════════════════════════════════════════════════════════════
+     TILES  —  add new articles by copying the template at the bottom.
+     Paste in any order; JS sorts by data-date (YYYY-MM) newest first.
+     The Litter Box portal tile (data-cat="__always__") stays last.
+════════════════════════════════════════════════════════════════ -->
 
-      <a href="article-levy.html" class="tile" data-cat="News" data-date="2026-02">
-        <svg class="tile-geo" width="160" height="140" viewBox="0 0 160 140" fill="none">
-          <circle cx="80" cy="70" r="65" stroke="#1a1917" stroke-width="1.2" fill="none"/>
-          <circle cx="80" cy="70" r="36" stroke="#1a1917" stroke-width="0.6" fill="none"/>
-          <polygon points="80,5 155,130 5,130" stroke="#1a1917" stroke-width="0.7" fill="none"/>
-        </svg>
-        <div class="tile-eyebrow">
-          <span class="tile-cat" data-cat="News">News</span>
-          <span class="tile-dot"></span>
-          <span class="tile-meta">Mar 2026</span>
-        </div>
-        <h2 class="tile-title">District Seeks First Levy Since 2016 Amid $4 Million Deficit</h2>
-        <p class="tile-summary">Low per-pupil spending, tens of millions in reserve, and a AA credit rating — yet hostile legislation and sharply increasing costs are pulling Sylvania Schools' budget apart.</p>
-        <div class="tile-footer">
-          <span class="tile-topic">Budget &amp; Finances</span>
-          <span class="tile-caret">→</span>
-        </div>
-      </a>
+<div class="tiles-wrap">
+  <div class="tiles-grid" id="tiles-grid">
 
-      <a href="article-flagpole.html" class="tile" data-cat="Editorial" data-date="2025-12">
-        <svg class="tile-geo" width="160" height="140" viewBox="0 0 160 140" fill="none">
-          <polygon points="80,8 152,132 8,132" stroke="#1a1917" stroke-width="1.2" fill="none"/>
-          <polygon points="80,34 122,112 38,112" fill="#1a1917" opacity="0.12"/>
-          <line x1="8" y1="70" x2="152" y2="70" stroke="#1a1917" stroke-width="0.5"/>
-        </svg>
-        <div class="tile-eyebrow">
-          <span class="tile-cat" data-cat="Editorial">Editorial</span>
-          <span class="tile-dot"></span>
-          <span class="tile-meta">Dec 2025</span>
-        </div>
-        <h2 class="tile-title">"The Land of Opportunity" — How a $75,000 Flagpole Only Raises Red Flags</h2>
-        <p class="tile-summary">A $75,000 crowdfunding campaign raised barely $1,000. I examined the (lack of) financial logic and questioned what community investment actually looks like.</p>
-        <div class="tile-footer">
-          <span class="tile-topic">Administration</span>
-          <span class="tile-caret">→</span>
-        </div>
-      </a>
+    <!-- ===================== NEWS ===================== -->
+    <a href="tsp/news/tsp-budget.html" class="tile" data-cat="News" data-date="2026-03">
+      <svg class="tile-geo" width="160" height="140" viewBox="0 0 160 140" fill="none">
+        <circle cx="80" cy="70" r="65" stroke="#1a1917" stroke-width="1.2" fill="none"/>
+        <circle cx="80" cy="70" r="36" stroke="#1a1917" stroke-width="0.6" fill="none"/>
+        <polygon points="80,5 155,130 5,130" stroke="#1a1917" stroke-width="0.7" fill="none"/>
+      </svg>
+      <div class="tile-eyebrow">
+        <span class="tile-cat" data-cat="News">News</span>
+        <span class="tile-dot"></span>
+        <span class="tile-meta">Mar 2026</span>
+      </div>
+      <h2 class="tile-title">District Seeks First Levy Since 2016 Amid $4 Million Deficit</h2>
+      <p class="tile-summary">Despite low per-pupil funding and strong reserves, rising costs and hostile state policy are pushing Sylvania Schools toward a new levy.</p>
+      <div class="tile-footer">
+        <span class="tile-topic">Budget &amp; Finances</span>
+        <span class="tile-caret">→</span>
+      </div>
+    </a>
 
-      <a href="satire-flagpole.html" class="tile" data-cat="Satire" data-date="2025-02">
-        <svg class="tile-geo" width="160" height="140" viewBox="0 0 160 140" fill="none">
-          <rect x="20" y="20" width="120" height="100" stroke="#1a1917" stroke-width="1" fill="none"/>
-          <rect x="40" y="40" width="80" height="60" stroke="#1a1917" stroke-width="0.6" fill="none"/>
-          <line x1="20" y1="20" x2="140" y2="120" stroke="#1a1917" stroke-width="0.5"/>
-        </svg>
-        <div class="tile-eyebrow">
-          <span class="tile-cat" data-cat="Satire">Satire</span>
-          <span class="tile-dot"></span>
-          <span class="tile-meta">Feb 2025</span>
-        </div>
-        <h2 class="tile-title">School Raises $6.23 for $7,500,000 Flagpole: A Triumph</h2>
-        <p class="tile-summary">Playing off the companion flagpole editorial, this piece takes administrative goals to their logical extreme in the ultimate show of patriotism.</p>
-        <div class="tile-footer">
-          <span class="tile-topic">Administrative Satire</span>
-          <span class="tile-caret">→</span>
-        </div>
-      </a>
+    <a href="tsp/news/tsp-scioly-nvinvite.html" class="tile" data-cat="News" data-date="2025-12">
+      <svg class="tile-geo" width="160" height="140" viewBox="0 0 160 140" fill="none">
+        <polygon points="80,8 152,132 8,132" stroke="#1a1917" stroke-width="1.2" fill="none"/>
+        <polygon points="80,34 122,112 38,112" fill="#1a1917" opacity="0.12"/>
+      </svg>
+      <div class="tile-eyebrow">
+        <span class="tile-cat" data-cat="News">News</span>
+        <span class="tile-dot"></span>
+        <span class="tile-meta">Dec 2025</span>
+      </div>
+      <h2 class="tile-title">59 Teams Compete at 11th Annual Northview Science Olympiad Invitational</h2>
+      <p class="tile-summary">Teams from across Ohio and Michigan competed across 23 events at Northview’s annual invitational.</p>
+      <div class="tile-footer">
+        <span class="tile-topic">Clubs &amp; Students</span>
+        <span class="tile-caret">→</span>
+      </div>
+    </a>
 
-      <a href="article-aidetector.html" class="tile" data-cat="Investigative Editorial" data-date="2025-03">
-        <svg class="tile-geo" width="160" height="140" viewBox="0 0 160 140" fill="none">
-          <rect x="12" y="10" width="136" height="120" stroke="#1a1917" stroke-width="1" fill="none"/>
-          <line x1="12" y1="10" x2="148" y2="130" stroke="#1a1917" stroke-width="0.7"/>
-          <line x1="148" y1="10" x2="12" y2="130" stroke="#1a1917" stroke-width="0.5" opacity="0.5"/>
-          <circle cx="80" cy="70" r="30" stroke="#1a1917" stroke-width="0.7" fill="none"/>
-        </svg>
-        <div class="tile-eyebrow">
-          <span class="tile-cat" data-cat="Investigative Editorial">Investigative</span>
-          <span class="tile-dot"></span>
-          <span class="tile-meta">Apr 2025</span>
-        </div>
-        <h2 class="tile-title">The District's AI Detector Doesn't Work.</h2>
-        <p class="tile-summary">A firsthand false-positive on an essay revealed a deeper flaw into emergent AI detection technology obfuscated under layers of marketing and untrustworthy science.</p>
-        <div class="tile-footer">
-          <span class="tile-topic">Technology</span>
-          <span class="tile-caret">→</span>
-        </div>
-      </a>
+    <a href="tsp/news/tsp-s&d-littles.html" class="tile" data-cat="News" data-date="2026-02">
+      <svg class="tile-geo" width="160" height="140" viewBox="0 0 160 140" fill="none">
+        <polygon points="80,8 152,132 8,132" stroke="#1a1917" stroke-width="1.2" fill="none"/>
+        <polygon points="80,34 122,112 38,112" fill="#1a1917" opacity="0.12"/>
+      </svg>
+      <div class="tile-eyebrow">
+        <span class="tile-cat" data-cat="News">News</span>
+        <span class="tile-dot"></span>
+        <span class="tile-meta">Feb 2026</span>
+      </div>
+      <h2 class="tile-title">S&D Places 5th at State Qualifiers</h2>
+      <p class="tile-summary">Northview’s Speech & Debate team secured a top-five finish at state qualifiers, continuing a strong competitive season.</p>
+      <div class="tile-footer">
+        <span class="tile-topic">Clubs &amp; Students</span>
+        <span class="tile-caret">→</span>
+      </div>
+    </a>
 
-      <a href="article-hb8.html" class="tile" data-cat="Editorial" data-date="2025-09">
-        <svg class="tile-geo" width="160" height="140" viewBox="0 0 160 140" fill="none">
-          <circle cx="80" cy="70" r="62" stroke="#1a1917" stroke-width="1" fill="none"/>
-          <polygon points="80,8 148,130 12,130" stroke="#1a1917" stroke-width="0.6" fill="none"/>
-          <polygon points="80,28 122,108 38,108" fill="#1a1917" opacity="0.08"/>
-        </svg>
-        <div class="tile-eyebrow">
-          <span class="tile-cat" data-cat="Editorial">Editorial</span>
-          <span class="tile-dot"></span>
-          <span class="tile-meta">Sept 2025</span>
-        </div>
-        <h2 class="tile-title">House Bill 8 Strips Student Freedoms</h2>
-        <p class="tile-summary">A deceptive bill disguised as a parents' rights measure erodes the rights and autonomy of students. Written with fellow editor and queer student Haleigh Murphy, examining how mandatory reporting, selective targeting, and hostile legislation work against long-standing district policy and student safety alike.</p>
-        <div class="tile-footer">
-          <span class="tile-topic">Policy</span>
-          <span class="tile-caret">→</span>
-        </div>
-      </a>
+    <a href="tsp/news/tsp-edshutdown.html" class="tile" data-cat="News" data-date="2025-05">
+      <svg class="tile-geo" width="160" height="140" viewBox="0 0 160 140" fill="none">
+        <polygon points="80,8 152,132 8,132" stroke="#1a1917" stroke-width="1.2" fill="none"/>
+        <polygon points="80,34 122,112 38,112" fill="#1a1917" opacity="0.12"/>
+      </svg>
+      <div class="tile-eyebrow">
+        <span class="tile-cat" data-cat="News">News</span>
+        <span class="tile-dot"></span>
+        <span class="tile-meta">May 2025</span>
+      </div>
+      <h2 class="tile-title">Trump Orders Education Department to Initiate Shut Down</h2>
+      <p class="tile-summary">A presidential order to dismantle the Department of Education raises major questions about funding, oversight, and the future of public schools.</p>
+      <div class="tile-footer">
+        <span class="tile-topic">Policy &amp; Law</span>
+        <span class="tile-caret">→</span>
+      </div>
+    </a>
+    <!-- ===================== FEATURE ===================== -->
+    <a href="tsp/features/tsp-diwali.html" class="tile" data-cat="Feature" data-date="2025-10">
+      <svg class="tile-geo" width="160" height="140" viewBox="0 0 160 140" fill="none">
+        <polygon points="80,8 152,132 8,132" stroke="#1a1917" stroke-width="1.2" fill="none"/>
+        <polygon points="80,34 122,112 38,112" fill="#1a1917" opacity="0.12"/>
+      </svg>
+      <div class="tile-eyebrow">
+        <span class="tile-cat" data-cat="Feature">Feature</span>
+        <span class="tile-dot"></span>
+        <span class="tile-meta">Oct 2025</span>
+      </div>
+      <h2 class="tile-title">Northview Students Celebrate Diwali</h2>
+      <p class="tile-summary">Northview students share how they celebrate Diwali through family traditions, cultural identity, and community.</p>
+      <div class="tile-footer">
+        <span class="tile-topic">Arts &amp; Culture</span>
+        <span class="tile-caret">→</span>
+      </div>
+    </a>
 
-      <!-- Litter Box Short Story Portal -->
-      <a href="the-litter-box.html" class="tile tile--satire-link" data-cat="__always__" data-date="2025-02">
-        <svg class="tile-geo" width="160" height="140" viewBox="0 0 160 140" fill="none">
-          <polygon points="80,10 150,130 10,130" stroke="#1a1917" stroke-width="1" fill="none"/>
-          <circle cx="80" cy="88" r="26" stroke="#1a1917" stroke-width="0.7" fill="none"/>
-        </svg>
-        <div class="tile-eyebrow">
-          <span class="tile-cat" data-cat="Satire">Satire</span>
-          <span class="tile-dot"></span>
-          <span class="tile-meta">The Litter Box</span>
-        </div>
-        <h2 class="tile-title">Short satire by category →</h2>
-        <p class="tile-summary">Athletics, Administration, and Clubs &amp; Students — an anthology of shorter pieces each humoring the best (and worst) of Northview.</p>
-        <div class="tile-footer">
-          <span class="tile-topic">View The Litter Box</span>
-          <span class="tile-caret">→</span>
-        </div>
-      </a>
+    <!-- ===================== EDITORIAL ===================== -->
+    <a href="tsp/editorials/tsp-flagpole.html" class="tile" data-cat="Editorial" data-date="2025-03">
+      <svg class="tile-geo" width="160" height="140" viewBox="0 0 160 140" fill="none">
+        <polygon points="80,8 152,132 8,132" stroke="#1a1917" stroke-width="1.2" fill="none"/>
+        <polygon points="80,34 122,112 38,112" fill="#1a1917" opacity="0.12"/>
+        <line x1="8" y1="70" x2="152" y2="70" stroke="#1a1917" stroke-width="0.5"/>
+      </svg>
+      <div class="tile-eyebrow">
+        <span class="tile-cat" data-cat="Editorial">Editorial</span>
+        <span class="tile-dot"></span>
+        <span class="tile-meta">March 2025</span>
+      </div>
+      <h2 class="tile-title">"The Land of Opportunity" — How a $75,000 Flagpole Only Raises Red Flags</h2>
+      <p class="tile-summary">A failed $75,000 fundraiser reveals deeper questions about priorities, transparency, and what community support really looks like.</p>
+      <div class="tile-footer">
+        <span class="tile-topic">Administration</span>
+        <span class="tile-caret">→</span>
+      </div>
+    </a>
 
-      <a href="article-qbdui.html" class="tile" data-cat="Satire" data-date="2026-4">
-        <svg class="tile-geo" width="190" height="120" viewBox="0 0 160 140" fill="none">
-          <circle cx="80" cy="70" r="62" stroke="#1a1917" stroke-width="1" fill="none"/>
-          <polygon points="85,8 148,130 12,130" stroke="#1a1917" stroke-width="0.6" fill="none"/>
-          <polygon points="55,28 122,108 38,108" fill="#1a1917" opacity="0.08"/>
-        </svg>
-        <div class="tile-eyebrow">
-          <span class="tile-cat" data-cat="Satire">Satire</span>
-          <span class="tile-dot"></span>
-          <span class="tile-meta">April 2026</span>
-        </div>
-        <h2 class="tile-title">Quizbowl Team Charged with DUI Days before State Championship</h2>
-        <p class="tile-summary">The hockey team was caught drinking and driving under the influence mere days before the state championship, yet administration postponed all disciplinary action until after competition. Will the same courtesy extend to Northview's critically-acclaimed Quizbowl team?</p>
-        <div class="tile-footer">
-          <span class="tile-topic">Athletic Satire</span>
-          <span class="tile-caret">→</span>
-        </div>
-      </a>
+    <a href="tsp/editorials/tsp-hb8.html" class="tile" data-cat="Editorial" data-date="2025-09">
+      <svg class="tile-geo" width="160" height="140" viewBox="0 0 160 140" fill="none">
+        <circle cx="80" cy="70" r="62" stroke="#1a1917" stroke-width="1" fill="none"/>
+        <polygon points="80,8 148,130 12,130" stroke="#1a1917" stroke-width="0.6" fill="none"/>
+        <polygon points="80,28 122,108 38,108" fill="#1a1917" opacity="0.08"/>
+      </svg>
+      <div class="tile-eyebrow">
+        <span class="tile-cat" data-cat="Editorial">Editorial</span>
+        <span class="tile-dot"></span>
+        <span class="tile-meta">Sept 2025</span>
+      </div>
+      <h2 class="tile-title">House Bill 8 Strips Student Freedoms</h2>
+      <p class="tile-summary">Framed as a parents’ rights bill, House Bill 8 threatens student autonomy and reshapes the balance of power in schools.</p>
+      <div class="tile-footer">
+        <span class="tile-topic">Policy &amp; Law</span>
+        <span class="tile-caret">→</span>
+      </div>
+    </a>
+
+    <!-- ===================== INVESTIGATIVE ===================== -->
+    <a href="tsp/editorials/tsp-aidetector.html" class="tile" data-cat="Investigative Editorial" data-date="2025-03">
+      <svg class="tile-geo" width="160" height="140" viewBox="0 0 160 140" fill="none">
+        <rect x="12" y="10" width="136" height="120" stroke="#1a1917" stroke-width="1" fill="none"/>
+        <line x1="12" y1="10" x2="148" y2="130" stroke="#1a1917" stroke-width="0.7"/>
+        <line x1="148" y1="10" x2="12" y2="130" stroke="#1a1917" stroke-width="0.5" opacity="0.5"/>
+        <circle cx="80" cy="70" r="30" stroke="#1a1917" stroke-width="0.7" fill="none"/>
+      </svg>
+      <div class="tile-eyebrow">
+        <span class="tile-cat" data-cat="Investigative Editorial">Investigative</span>
+        <span class="tile-dot"></span>
+        <span class="tile-meta">Apr 2025</span>
+      </div>
+      <h2 class="tile-title">The District's AI Detector Doesn't Work.</h2>
+      <p class="tile-summary">A false-positive accusation exposes serious flaws in the district’s AI detection system and its consequences for students.</p>
+      <div class="tile-footer">
+        <span class="tile-topic">Technology</span>
+        <span class="tile-caret">→</span>
+      </div>
+    </a>
+
+    <!-- ===================== SATIRE ===================== -->
+    <a href="tlb/tlb-flagpole.html" class="tile" data-cat="Satire" data-date="2025-02">
+      <svg class="tile-geo" width="160" height="140" viewBox="0 0 160 140" fill="none">
+        <rect x="20" y="20" width="120" height="100" stroke="#1a1917" stroke-width="1" fill="none"/>
+        <rect x="40" y="40" width="80" height="60" stroke="#1a1917" stroke-width="0.6" fill="none"/>
+        <line x1="20" y1="20" x2="140" y2="120" stroke="#1a1917" stroke-width="0.5"/>
+      </svg>
+      <div class="tile-eyebrow">
+        <span class="tile-cat" data-cat="Satire">Satire</span>
+        <span class="tile-dot"></span>
+        <span class="tile-meta">Feb 2025</span>
+      </div>
+      <h2 class="tile-title">School Raises $6.23 for $7,500,000 Flagpole: A Triumph</h2>
+      <p class="tile-summary">A wildly successful $6.23 fundraiser proves that, with enough patriotic spirit, anything is possible.</p>
+      <div class="tile-footer">
+        <span class="tile-topic">Administrative Satire</span>
+        <span class="tile-caret">→</span>
+      </div>
+    </a>
+
+    <a href="tlb/tlb-qbdui.html" class="tile" data-cat="Satire" data-date="2026-04">
+      <svg class="tile-geo" width="190" height="120" viewBox="0 0 160 140" fill="none">
+        <circle cx="80" cy="70" r="62" stroke="#1a1917" stroke-width="1" fill="none"/>
+        <polygon points="85,8 148,130 12,130" stroke="#1a1917" stroke-width="0.6" fill="none"/>
+        <polygon points="55,28 122,108 38,108" fill="#1a1917" opacity="0.08"/>
+      </svg>
+      <div class="tile-eyebrow">
+        <span class="tile-cat" data-cat="Satire">Satire</span>
+        <span class="tile-dot"></span>
+        <span class="tile-meta">April 2026</span>
+      </div>
+      <h2 class="tile-title">Quizbowl Team Charged with DUI Days before State Championship</h2>
+      <p class="tile-summary">In a shocking development, a high-achieving academic team finds itself embroiled in a completely avoidable scandal.</p>
+      <div class="tile-footer">
+        <span class="tile-topic">Athletic Satire</span>
+        <span class="tile-caret">→</span>
+      </div>
+    </a>
+
+    <!-- ===================== LITTER BOX PORTAL (ALWAYS LAST) ===================== -->
+    <!-- Litter Box Short Story Portal -->
+    <a href="tlb/thelitterbox.html" class="tile tile--satire-link" data-cat="__always__" data-date="2025-02">
+      <svg class="tile-geo" width="160" height="140" viewBox="0 0 160 140" fill="none">
+        <polygon points="80,10 150,130 10,130" stroke="#1a1917" stroke-width="1" fill="none"/>
+        <circle cx="80" cy="88" r="26" stroke="#1a1917" stroke-width="0.7" fill="none"/>
+      </svg>
+      <div class="tile-eyebrow">
+        <span class="tile-cat" data-cat="Satire">Satire</span>
+        <span class="tile-dot"></span>
+        <span class="tile-meta">The Litter Box</span>
+      </div>
+      <h2 class="tile-title">Short satire by category →</h2>
+      <p class="tile-summary">Athletics, Administration, and Clubs &amp; Students...</p>
+      <div class="tile-footer">
+        <span class="tile-topic">View The Litter Box</span>
+        <span class="tile-caret">→</span>
+      </div>
+    </a>
+
+  </div>
+</div>
       <!-- ════════════════════════════════════════════════════════
            NEW ARTICLE TEMPLATE — copy this block, fill in fields.
 
-      <a href="article-SLUG.html" class="tile" data-cat="Editorial" data-date="YYYY-MM">
+      <a href="TSP/TLB/ARTICLENAME.html" class="tile" data-cat="Editorial" data-date="YYYY-MM">
         <svg class="tile-geo" width="160" height="140" viewBox="0 0 160 140" fill="none">
           <polygon points="80,8 152,132 8,132" stroke="#1a1917" stroke-width="1.2" fill="none"/>
           <polygon points="80,34 122,112 38,112" fill="#1a1917" opacity="0.12"/>
@@ -576,7 +683,7 @@
         </div>
       </a>
 
-           data-cat: News | Editorial | Investigative Editorial | Satire
+           data-cat: News | Editorial | Investigative Editorial | Feature | Satire
            data-date: YYYY-MM  (sorting — paste tiles in any order)
            ════════════════════════════════════════════════════════ -->
 

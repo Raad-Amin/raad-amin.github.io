@@ -74,7 +74,7 @@
     }
     .nav-links a:hover { color: var(--obsidian); }
 
-    /* ── PAGE HEADER — dark, but lighter tone than writing.html ─── */
+    /* ── PAGE HEADER ────────────────────────────────────────────── */
     .page-header {
       background: var(--bg-dark);
       padding: 8rem 5rem 5rem;
@@ -152,11 +152,6 @@
     }
 
     /* ── CATEGORY SECTIONS ───────────────────────────────────────── */
-    /*
-      Layout: dark left column with category name + count,
-      right column holds the piece list.
-      Same dark-band / light-band alternation as the index pillars.
-    */
     .satire-section {
       display: grid;
       grid-template-columns: 260px 1fr;
@@ -194,38 +189,45 @@
       color: var(--obsidian-faint);
     }
 
-    /* Right column — the pieces list */
+    /* Right column */
     .section-col-pieces {
-      padding: 0 0 0 0;
+      padding: 0;
     }
 
-    /* ── INDIVIDUAL PIECE ROW ────────────────────────────────────── */
+    /* ── INDIVIDUAL PIECE ────────────────────────────────────────── */
     /*
-      Each row: headline left, meta right.
-      Hover: headline slides right slightly, arrow appears.
-      No article page — these are archive-only headlines.
-      If a piece later gets its own page, just add href.
+      Each piece is a <details> element. The <summary> is the
+      clickable headline row (same visual as the old .piece-row).
+      The body content expands below it with a smooth animation.
     */
-    .piece-row {
+    .piece-item {
+      border-bottom: 1px solid var(--rule-light);
+    }
+    .piece-item:first-child { border-top: none; }
+
+    /* summary = the headline row */
+    .piece-item summary {
       display: grid;
       grid-template-columns: 1fr auto;
       align-items: baseline;
       gap: 2rem;
       padding: 1.6rem 2.5rem;
-      border-bottom: 1px solid var(--rule-light);
-      text-decoration: none;
-      color: inherit;
+      list-style: none;
+      cursor: pointer;
       transition: background 0.2s;
       position: relative;
-      cursor: default; /* most rows have no href yet */
+      -webkit-user-select: none;
+      user-select: none;
     }
-    .piece-row:first-child { border-top: none; }
+    .piece-item summary::-webkit-details-marker { display: none; }
+    .piece-item summary::marker { display: none; }
 
-    /* rows that link somewhere */
-    .piece-row[href] { cursor: pointer; }
-    .piece-row[href]:hover { background: var(--bg-2); }
-    .piece-row[href]:hover .piece-title { transform: translateX(3px); }
-    .piece-row[href]:hover .piece-arrow { opacity: 1; transform: translateX(0); color: var(--obsidian-muted); }
+    .piece-item summary:hover {
+      background: var(--bg-2);
+    }
+    .piece-item summary:hover .piece-title {
+      transform: translateX(3px);
+    }
 
     .piece-title {
       font-family: 'Merriweather', serif;
@@ -254,12 +256,76 @@
       color: var(--obsidian-faint);
       white-space: nowrap;
     }
-    .piece-arrow {
-      font-size: 0.72rem;
-      color: var(--rule);
-      opacity: 0;
-      transform: translateX(-4px);
-      transition: opacity 0.2s, transform 0.2s, color 0.2s;
+
+    /* The expand/collapse chevron */
+    .piece-toggle {
+      font-size: 0.65rem;
+      color: var(--obsidian-faint);
+      transition: transform 0.25s ease, color 0.2s;
+      display: inline-block;
+      line-height: 1;
+    }
+    .piece-item[open] summary .piece-toggle {
+      transform: rotate(90deg);
+      color: var(--obsidian-mid);
+    }
+    .piece-item[open] summary {
+      background: var(--bg-2);
+    }
+
+    /* ── ARTICLE BODY ────────────────────────────────────────────── */
+    .piece-body {
+      padding: 0 2.5rem 2.2rem 2.5rem;
+      background: var(--bg-2);
+      border-top: 1px solid var(--rule-light);
+
+      /* Smooth height animation */
+      overflow: hidden;
+      animation: expandIn 0.28s ease forwards;
+    }
+
+    @keyframes expandIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Decorative rule between headline area and body */
+    .piece-body-inner {
+      padding-top: 1.8rem;
+      max-width: 680px; /* comfortable reading measure */
+    }
+
+    /* Dateline / byline strip */
+    .piece-byline {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--obsidian-faint);
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.9rem;
+      border-bottom: 1px solid var(--rule-light);
+    }
+
+    .piece-body p {
+      font-family: 'Merriweather', serif;
+      font-weight: 300;
+      font-size: 0.88rem;
+      line-height: 1.85;
+      color: var(--obsidian-mid);
+      margin-bottom: 1.1rem;
+    }
+    .piece-body p:last-child { margin-bottom: 0; }
+
+    /* Drop-cap on first paragraph */
+    .piece-body p:first-of-type::first-letter {
+      font-family: 'Merriweather', serif;
+      font-weight: 700;
+      font-size: 3rem;
+      line-height: 0.8;
+      float: left;
+      margin: 0.1em 0.1em 0 0;
+      color: var(--obsidian);
     }
 
     /* ── BACK LINK BAR ───────────────────────────────────────────── */
@@ -305,8 +371,9 @@
       .header-geo { display: none; }
       .satire-section { grid-template-columns: 1fr; }
       .section-col-label { position: static; padding: 2rem 0 1rem; border-right: none; border-bottom: 1px solid var(--rule-light); }
-      .piece-row { padding-left: 0; padding-right: 0; grid-template-columns: 1fr; gap: 0.3rem; }
-      .piece-meta { justify-content: flex-start; }
+      .piece-item summary { padding-left: 0; padding-right: 0; grid-template-columns: 1fr auto; gap: 1rem; }
+      .piece-body { padding-left: 0; padding-right: 0; }
+      .piece-meta { flex-shrink: 0; }
     }
   </style>
 </head>
@@ -317,7 +384,7 @@
     <ul class="nav-links">
       <li><a href="index.html#about">About</a></li>
       <li><a href="index.html#featured">Work</a></li>
-      <li><a href="writing.html" class="active" >Writing</a></li>
+      <li><a href="writing.html">Writing</a></li>
       <li><a href="projects.html">Projects</a></li>
       <li><a href="education.html">Education</a></li>
       <li><a href="index.html#contact">Contact</a></li>
@@ -327,19 +394,16 @@
   <header class="page-header">
     <div class="page-header-inner">
       <div>
-        <p class="page-label">Satire · The Litter Box</p>
-        <h1 class="page-title">The Litter<br>Box</h1>
+        <p class="page-label">Satire</p>
+        <h1 class="page-title"><i>The Litter Box</i></h1>
         <p class="page-sub">Things that are true, but funnier when framed as fiction.</p>
       </div>
       <div class="header-geo" aria-hidden="true">
         <svg viewBox="0 0 440 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Nested rectangles — nod to the "box" -->
           <rect class="draw-path" x="20" y="20" width="400" height="160" stroke="#3a3835" stroke-width="1" fill="none"/>
           <rect class="draw-path" x="55" y="48" width="330" height="104" stroke="#2e2c29" stroke-width="0.7" fill="none"/>
           <rect x="90" y="76" width="260" height="48" fill="#2e2c29" opacity="0.2"/>
-          <!-- Diagonal slash across the outer rect -->
           <line class="draw-path" x1="20" y1="20" x2="420" y2="180" stroke="#2e2c29" stroke-width="0.6"/>
-          <!-- Small accent shapes -->
           <circle class="draw-arc" cx="370" cy="50" r="22" stroke="#3a3835" stroke-width="0.7" fill="none"/>
           <polygon points="50,160 68,176 50,192 32,176" stroke="#3a3835" stroke-width="0.7" fill="none" opacity="0.5"/>
         </svg>
@@ -350,58 +414,75 @@
   <div class="content-wrap">
 
     <!-- ════════════════════════════════════════════════════════════
-         SATIRE CATEGORIES
-         To add a piece: paste a new .piece-row inside the right
-         .section-col-pieces. If the piece has its own page,
-         change the tag from <div> to <a href="..."> and remove
-         cursor:default. The count in .section-count is manual —
-         update it when you add pieces.
+         ATHLETICS
          ════════════════════════════════════════════════════════════ -->
-
-    <!-- ── Athletics ───────────────────────────────────────────── -->
     <div class="satire-section" id="athletics">
       <div class="section-col-label">
         <p class="section-cat-name">Athletics</p>
-        <p class="section-count">5 pieces</p>
+        <p class="section-count">3 pieces</p>
       </div>
       <div class="section-col-pieces">
 
-        <div class="piece-row">
-          <p class="piece-title">Cross Country Team Overtaken by Supersonic F-16 — Coach Fulfills Promise to Outpace it by End of Season</p>
-          <div class="piece-meta"><span class="piece-date">—</span><span class="piece-arrow">→</span></div>
-        </div>
+        <details class="piece-item">
+          <summary>
+            <p class="piece-title">Cross Country Team Overtaken by Supersonic F-16 — Coach Fulfills Promise to Outpace it by End of Season</p>
+            <div class="piece-meta">
+              <span class="piece-date">—</span>
+              <span class="piece-toggle">›</span>
+            </div>
+          </summary>
+          <div class="piece-body">
+            <div class="piece-body-inner">
+              <p class="piece-byline">The Litter Box &nbsp;·&nbsp; Athletics</p>
+              <p>Write your first paragraph here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+              <p>Write your second paragraph here. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+              <p>Write your third paragraph here. Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis molestie dictum semper, odio nisl bibendum ipsum.</p>
+            </div>
+          </div>
+        </details>
 
-        <div class="piece-row">
-          <p class="piece-title">Varsity Football to Play Junior High Team in 'Strategic Tactical Maneuver of Genius™'</p>
-          <div class="piece-meta"><span class="piece-date">—</span><span class="piece-arrow">→</span></div>
-        </div>
+        <details class="piece-item">
+          <summary>
+            <p class="piece-title">Football's Path Forward: A Season of Splashes and Regaling Reefer</p>
+            <div class="piece-meta">
+              <span class="piece-date">—</span>
+              <span class="piece-toggle">›</span>
+            </div>
+          </summary>
+          <div class="piece-body">
+            <div class="piece-body-inner">
+              <p class="piece-byline">The Litter Box &nbsp;·&nbsp; Athletics</p>
+              <p>Write your first paragraph here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+              <p>Write your second paragraph here. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+              <p>Write your third paragraph here. Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis molestie dictum semper, odio nisl bibendum ipsum.</p>
+            </div>
+          </div>
+        </details>
 
-        <div class="piece-row">
-          <p class="piece-title">Northview Varsity Football to Become Wildcat Water Boys' — Aims for a Splash in 2025 Season</p>
-          <div class="piece-meta"><span class="piece-date">—</span><span class="piece-arrow">→</span></div>
-        </div>
-
-        <div class="piece-row">
-          <p class="piece-title">Newly Renovated Football Stadium Declared 'Great Place to Sell Marijuana' Thanks to Record Low Attendance</p>
-          <div class="piece-meta"><span class="piece-date">—</span><span class="piece-arrow">→</span></div>
-        </div>
-
-        <div class="piece-row">
-          <p class="piece-title">Northview Football Aura Losses Recouped by E-Sports Team</p>
-          <div class="piece-meta"><span class="piece-date">—</span><span class="piece-arrow">→</span></div>
-        </div>
-
-        <!-- NEW ATHLETICS PIECE TEMPLATE:
-        <div class="piece-row">
-          <p class="piece-title">Headline Here</p>
-          <div class="piece-meta"><span class="piece-date">Month Year</span><span class="piece-arrow">→</span></div>
-        </div>
-        -->
+        <details class="piece-item">
+          <summary>
+            <p class="piece-title">Quizbowl Captain Charged with DUI Days Before State Championship</p>
+            <div class="piece-meta">
+              <span class="piece-date">—</span>
+              <span class="piece-toggle">›</span>
+            </div>
+          </summary>
+          <div class="piece-body">
+            <div class="piece-body-inner">
+              <p class="piece-byline">The Litter Box &nbsp;·&nbsp; Athletics</p>
+              <p>Write your first paragraph here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+              <p>Write your second paragraph here. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+              <p>Write your third paragraph here. Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis molestie dictum semper, odio nisl bibendum ipsum.</p>
+            </div>
+          </div>
+        </details>
 
       </div>
     </div>
 
-    <!-- ── Clubs & Students ──────────────────────────────────────── -->
+    <!-- ════════════════════════════════════════════════════════════
+         CLUBS & STUDENTS
+         ════════════════════════════════════════════════════════════ -->
     <div class="satire-section" id="clubs">
       <div class="section-col-label">
         <p class="section-cat-name">Clubs &amp;<br>Students</p>
@@ -409,71 +490,204 @@
       </div>
       <div class="section-col-pieces">
 
-        <div class="piece-row">
-          <p class="piece-title">Crochet Club to 'Shield the Building from Snow' and 'Eliminate' Heating Costs With 250,000ft² Blanket</p>
-          <div class="piece-meta"><span class="piece-date">—</span><span class="piece-arrow">→</span></div>
-        </div>
+        <details class="piece-item">
+          <summary>
+            <p class="piece-title">Yearbook Prices Set at $8,000 — Parents Told to Refinance Mortgages</p>
+            <div class="piece-meta">
+              <span class="piece-date">—</span>
+              <span class="piece-toggle">›</span>
+            </div>
+          </summary>
+          <div class="piece-body">
+            <div class="piece-body-inner">
+              <p class="piece-byline">The Litter Box &nbsp;·&nbsp; Clubs &amp; Students</p>
+              <p>Write your first paragraph here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+              <p>Write your second paragraph here. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+              <p>Write your third paragraph here. Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis molestie dictum semper, odio nisl bibendum ipsum.</p>
+            </div>
+          </div>
+        </details>
 
-        <div class="piece-row">
-          <p class="piece-title">Yearbook Prices Set at $80 — Parents Told to Refinance Mortgages</p>
-          <div class="piece-meta"><span class="piece-date">—</span><span class="piece-arrow">→</span></div>
-        </div>
+        <details class="piece-item">
+          <summary>
+            <p class="piece-title">Meet Rebekah Repp: The Girl Who Purchased $4,000 Worth of NV Stanley Tumblers</p>
+            <div class="piece-meta">
+              <span class="piece-date">—</span>
+              <span class="piece-toggle">›</span>
+            </div>
+          </summary>
+          <div class="piece-body">
+            <div class="piece-body-inner">
+              <p class="piece-byline">The Litter Box &nbsp;·&nbsp; Clubs &amp; Students</p>
+              <p>Write your first paragraph here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+              <p>Write your second paragraph here. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+              <p>Write your third paragraph here. Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis molestie dictum semper, odio nisl bibendum ipsum.</p>
+            </div>
+          </div>
+        </details>
 
-        <div class="piece-row">
-          <p class="piece-title">Meet Rebekah Repp: The Girl Who Purchased $4,000 Worth of NV Stanley Tumblers</p>
-          <div class="piece-meta"><span class="piece-date">—</span><span class="piece-arrow">→</span></div>
-        </div>
+        <details class="piece-item">
+          <summary>
+            <p class="piece-title">3 Orchestra Students Stuffed in Tuba as Band-Orchestra Gang War Escalates</p>
+            <div class="piece-meta">
+              <span class="piece-date">—</span>
+              <span class="piece-toggle">›</span>
+            </div>
+          </summary>
+          <div class="piece-body">
+            <div class="piece-body-inner">
+              <p class="piece-byline">The Litter Box &nbsp;·&nbsp; Clubs &amp; Students</p>
+              <p>Write your first paragraph here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+              <p>Write your second paragraph here. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+              <p>Write your third paragraph here. Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis molestie dictum semper, odio nisl bibendum ipsum.</p>
+            </div>
+          </div>
+        </details>
 
-        <div class="piece-row">
-          <p class="piece-title">3 Orchestra Students Stuffed in Tuba as Band-Orchestra Gang War Escalates</p>
-          <div class="piece-meta"><span class="piece-date">—</span><span class="piece-arrow">→</span></div>
-        </div>
-
-        <!-- NEW CLUBS PIECE TEMPLATE:
-        <div class="piece-row">
-          <p class="piece-title">Headline Here</p>
-          <div class="piece-meta"><span class="piece-date">Month Year</span><span class="piece-arrow">→</span></div>
-        </div>
-        -->
-
-      </div>
-    </div>
-
-    <!-- ── Administration ───────────────────────────────────────── -->
-    <div class="satire-section" id="administration">
-      <div class="section-col-label">
-        <p class="section-cat-name">Adminis&shy;tration</p>
-        <p class="section-count">3 pieces</p>
-      </div>
-      <div class="section-col-pieces">
-
-        <div class="piece-row">
-          <p class="piece-title">School Cafeteria Declines FOIA Request Amid Mystery Meat Allegations</p>
-          <div class="piece-meta"><span class="piece-date">—</span><span class="piece-arrow">→</span></div>
-        </div>
-
-        <div class="piece-row">
-          <p class="piece-title">Northview Students Resilient to Lead Thanks to Years of Exposure to Plumbum Piping</p>
-          <div class="piece-meta"><span class="piece-date">—</span><span class="piece-arrow">→</span></div>
-        </div>
-
-        <div class="piece-row">
-          <p class="piece-title">Chemistry Aficionado Mr. Roth Develops 'Revolutionary' 0.025-Ply Toilet Paper — District Claims Will Save Millions</p>
-          <div class="piece-meta"><span class="piece-date">—</span><span class="piece-arrow">→</span></div>
-        </div>
-
-        <!-- NEW ADMINISTRATION PIECE TEMPLATE:
-        <div class="piece-row">
-          <p class="piece-title">Headline Here</p>
-          <div class="piece-meta"><span class="piece-date">Month Year</span><span class="piece-arrow">→</span></div>
-        </div>
-        -->
+        <details class="piece-item">
+          <summary>
+            <p class="piece-title">Art Department's "Wall of Flags" Project on Track for 2126 Completion</p>
+            <div class="piece-meta">
+              <span class="piece-date">—</span>
+              <span class="piece-toggle">›</span>
+            </div>
+          </summary>
+          <div class="piece-body">
+            <div class="piece-body-inner">
+              <p class="piece-byline">The Litter Box &nbsp;·&nbsp; Clubs &amp; Students</p>
+              <p>Write your first paragraph here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+              <p>Write your second paragraph here. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+              <p>Write your third paragraph here. Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis molestie dictum semper, odio nisl bibendum ipsum.</p>
+            </div>
+          </div>
+        </details>
 
       </div>
     </div>
 
     <!-- ════════════════════════════════════════════════════════════
-         ADD A NEW CATEGORY — copy this block:
+         ADMINISTRATION
+         ════════════════════════════════════════════════════════════ -->
+    <div class="satire-section" id="administration">
+      <div class="section-col-label">
+        <p class="section-cat-name">Adminis&shy;tration</p>
+        <p class="section-count">6 pieces</p>
+      </div>
+      <div class="section-col-pieces">
+
+        <details class="piece-item">
+          <summary>
+            <p class="piece-title">School Cafeteria Declines FOIA Request Amid Mystery Meat Allegations</p>
+            <div class="piece-meta">
+              <span class="piece-date">—</span>
+              <span class="piece-toggle">›</span>
+            </div>
+          </summary>
+          <div class="piece-body">
+            <div class="piece-body-inner">
+              <p class="piece-byline">The Litter Box &nbsp;·&nbsp; Administration</p>
+              <p>Write your first paragraph here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+              <p>Write your second paragraph here. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+              <p>Write your third paragraph here. Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis molestie dictum semper, odio nisl bibendum ipsum.</p>
+            </div>
+          </div>
+        </details>
+
+        <details class="piece-item">
+          <summary>
+            <p class="piece-title">Northview Students Resilient to Lead Thanks to Years of Exposure to Plumbum Piping</p>
+            <div class="piece-meta">
+              <span class="piece-date">—</span>
+              <span class="piece-toggle">›</span>
+            </div>
+          </summary>
+          <div class="piece-body">
+            <div class="piece-body-inner">
+              <p class="piece-byline">The Litter Box &nbsp;·&nbsp; Administration</p>
+              <p>Write your first paragraph here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+              <p>Write your second paragraph here. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+              <p>Write your third paragraph here. Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis molestie dictum semper, odio nisl bibendum ipsum.</p>
+            </div>
+          </div>
+        </details>
+
+        <details class="piece-item">
+          <summary>
+            <p class="piece-title">Chemistry Aficionado Mr. Roth Develops 'Revolutionary' 0.001-Ply Toilet Paper — District Claims Will Save Millions</p>
+            <div class="piece-meta">
+              <span class="piece-date">—</span>
+              <span class="piece-toggle">›</span>
+            </div>
+          </summary>
+          <div class="piece-body">
+            <div class="piece-body-inner">
+              <p class="piece-byline">The Litter Box &nbsp;·&nbsp; Administration</p>
+              <p>Write your first paragraph here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+              <p>Write your second paragraph here. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+              <p>Write your third paragraph here. Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis molestie dictum semper, odio nisl bibendum ipsum.</p>
+            </div>
+          </div>
+        </details>
+
+        <details class="piece-item">
+          <summary>
+            <p class="piece-title">School Raises $6.23 for $7,500,000 Flagpole: A Triumph</p>
+            <div class="piece-meta">
+              <span class="piece-date">—</span>
+              <span class="piece-toggle">›</span>
+            </div>
+          </summary>
+          <div class="piece-body">
+            <div class="piece-body-inner">
+              <p class="piece-byline">The Litter Box &nbsp;·&nbsp; Administration</p>
+              <p>Write your first paragraph here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+              <p>Write your second paragraph here. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+              <p>Write your third paragraph here. Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis molestie dictum semper, odio nisl bibendum ipsum.</p>
+            </div>
+          </div>
+        </details>
+
+        <details class="piece-item">
+          <summary>
+            <p class="piece-title">Pugh Mobilizes District Resources Over Spiderman Onesie</p>
+            <div class="piece-meta">
+              <span class="piece-date">—</span>
+              <span class="piece-toggle">›</span>
+            </div>
+          </summary>
+          <div class="piece-body">
+            <div class="piece-body-inner">
+              <p class="piece-byline">The Litter Box &nbsp;·&nbsp; Administration</p>
+              <p>Write your first paragraph here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+              <p>Write your second paragraph here. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+              <p>Write your third paragraph here. Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis molestie dictum semper, odio nisl bibendum ipsum.</p>
+            </div>
+          </div>
+        </details>
+
+        <details class="piece-item">
+          <summary>
+            <p class="piece-title">Supt. Motley Declares "WAR ON SNOWDAYS"</p>
+            <div class="piece-meta">
+              <span class="piece-date">—</span>
+              <span class="piece-toggle">›</span>
+            </div>
+          </summary>
+          <div class="piece-body">
+            <div class="piece-body-inner">
+              <p class="piece-byline">The Litter Box &nbsp;·&nbsp; Administration</p>
+              <p>Write your first paragraph here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+              <p>Write your second paragraph here. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+              <p>Write your third paragraph here. Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis molestie dictum semper, odio nisl bibendum ipsum.</p>
+            </div>
+          </div>
+        </details>
+
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════════
+         TEMPLATE — copy to add a new category:
 
     <div class="satire-section" id="category-slug">
       <div class="section-col-label">
@@ -482,10 +696,23 @@
       </div>
       <div class="section-col-pieces">
 
-        <div class="piece-row">
-          <p class="piece-title">Headline</p>
-          <div class="piece-meta"><span class="piece-date">Month Year</span><span class="piece-arrow">→</span></div>
-        </div>
+        <details class="piece-item">
+          <summary>
+            <p class="piece-title">Headline Here</p>
+            <div class="piece-meta">
+              <span class="piece-date">Month Year</span>
+              <span class="piece-toggle">›</span>
+            </div>
+          </summary>
+          <div class="piece-body">
+            <div class="piece-body-inner">
+              <p class="piece-byline">The Litter Box · Category Name</p>
+              <p>First paragraph.</p>
+              <p>Second paragraph.</p>
+              <p>Third paragraph.</p>
+            </div>
+          </div>
+        </details>
 
       </div>
     </div>
