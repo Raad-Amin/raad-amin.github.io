@@ -1,0 +1,269 @@
+/* ═══════════════════════════════════════════════════════════════
+   Projects — Shared Stylesheet
+   Usage: <link rel="stylesheet" href="projects-styles.css">
+   Then set --accent and --accent-bg per page (see bottom of file).
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── TOKENS ──────────────────────────────────────────────────── */
+:root {
+  --bg:             #f5f2ed;
+  --bg-2:           #eeeae3;
+  --bg-dark:        #1a1917;
+  --obsidian:       #1a1917;
+  --obsidian-soft:  #2e2c29;
+  --obsidian-muted: #4a4844;
+  --obsidian-faint: #7a7774;
+  --rule:           #c8c3bb;
+  --rule-light:     #dedad3;
+  --off-white:      #f5f2ed;
+
+  /*
+    --accent and --accent-bg are intentionally NOT set here.
+    They must be set per page with a <style> block in each file's <head>:
+
+      Extracurricular:  --accent: #7abd7a;  --accent-bg: #162b16;
+      Personal:         --accent: #b07ad8;  --accent-bg: #271535;
+      School:           --accent: #7ab0d8;  --accent-bg: #1b2e40;
+
+    Pattern:
+      <style>
+        :root { --accent: #7abd7a; --accent-bg: #162b16; }
+      </style>
+
+    Adding a new project category? Pick an accent color from the
+    existing palette or add a new one — just set those two vars.
+  */
+}
+
+/* ── RESET ───────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--obsidian);
+  font-family: 'Merriweather', Georgia, serif;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── NAV ─────────────────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 0 5rem; height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--bg); border-bottom: 1px solid var(--rule);
+}
+.nav-name {
+  font-family: 'Raleway', sans-serif; font-weight: 600;
+  font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--obsidian); text-decoration: none;
+}
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a {
+  font-family: 'Raleway', sans-serif; font-weight: 400;
+  font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--obsidian-muted); text-decoration: none; transition: color 0.2s;
+}
+.nav-links a:hover,
+.nav-links a.active { color: var(--obsidian); }
+
+/* ── PAGE HEADER ─────────────────────────────────────────────── */
+.page-header {
+  background: var(--bg-dark); padding: 8rem 5rem 5rem;
+  border-bottom: 1px solid #2e2c29; position: relative; overflow: hidden;
+}
+.page-header-inner {
+  max-width: 1400px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr;
+  align-items: end; gap: 4rem; position: relative; z-index: 2;
+}
+.header-geo { position: relative; height: 200px; }
+.header-geo svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+.page-label {
+  font-family: 'Raleway', sans-serif; font-size: 0.66rem;
+  letter-spacing: 0.24em; text-transform: uppercase; color: #5a5855; margin-bottom: 1rem;
+  opacity: 0; transform: translateY(8px); animation: riseIn 0.8s ease 0.6s forwards;
+}
+h1.page-title {
+  font-family: 'Merriweather', serif; font-weight: 700;
+  font-size: clamp(2.4rem, 5vw, 4.2rem); line-height: 1.04;
+  letter-spacing: -0.02em; color: var(--off-white);
+  opacity: 0; transform: translateY(18px); animation: riseIn 1s ease 0.3s forwards;
+}
+.page-sub {
+  margin-top: 1.4rem; font-family: 'Merriweather', serif;
+  font-weight: 300; font-style: italic; font-size: 0.95rem; color: #6b6864;
+  opacity: 0; transform: translateY(8px); animation: riseIn 0.8s ease 0.9s forwards;
+}
+
+/* ── HEADER SVG ANIMATIONS ───────────────────────────────────── */
+.draw-path     { stroke-dasharray: 500; stroke-dashoffset: 500; animation: drawStroke 1.8s cubic-bezier(0.77,0,0.175,1) 0.5s forwards; }
+.draw-arc      { stroke-dasharray: 380; stroke-dashoffset: 380; animation: drawStroke 2.2s cubic-bezier(0.77,0,0.175,1) 0.8s forwards; }
+.draw-arc-slow { stroke-dasharray: 300; stroke-dashoffset: 300; animation: drawStroke 2.6s cubic-bezier(0.77,0,0.175,1) 1s  forwards; }
+
+@keyframes drawStroke { to { stroke-dashoffset: 0; } }
+@keyframes riseIn     { to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeUp     { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ── CONTENT LAYOUT ──────────────────────────────────────────── */
+.content-wrap { max-width: 1400px; margin: 0 auto; padding: 5rem 5rem 7rem; }
+
+.project-section {
+  display: grid; grid-template-columns: 260px 1fr; gap: 0;
+  border-top: 1px solid var(--rule-light);
+  opacity: 0; animation: fadeUp 0.6s ease forwards;
+}
+.project-section:nth-child(1) { animation-delay: 0.1s; }
+.project-section:nth-child(2) { animation-delay: 0.2s; }
+.project-section:last-child   { border-bottom: 1px solid var(--rule-light); }
+
+/* ── SECTION LABEL COLUMN ────────────────────────────────────── */
+.section-col-label {
+  padding: 3rem 2.5rem 3rem 0;
+  border-right: 1px solid var(--rule-light);
+  position: sticky; top: 80px; align-self: start;
+}
+.section-dot {
+  display: block; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent); margin-bottom: 1rem;         /* ← accent color */
+}
+.section-cat-name {
+  font-family: 'Merriweather', serif; font-weight: 700;
+  font-size: 1.3rem; line-height: 1.2; color: var(--obsidian); margin-bottom: 0.5rem;
+}
+.section-count {
+  font-family: 'Raleway', sans-serif; font-size: 0.6rem;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--obsidian-faint);
+}
+.section-col-projects { padding: 0; }
+
+/* ── PROJECT ROW ─────────────────────────────────────────────── */
+.project-row {
+  padding: 2.8rem 2.5rem;
+  border-bottom: 1px solid var(--rule-light);
+  cursor: default;
+}
+.project-row:last-child { border-bottom: none; }
+
+.row-eyebrow {
+  display: flex; align-items: center; gap: 1rem;
+  margin-bottom: 0.7rem; flex-wrap: wrap;
+}
+.row-tag {
+  font-family: 'Raleway', sans-serif; font-size: 0.54rem;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 0.25em 0.7em; border-radius: 2px;
+  background: var(--accent-bg); color: var(--accent); /* ← accent colors */
+}
+.row-date {
+  font-family: 'Raleway', sans-serif; font-size: 0.58rem;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--obsidian-faint);
+}
+.row-title {
+  font-family: 'Merriweather', serif; font-weight: 700;
+  font-size: 1.1rem; line-height: 1.32; color: var(--obsidian); margin-bottom: 1.4rem;
+}
+
+/* ── PROJECT DETAIL GRID ─────────────────────────────────────── */
+/*
+  Usage:
+    <div class="row-details">
+      <div class="row-detail">
+        <p class="row-detail-label">Label</p>
+        <p class="row-detail-value">Value</p>
+      </div>
+      <!-- Add class "no-bottom" to cells in the final row to suppress
+           the bottom border (preventing a double border at the bottom). -->
+      <div class="row-detail no-bottom"> ... </div>
+    </div>
+*/
+.row-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  border: 1px solid var(--rule-light);
+  margin-bottom: 1.8rem;
+}
+.row-detail {
+  padding: 0.9rem 1.1rem;
+  border-right: 1px solid var(--rule-light);
+  border-bottom: 1px solid var(--rule-light);
+}
+.row-detail:last-child { border-right: none; }
+.row-detail.no-bottom  { border-bottom: none; }
+.row-detail-label {
+  font-family: 'Raleway', sans-serif; font-size: 0.52rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--obsidian-faint); margin-bottom: 0.3rem;
+}
+.row-detail-value {
+  font-family: 'Raleway', sans-serif; font-size: 0.74rem;
+  letter-spacing: 0.04em; line-height: 1.55; color: var(--obsidian-soft);
+}
+
+/* ── ROW BODY ────────────────────────────────────────────────── */
+.row-body {
+  font-family: 'Merriweather', serif; font-weight: 300;
+  font-size: 0.88rem; line-height: 1.95; color: var(--obsidian-muted);
+}
+.row-body p + p { margin-top: 1rem; }
+
+/* ── BACK LINK + FOOTER ──────────────────────────────────────── */
+.back-bar { max-width: 1400px; margin: 0 auto; padding: 0 5rem 2rem; }
+.back-link {
+  font-family: 'Raleway', sans-serif; font-size: 0.62rem;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--obsidian-faint); text-decoration: none;
+  display: inline-flex; align-items: center; gap: 0.5rem; transition: color 0.2s;
+}
+.back-link:hover { color: var(--obsidian); }
+
+.hr { width: 100%; height: 1px; background: var(--rule-light); }
+
+footer {
+  padding: 1.6rem 5rem; border-top: 1px solid var(--rule-light);
+  display: flex; justify-content: space-between; align-items: center;
+}
+footer span {
+  font-family: 'Raleway', sans-serif; font-size: 0.6rem;
+  letter-spacing: 0.12em; color: var(--obsidian-faint);
+}
+
+/* ── RESPONSIVE ──────────────────────────────────────────────── */
+@media (max-width: 860px) {
+  nav, .page-header, .content-wrap, .back-bar, footer {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  .page-header-inner,
+  .project-section  { grid-template-columns: 1fr; }
+  .header-geo       { display: none; }
+  .section-col-label {
+    position: static; padding: 2rem 0 1rem;
+    border-right: none; border-bottom: 1px solid var(--rule-light);
+  }
+  .project-row    { padding-left: 0; padding-right: 0; }
+  .row-details    { grid-template-columns: 1fr 1fr; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ACCENT COLOR REFERENCE
+   ───────────────────────────────────────────────────────────────
+   In each project page's <head>, add a small <style> block AFTER
+   the <link> to this stylesheet to set the accent for that page:
+
+   Extracurricular (green):
+     <style>:root { --accent: #7abd7a; --accent-bg: #162b16; }</style>
+
+   Personal (purple):
+     <style>:root { --accent: #b07ad8; --accent-bg: #271535; }</style>
+
+   School (blue):
+     <style>:root { --accent: #7ab0d8; --accent-bg: #1b2e40; }</style>
+
+   New category? Pick any accent + a dark tinted version for the bg.
+   Only two variables need to change — everything else inherits.
+   ═══════════════════════════════════════════════════════════════ */
