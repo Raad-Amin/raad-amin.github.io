@@ -1227,6 +1227,81 @@
       .project-row { grid-template-columns: 1fr; gap: 0.4rem; }
       .school-row { flex-wrap: wrap; gap: 0.8rem; }
     }
+    /* --- HAMBURGER BUTTON STYLES --- */
+.menu-toggle {
+  display: none; /* Hidden on desktop */
+  flex-direction: column;
+  justify-content: space-around;
+  width: 24px;
+  height: 18px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 101;
+  padding: 0;
+}
+
+.menu-toggle span {
+  width: 100%;
+  height: 1.5px;
+  background-color: var(--obsidian);
+  transition: all 0.3s ease-in-out;
+}
+
+/* Animation for the X when open */
+.menu-toggle.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.menu-toggle.open span:nth-child(2) { transform: translateY(-6px) rotate(-45deg); }
+
+/* --- MOBILE OVERLAY STYLES --- */
+.nav-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 99;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* --- RESPONSIVE LOGIC --- */
+@media (max-width: 860px) {
+  .menu-toggle {
+    display: flex; /* Show hamburger on mobile */
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%; /* Start off-screen */
+    width: 70%;
+    height: 100vh;
+    background: var(--bg);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+    z-index: 100;
+    padding: 0;
+  }
+
+  .nav-links.active {
+    right: 0; /* Slide in */
+  }
+
+  .nav-links a {
+    font-size: 1.2rem; /* Larger touch targets for mobile */
+    letter-agit: 0.1em;
+  }
+}
   </style>
 </head>
 <body>
@@ -1234,7 +1309,15 @@
   <!-- NAV -->
   <nav id="nav">
     <a href="#hero" class="nav-name">Raad Amin</a>
-    <ul class="nav-links">
+    
+    <!-- The Hamburger Button (Visible only on mobile) -->
+    <button class="menu-toggle" aria-label="Toggle Menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+    </button>
+
+    <!-- The Links (Desktop & Mobile) -->
+    <ul class="nav-links" id="navLinks">
       <li><a href="#about">About</a></li>
       <li><a href="#featured">Work</a></li>
       <li><a href="#writing">Writing</a></li>
@@ -1244,6 +1327,10 @@
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
+
+  <!-- Mobile Overlay (The sliding menu) -->
+  <div class="nav-overlay" id="navOverlay"></div>
+
 
   <!-- HERO -->
   <section id="hero">
@@ -1814,7 +1901,7 @@
             <div class="service-row-icon">Wikimedia Foundation</div>
             <div>
               <div class="service-row-name">Wikipedia Copy Editor &amp; Photographer | Wikimedia Foundation</div>
-              <div class="service-row-detail">July 2024 – Present · 955,715+ contribution views</div>
+              <div class="service-row-detail">July 2024 – Present · 955,715+ contribution views · 200+ Edits</div>
             </div>
           </div>
         </div>
@@ -1925,6 +2012,38 @@
     next.addEventListener('click', () => go(current + 1));
    go(0);
   })();
+  // --- HAMBURGER MENU LOGIC ---
+  const menuToggle = document.querySelector('.menu-toggle');
+  const navLinks = document.getElementById('navLinks');
+  const navOverlay = document.getElementById('navOverlay');
+  const navItems = document.querySelectorAll('.nav-links a');
+
+  function toggleMenu() {
+    const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+    
+    // Toggle classes
+    menuToggle.classList.toggle('open');
+    navLinks.classList.toggle('active');
+    navOverlay.classList.toggle('active');
+    
+    // Update ARIA for accessibility
+    menuToggle.setAttribute('aria-expanded', !isExpanded);
+  }
+
+  // Open/Close on button click
+  menuToggle.addEventListener('click', toggleMenu);
+
+  // Close menu when clicking the dark overlay
+  navOverlay.addEventListener('click', toggleMenu);
+
+  // Close menu when a link is clicked (so it doesn't stay open after scrolling)
+  navItems.forEach(link => {
+    link.addEventListener('click', () => {
+      if (navLinks.classList.contains('active')) {
+        toggleMenu();
+      }
+    });
+  });
   </script>
 
 </body>
