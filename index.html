@@ -108,8 +108,10 @@
       nav { padding: 0 2rem; }
       .menu-toggle { display: flex; }
 
-      .menu-toggle.active .bar:nth-child(1) { transform: translateY(3.5px) rotate(45deg); }
-      .menu-toggle.active .bar:nth-child(2) { transform: translateY(-3.5px) rotate(-45deg); }
+      /* Animation for 3-line to X */
+      .menu-toggle.active .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+      .menu-toggle.active .bar:nth-child(2) { opacity: 0; }
+      .menu-toggle.active .bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
       .nav-links {
         position: fixed;
@@ -377,6 +379,7 @@
     <a href="#hero" class="nav-name">Raad Amin</a>
     
     <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+      <span class="bar"></span>
       <span class="bar"></span>
       <span class="bar"></span>
     </button>
