@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- SEO -->
   <meta name="description" content="Raad Amin — high school student in Sylvania, Ohio. SKYWARN weather observer, student journalist, and builder of open-source academic resources.">
   <meta name="author" content="Raad Amin">
+  <!-- Open Graph (Discord, iMessage, LinkedIn previews) -->
   <meta property="og:title" content="Raad Amin">
   <meta property="og:description" content="SKYWARN observer, journalist, and builder of open academic resources. Based in Sylvania, Ohio.">
   <meta property="og:type" content="website">
@@ -21,15 +23,15 @@
   
   <style>
     :root {
-      --bg:             #f5f2ed;
-      --bg-2:           #eeeae3;
-      --bg-dark:        #1a1917;
-      --obsidian:       #1a1917;
+      --bg:            #f5f2ed;
+      --bg-2:          #eeeae3;
+      --bg-dark:       #1a1917;
+      --obsidian:      #1a1917;
       --obsidian-soft: #2e2c29;
-      --obsidian-mid:   #3d3b38;
+      --obsidian-mid:  #3d3b38;
       --obsidian-muted:#4a4844;
       --obsidian-faint:#7a7774;
-      --rule:           #c8c3bb;
+      --rule:          #c8c3bb;
       --rule-light:    #dedad3;
       --off-white:     #f5f2ed;
     }
@@ -86,52 +88,6 @@
     }
     .nav-links a:hover { color: var(--obsidian); }
 
-    .menu-toggle {
-      display: none;
-      flex-direction: column;
-      gap: 6px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      z-index: 1000;
-    }
-
-    .menu-toggle .bar {
-      width: 24px;
-      height: 1px;
-      background: var(--obsidian);
-      transition: all 0.3s ease;
-    }
-
-    /* MOBILE NAV */
-    @media (max-width: 860px) {
-      nav { padding: 0 2rem; }
-      .menu-toggle { display: flex; }
-
-      /* Animation for 3-line to X */
-      .menu-toggle.active .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-      .menu-toggle.active .bar:nth-child(2) { opacity: 0; }
-      .menu-toggle.active .bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-      .nav-links {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 100%;
-        height: 100vh;
-        background: var(--bg);
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 3rem;
-        transition: right 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-        z-index: 999;
-      }
-
-      .nav-links.active { right: 0; }
-      .nav-links a { font-size: 1.2rem; }
-    }
-
     /* HERO */
     #hero {
       min-height: 100vh;
@@ -143,7 +99,12 @@
       overflow: hidden;
     }
 
-    .hero-diag { position: absolute; inset: 0; pointer-events: none; }
+    .hero-diag {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
     .hero-line-h {
       position: absolute;
       bottom: 34%;
@@ -156,6 +117,7 @@
     }
 
     .hero-content { position: relative; z-index: 2; }
+
     .hero-label {
       font-family: 'Raleway', sans-serif;
       font-weight: 400;
@@ -181,8 +143,30 @@
       animation: riseIn 1s ease 0.7s forwards;
     }
 
-    .hero-right { position: relative; height: 100%; min-height: 400px; }
-    .hero-geo-wrap { position: absolute; inset: 0; opacity: 0; animation: fadeIn 1.4s ease 0.4s forwards; }
+    .hero-sub {
+      margin-top: 1.8rem;
+      font-family: 'Merriweather', serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: clamp(0.9rem, 1.6vw, 1.1rem);
+      color: var(--obsidian-muted);
+      opacity: 0;
+      transform: translateY(8px);
+      animation: riseIn 0.8s ease 1.5s forwards;
+    }
+
+    .hero-right {
+      position: relative;
+      height: 100%;
+      min-height: 400px;
+    }
+
+    .hero-geo-wrap {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      animation: fadeIn 1.4s ease 0.4s forwards;
+    }
 
     /* KEYFRAMES */
     @keyframes fadeIn  { to { opacity: 1; } }
@@ -203,8 +187,12 @@
     }
     .draw-arc.drawn { stroke-dashoffset: 0; }
 
-    /* SECTIONS */
-    .section-wrap { padding: 7rem 5rem; max-width: 1400px; margin: 0 auto; }
+    /* SECTION SCAFFOLD */
+    .section-wrap {
+      padding: 7rem 5rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
     .section-wrap.full { max-width: none; }
     .section-wrap.narrow { max-width: 860px; margin: 0 auto; }
 
@@ -220,7 +208,13 @@
       align-items: center;
       gap: 0.9rem;
     }
-    .section-label::after { content: ''; display: block; height: 1px; width: 36px; background: var(--rule); }
+    .section-label::after {
+      content: '';
+      display: block;
+      height: 1px;
+      width: 36px;
+      background: var(--rule);
+    }
 
     h2.section-title {
       font-family: 'Merriweather', serif;
@@ -234,157 +228,1013 @@
     .hr { width: 100%; height: 1px; background: var(--rule-light); }
 
     /* ABOUT */
-    #about .about-inner { display: grid; grid-template-columns: 1fr 340px; gap: 5rem; align-items: start; }
-    #about p { font-size: 1rem; line-height: 1.95; color: var(--obsidian-soft); }
-    #about p + p { margin-top: 1.2rem; }
-    .about-photo-col { display: flex; flex-direction: column; gap: 2.5rem; }
-    .about-photo { width: 100%; aspect-ratio: 3 / 4; background: var(--bg-2); border: 1px solid var(--rule-light); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-    .about-photo img { transition: transform 0.4s ease; width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
-    .about-photo:hover img { transform: scale(1.03); }
-    .about-stat { border-top: 1px solid var(--rule-light); padding: 1.4rem 0; }
-    .about-stat:last-child { border-bottom: 1px solid var(--rule-light); }
-    .about-stat-num { font-family: 'Merriweather', serif; font-weight: 700; font-size: 2rem; line-height: 1; color: var(--obsidian); letter-spacing: -0.02em; }
-    .about-stat-label { font-family: 'Raleway', sans-serif; font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--obsidian-faint); margin-top: 0.35rem; }
-    .about-quote { margin-top: 2rem; padding-left: 1.3rem; border-left: 2px solid var(--obsidian); font-style: italic; font-size: 1.1rem; line-height: 1.8; color: var(--obsidian-muted); }
+    #about .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 5rem;
+      align-items: start;
+    }
 
-    /* PILLARS */
-    #featured { background: var(--bg-dark); color: var(--off-white); padding: 7rem 5rem; }
-    .featured-inner { max-width: 1400px; margin: 0 auto; }
+    #about p {
+      font-size: 1rem;
+      line-height: 1.95;
+      color: var(--obsidian-soft);
+    }
+    #about p + p { margin-top: 1.2rem; }
+
+    .about-photo-col {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    .about-photo {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      background: var(--bg-2);
+      border: 1px solid var(--rule-light);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .about-photo img {
+      transition: transform 0.4s ease;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+    }
+    .about-photo:hover img { transform: scale(1.03); }
+
+    .about-aside {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .about-stat {
+      border-top: 1px solid var(--rule-light);
+      padding: 1.4rem 0;
+    }
+    .about-stat:last-child { border-bottom: 1px solid var(--rule-light); }
+
+    .about-stat-num {
+      font-family: 'Merriweather', serif;
+      font-weight: 700;
+      font-size: 2rem;
+      line-height: 1;
+      color: var(--obsidian);
+      letter-spacing: -0.02em;
+    }
+
+    .about-stat-label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--obsidian-faint);
+      margin-top: 0.35rem;
+    }
+
+    .about-quote {
+      margin-top: 2rem;
+      padding-left: 1.3rem;
+      border-left: 2px solid var(--obsidian);
+      font-style: italic;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--obsidian-muted);
+    }
+
+    /* PILLARS — dark band */
+    #featured {
+      background: var(--bg-dark);
+      color: var(--off-white);
+      padding: 7rem 5rem;
+    }
+
+    .featured-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
     #featured .section-label { color: #6b6864; }
     #featured .section-label::after { background: #3a3835; }
     #featured h2.section-title { color: var(--off-white); margin-bottom: 3rem; }
-    .pillars-grid { display: grid; grid-template-columns: 1.45fr 1fr; gap: 0; border-top: 1px solid #2e2c29; border-left: 1px solid #2e2c29; }
-    .pillar { border-right: 1px solid #2e2c29; border-bottom: 1px solid #2e2c29; padding: 3rem 2.8rem; position: relative; overflow: hidden; transition: background 0.25s, transform 0.25s, box-shadow 0.25s; cursor: pointer; text-decoration: none; display: block; color: inherit; }
-    .pillar:hover { background: #222120; transform: translateY(-4px); box-shadow: 0 10px 36px rgba(0,0,0,0.45); z-index: 2; }
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: 1.45fr 1fr;
+      gap: 0;
+      border-top: 1px solid #2e2c29;
+      border-left: 1px solid #2e2c29;
+    }
+
+    .pillar {
+      border-right: 1px solid #2e2c29;
+      border-bottom: 1px solid #2e2c29;
+      padding: 3rem 2.8rem;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+      will-change: transform;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+      color: inherit;
+    }
+    .pillar:hover {
+      background: #222120;
+      transform: translateY(-4px);
+      box-shadow: 0 10px 36px rgba(0,0,0,0.45);
+      z-index: 2;
+    }
+
     .pillar.featured-pillar { padding: 3.5rem 3.2rem; }
-    .pillar-stack { display: flex; flex-direction: column; border-right: 1px solid #2e2c29; }
-    .pillar-stack .pillar { border-right: none; flex: 1; }
+
+    .pillar-stack {
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid #2e2c29;
+    }
+    .pillar-stack .pillar {
+      border-right: none;
+      flex: 1;
+    }
     .pillar-stack .pillar + .pillar { border-top: 1px solid #2e2c29; }
-    .pillar-geo-bg { position: absolute; bottom: -10px; right: -10px; opacity: 0.07; pointer-events: none; }
-    .pillar-number { font-family: 'Raleway', sans-serif; font-weight: 300; font-size: 0.6rem; letter-spacing: 0.22em; color: #5a5855; margin-bottom: 1.5rem; }
-    h3.pillar-title { font-family: 'Merriweather', serif; font-weight: 700; font-size: 1.1rem; line-height: 1.28; color: var(--off-white); margin-bottom: 1rem; }
-    .pillar-body { font-family: 'Merriweather', serif; font-weight: 300; font-size: 0.85rem; line-height: 1.88; color: #9a9590; }
-    .pillar-tag { display: inline-block; margin-top: 1.8rem; font-family: 'Raleway', sans-serif; font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: #5a5855; border-bottom: 1px solid #2e2c29; padding-bottom: 2px; }
-    .pillar-caret { position: absolute; bottom: 2.4rem; right: 2.4rem; font-size: 0.7rem; letter-spacing: 0.12em; font-family: 'Raleway', sans-serif; color: #3a3835; opacity: 0; transform: translateX(-6px); transition: opacity 0.25s, transform 0.25s, color 0.25s; }
-    .pillar:hover .pillar-caret { opacity: 1; transform: translateX(0); color: #6b6864; }
+
+    .pillar-geo-bg {
+      position: absolute;
+      bottom: -10px; right: -10px;
+      opacity: 0.07;
+      pointer-events: none;
+    }
+
+    .pillar-number {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 300;
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      color: #5a5855;
+      margin-bottom: 1.5rem;
+    }
+
+    h3.pillar-title {
+      font-family: 'Merriweather', serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      line-height: 1.28;
+      color: var(--off-white);
+      margin-bottom: 1rem;
+    }
+    .pillar.featured-pillar h3.pillar-title { font-size: 1.35rem; }
+
+    .pillar-body {
+      font-family: 'Merriweather', serif;
+      font-weight: 300;
+      font-size: 0.85rem;
+      line-height: 1.88;
+      color: #9a9590;
+    }
+    .pillar.featured-pillar .pillar-body { font-size: 0.9rem; }
+
+    .pillar-tag {
+      display: inline-block;
+      margin-top: 1.8rem;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #5a5855;
+      border-bottom: 1px solid #2e2c29;
+      padding-bottom: 2px;
+    }
+
+    .pillar-caret {
+      position: absolute;
+      bottom: 2.4rem;
+      right: 2.4rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      font-family: 'Raleway', sans-serif;
+      color: #3a3835;
+      opacity: 0;
+      transform: translateX(-6px);
+      transition: opacity 0.25s, transform 0.25s, color 0.25s;
+    }
+    .pillar:hover .pillar-caret {
+      opacity: 1;
+      transform: translateX(0);
+      color: #6b6864;
+    }
 
     /* WRITING */
-    .writing-inner { display: grid; grid-template-columns: 240px 1fr; gap: 5rem; align-items: start; }
-    .writing-intro { position: sticky; top: 80px; }
-    .writing-intro p { font-size: 0.88rem; line-height: 1.8; color: var(--obsidian-muted); margin-top: 0.8rem; }
-    .writing-all-link { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1.6rem; font-family: 'Raleway', sans-serif; font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--obsidian-muted); text-decoration: none; border-bottom: 1px solid var(--rule-light); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
+    .writing-inner {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .writing-intro {
+      position: sticky;
+      top: 80px;
+    }
+
+    .writing-intro p {
+      font-size: 0.88rem;
+      line-height: 1.8;
+      color: var(--obsidian-muted);
+      margin-top: 0.8rem;
+    }
+
+    .writing-all-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.6rem;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--obsidian-muted);
+      text-decoration: none;
+      border-bottom: 1px solid var(--rule-light);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
     .writing-all-link:hover { color: var(--obsidian); border-color: var(--rule); }
-    .writing-group-label { font-family: 'Raleway', sans-serif; font-weight: 500; font-size: 0.58rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--obsidian-faint); padding: 2rem 0 0.6rem; }
-    .article-item { display: grid; grid-template-columns: 1fr 28px; align-items: start; gap: 1rem; padding: 2.2rem 0; border-bottom: 1px solid var(--rule-light); text-decoration: none; color: inherit; transition: opacity 0.2s; }
+
+    .writing-group { margin-bottom: 0; }
+
+    .writing-group-label {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 500;
+      font-size: 0.58rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--obsidian-faint);
+      padding: 2rem 0 0.6rem;
+    }
+    .writing-group:first-child .writing-group-label { padding-top: 0; }
+
+    .article-item {
+      display: grid;
+      grid-template-columns: 1fr 28px;
+      align-items: start;
+      gap: 1rem;
+      padding: 2.2rem 0;
+      border-bottom: 1px solid var(--rule-light);
+      text-decoration: none;
+      color: inherit;
+      transition: opacity 0.2s;
+    }
     .article-item:hover { opacity: 0.75; }
     .article-item:first-of-type { border-top: 1px solid var(--rule-light); }
-    .article-meta { font-family: 'Raleway', sans-serif; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--obsidian-faint); margin-bottom: 0.45rem; }
-    h3.article-title { font-family: 'Merriweather', serif; font-weight: 400; font-size: 1rem; color: var(--obsidian); margin-bottom: 0.5rem; }
-    .article-desc { font-size: 0.85rem; color: var(--obsidian-muted); line-height: 1.75; }
-    .article-arrow { font-size: 1rem; color: var(--rule); margin-top: 0.3rem; transition: color 0.2s, transform 0.2s; }
+
+    .article-meta {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--obsidian-faint);
+      margin-bottom: 0.45rem;
+    }
+
+    h3.article-title {
+      font-family: 'Merriweather', serif;
+      font-weight: 400;
+      font-size: 1rem;
+      color: var(--obsidian);
+      margin-bottom: 0.5rem;
+    }
+
+    .article-desc {
+      font-size: 0.85rem;
+      color: var(--obsidian-muted);
+      line-height: 1.75;
+    }
+
+    .article-arrow {
+      font-size: 1rem;
+      color: var(--rule);
+      margin-top: 0.3rem;
+      transition: color 0.2s, transform 0.2s;
+    }
     .article-item:hover .article-arrow { color: var(--obsidian); transform: translateX(3px); }
 
     /* PROJECTS */
-    .project-row { display: grid; grid-template-columns: 210px 1fr 28px; gap: 2.5rem; padding: 2.2rem 0; border-bottom: 1px solid var(--rule-light); align-items: start; text-decoration: none; color: inherit; }
-    .project-row:first-child { border-top: 1px solid var(--rule-light); }
-    h3.project-name { font-family: 'Merriweather', serif; font-weight: 700; font-size: 1.25rem; color: var(--obsidian); line-height: 1.4; }
-    .project-date { font-family: 'Raleway', sans-serif; font-size: 0.75rem; letter-spacing: 0.12em; color: var(--obsidian-muted); margin-top: 0.35rem; }
-    .project-desc { font-size: 0.85rem; line-height: 1.8; color: var(--obsidian-muted); }
-    .project-arrow { font-size: 1rem; color: var(--rule); margin-top: 0.3rem; transition: color 0.2s, transform 0.2s; }
+    .projects-list { margin-top: 0.5rem; }
 
-    /* EDUCATION */
-    #education { background: var(--bg-dark); color: var(--off-white); padding: 7rem 5rem; }
-    .education-inner { max-width: 1400px; margin: 0 auto; }
+    .project-row {
+      display: grid;
+      grid-template-columns: 210px 1fr 28px;
+      gap: 2.5rem;
+      padding: 2.2rem 0;
+      border-bottom: 1px solid var(--rule-light);
+      align-items: start;
+      text-decoration: none;
+      color: inherit;
+    }
+    .project-row:first-child { border-top: 1px solid var(--rule-light); }
+    .project-row:hover .project-arrow { color: var(--obsidian); transform: translateX(3px); }
+
+    h3.project-name {
+      font-family: 'Merriweather', serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--obsidian);
+      line-height: 1.4;
+    }
+
+    .project-date {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      color: var(--obsidian-muted);
+      margin-top: 0.35rem;
+    }
+
+    .project-desc {
+      font-size: 0.85rem;
+      line-height: 1.8;
+      color: var(--obsidian-muted);
+    }
+
+    .project-arrow {
+      font-size: 1rem;
+      color: var(--rule);
+      margin-top: 0.3rem;
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    /* =====================================================
+       EDUCATION & ACTIVITIES — dark band
+       ===================================================== */
+    #education {
+      background: var(--bg-dark);
+      color: var(--off-white);
+      padding: 7rem 5rem;
+    }
+
+    .education-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
     #education .section-label { color: var(--obsidian-faint); }
     #education .section-label::after { background: var(--obsidian-soft); }
     #education h2.section-title { color: var(--off-white); margin-bottom: 0.6rem; }
-    .education-intro { font-family: 'Merriweather', serif; font-style: italic; font-weight: 300; font-size: 0.85rem; color: var(--obsidian-faint); margin-bottom: 3.5rem; line-height: 1.8; }
-    .school-row { display: flex; align-items: baseline; gap: 2rem; padding: 1.8rem 0; border-top: 1px solid var(--obsidian-soft); border-bottom: 1px solid var(--obsidian-soft); margin-bottom: 3rem; }
-    .school-row-name { font-family: 'Merriweather', serif; font-weight: 700; font-size: 1.05rem; color: var(--off-white); }
-    .school-row-meta { font-family: 'Raleway', sans-serif; font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--obsidian-faint); }
-    .honors-pill { display: inline-block; font-family: 'Raleway', sans-serif; font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--obsidian-faint); border: 1px solid var(--obsidian-faint); padding: 0.38rem 0.9rem; margin-left: auto; }
-    .edu-sub-label { font-family: 'Raleway', sans-serif; font-size: 0.58rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--obsidian-faint); padding-bottom: 0.8rem; border-bottom: 1px solid var(--obsidian-soft); }
-    .exams-grid-index { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--obsidian-soft); border-left: 1px solid var(--obsidian-soft); margin-bottom: 3.5rem; }
-    .exam-card-index { border-right: 1px solid var(--obsidian-soft); border-bottom: 1px solid var(--obsidian-soft); padding: 2.2rem 2rem; transition: background 0.22s, transform 0.22s; }
-    .exam-card-index:hover { background: #222120; transform: translateY(-3px); }
-    .exam-status-index { font-family: 'Raleway', sans-serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--obsidian-faint); margin-bottom: 1rem; }
-    h3.exam-name-index { font-family: 'Merriweather', serif; font-weight: 700; font-size: 1.1rem; color: var(--off-white); line-height: 1.3; }
-    .exam-score-wrap-index { display: flex; align-items: baseline; gap: 0.5rem; margin-top: 1.2rem; }
-    .exam-score-index { font-family: 'Merriweather', serif; font-weight: 700; font-size: 2.6rem; line-height: 1; color: var(--off-white); }
-    .score-five-badge { display: inline-block; margin-left: 0.4rem; font-family: 'Raleway', sans-serif; font-size: 0.52rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--obsidian-soft); background: var(--rule); padding: 0.18rem 0.5rem; vertical-align: middle; position: relative; top: -0.35rem; }
 
-    /* EC GRID */
-    .ec-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid var(--obsidian-soft); border-left: 1px solid var(--obsidian-soft); margin-bottom: 3.5rem; }
-    .ec-block { border-right: 1px solid var(--obsidian-soft); border-bottom: 1px solid var(--obsidian-soft); padding: 2.2rem 2rem; transition: background 0.22s; }
+    .education-intro {
+      font-family: 'Merriweather', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 0.85rem;
+      color: var(--obsidian-faint);
+      margin-bottom: 3.5rem;
+      line-height: 1.8;
+    }
+
+    /* School badge row */
+    .school-row {
+      display: flex;
+      align-items: baseline;
+      gap: 2rem;
+      padding: 1.8rem 0;
+      border-top: 1px solid var(--obsidian-soft);
+      border-bottom: 1px solid var(--obsidian-soft);
+      margin-bottom: 3rem;
+    }
+
+    .school-row-name {
+      font-family: 'Merriweather', serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--off-white);
+    }
+
+    .school-row-meta {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--obsidian-faint);
+    }
+
+    .honors-pill {
+      display: inline-block;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--obsidian-faint);
+      border: 1px solid var(--obsidian-faint);
+      padding: 0.38rem 0.9rem;
+      margin-left: auto;
+      margin-right: 0;
+    }
+    .honors-pill + .honors-pill { margin-left: 0.5rem; }
+
+    /* Exams grid */
+    .edu-sub-label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--obsidian-faint);
+      margin-bottom: 0;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid var(--obsidian-soft);
+      margin-bottom: 0;
+    }
+
+    .exams-grid-index {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border-top: 1px solid var(--obsidian-soft);
+      border-left: 1px solid var(--obsidian-soft);
+      margin-bottom: 3.5rem;
+    }
+
+    .exam-card-index {
+      border-right: 1px solid var(--obsidian-soft);
+      border-bottom: 1px solid var(--obsidian-soft);
+      padding: 2.2rem 2rem;
+      transition: background 0.22s, transform 0.22s, box-shadow 0.22s;
+      will-change: transform;
+    }
+
+    .exam-card-index:not(.planned):hover {
+      background: #222120;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.35);
+      z-index: 2;
+      position: relative;
+    }
+
+    .exam-card-index.planned { opacity: 0.45; }
+
+    .exam-status-index {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--obsidian-faint);
+      margin-bottom: 1rem;
+    }
+    .exam-status-index.taken { color: var(--rule); }
+
+    h3.exam-name-index {
+      font-family: 'Merriweather', serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--off-white);
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+    }
+    .exam-card-index.planned h3.exam-name-index { color: var(--obsidian-faint); }
+
+    .exam-score-wrap-index {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+      margin-top: 1.2rem;
+    }
+
+    .exam-score-index {
+      font-family: 'Merriweather', serif;
+      font-weight: 700;
+      font-size: 2.6rem;
+      line-height: 1;
+      color: var(--off-white);
+      letter-spacing: -0.03em;
+    }
+
+    .exam-score-max-index {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: var(--obsidian-faint);
+    }
+
+    .score-five-badge {
+      display: inline-block;
+      margin-left: 0.4rem;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.52rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--obsidian-soft);
+      background: var(--rule);
+      padding: 0.18rem 0.5rem;
+      vertical-align: middle;
+      position: relative;
+      top: -0.35rem;
+    }
+
+    .exam-score-label-index {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--obsidian-faint);
+      margin-top: 0.25rem;
+    }
+
+    .exam-tbd-index {
+      margin-top: 1.2rem;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--obsidian-faint);
+      font-style: italic;
+    }
+
+    /* Coursework — two-column year layout */
+    .courses-section-label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--obsidian-faint);
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid var(--obsidian-soft);
+      margin-bottom: 0;
+    }
+
+    .courses-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-top: 1px solid var(--obsidian-soft);
+      border-left: 1px solid var(--obsidian-soft);
+      margin-bottom: 3.5rem;
+    }
+
+    .course-year-col {
+      border-right: 1px solid var(--obsidian-soft);
+      border-bottom: 1px solid var(--obsidian-soft);
+      padding: 2.5rem 2.6rem;
+    }
+
+    .course-year-header {
+      margin-bottom: 1.8rem;
+      padding-bottom: 1.2rem;
+      border-bottom: 1px solid var(--obsidian-soft);
+    }
+
+    h3.course-year-title {
+      font-family: 'Merriweather', serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--off-white);
+      margin-bottom: 0.25rem;
+    }
+
+    .course-year-meta {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--obsidian-faint);
+    }
+
+    .course-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--obsidian-soft);
+    }
+    .course-line:last-child { border-bottom: none; }
+
+    .course-line-name {
+      font-family: 'Merriweather', serif;
+      font-weight: 300;
+      font-size: 0.92rem;
+      color: var(--obsidian-faint);
+      line-height: 1.4;
+    }
+
+    .course-line.is-ap .course-line-name { color: var(--rule); }
+
+    .course-ap-tag {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.56rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--obsidian-faint);
+      border: 1px solid var(--obsidian-mid);
+      padding: 0.12rem 0.5rem;
+      flex-shrink: 0;
+    }
+    .course-line.is-ap .course-ap-tag {
+      color: var(--rule);
+      border-color: var(--obsidian-faint);
+    }
+
+    .view-all-education {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--obsidian-faint);
+      text-decoration: none;
+      border-bottom: 1px solid var(--obsidian-mid);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .view-all-education:hover { color: var(--rule); border-color: var(--obsidian-faint); }
+
+    /* Extracurriculars grid — dark */
+    .ec-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border-top: 1px solid var(--obsidian-soft);
+      border-left: 1px solid var(--obsidian-soft);
+      margin-bottom: 3.5rem;
+    }
+
+    .ec-block {
+      border-right: 1px solid var(--obsidian-soft);
+      border-bottom: 1px solid var(--obsidian-soft);
+      padding: 2.2rem 2rem;
+      transition: background 0.22s;
+    }
     .ec-block:hover { background: #222120; }
-    .ec-block-name { font-family: 'Merriweather', serif; font-weight: 700; font-size: 1.05rem; color: var(--off-white); margin-bottom: 0.5rem; }
-    .ec-block-years { font-family: 'Raleway', sans-serif; font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--obsidian-faint); margin-bottom: 1.2rem; }
-    .ec-block-highlights { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
-    .ec-block-highlights li { font-family: 'Merriweather', serif; font-weight: 300; font-size: 0.87rem; color: var(--obsidian-faint); line-height: 1.6; padding-left: 1rem; position: relative; }
-    .ec-block-highlights li::before { content: '—'; position: absolute; left: 0; color: var(--obsidian-mid); font-size: 0.72rem; }
 
-    /* GALLERY */
-    #gallery { background: var(--bg-dark); color: var(--off-white); padding: 7rem 5rem; }
-    .gallery-frame { position: relative; border-top: 1px solid var(--obsidian-soft); border-left: 1px solid var(--obsidian-soft); overflow: hidden; }
-    .gallery-track { display: flex; transition: transform 1.1s cubic-bezier(0.4, 0, 0.2, 1); }
-    .gallery-slide { display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1fr 1fr; flex: 0 0 100%; min-width: 100%; }
-    .gallery-cell { border-right: 1px solid var(--obsidian-soft); border-bottom: 1px solid var(--obsidian-soft); aspect-ratio: 16 / 9; overflow: hidden; position: relative; }
-    .gallery-cell img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.45s ease; }
-    .gallery-cell:hover img { transform: scale(1.04); }
-    .gallery-controls { display: flex; align-items: center; justify-content: space-between; margin-top: 1.6rem; }
-    .gallery-counter { font-family: 'Raleway', sans-serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: #6b6864; }
-    .gallery-arrow { background: none; border: 1px solid var(--obsidian-soft); color: var(--obsidian-faint); width: 38px; height: 38px; cursor: pointer; transition: 0.2s; }
-    .gallery-arrow:hover { background: var(--obsidian-soft); color: #fff; }
+    .ec-block-label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--obsidian-faint);
+      margin-bottom: 0.6rem;
+    }
 
-    /* SERVICE */
-    #service { background: var(--bg-2); padding: 5rem 5rem; }
-    .service-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; max-width: 1400px; margin: 0 auto; }
-    .service-row { display: grid; grid-template-columns: 56px 1fr; gap: 1.2rem; padding: 1.4rem 0; border-bottom: 1px solid var(--rule-light); }
+    .ec-block-name {
+      font-family: 'Merriweather', serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--off-white);
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+    }
+
+    .ec-block-years {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--obsidian-faint);
+      margin-bottom: 1.2rem;
+    }
+
+    .ec-block-highlights {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .ec-block-highlights li {
+      font-family: 'Merriweather', serif;
+      font-weight: 300;
+      font-size: 0.87rem;
+      color: var(--obsidian-faint);
+      line-height: 1.6;
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    .ec-block-highlights li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--obsidian-mid);
+      font-size: 0.72rem;
+    }
+
+    /* =====================================================
+       VOLUNTEER & CERTIFICATIONS — light band
+       ===================================================== */
+    #service {
+      background: var(--bg-2);
+      padding: 5rem 5rem;
+    }
+
+    .service-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    #service .section-label { margin-bottom: 1.4rem; }
+
+    .service-rows { display: flex; flex-direction: column; }
+
+    .service-row {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 1.2rem;
+      padding: 1.4rem 0;
+      border-bottom: 1px solid var(--rule-light);
+      align-items: start;
+    }
     .service-row:first-child { border-top: 1px solid var(--rule-light); }
-    .service-row-icon { font-family: 'Raleway', sans-serif; font-size: 0.52rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--obsidian-faint); padding-top: 0.15rem; }
-    .service-row-name { font-family: 'Merriweather', serif; font-weight: 400; font-size: 0.88rem; color: var(--obsidian); }
+
+    .service-row-icon {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.52rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--obsidian-faint);
+      padding-top: 0.15rem;
+    }
+
+    .service-row-name {
+      font-family: 'Merriweather', serif;
+      font-weight: 400;
+      font-size: 0.88rem;
+      color: var(--obsidian);
+      line-height: 1.4;
+    }
+
+    .service-row-detail {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--obsidian-faint);
+      margin-top: 0.3rem;
+    }
 
     /* CONTACT */
-    #contact { padding: 7rem 5rem 8rem; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; max-width: 1400px; margin: 0 auto; }
-    .contact-link { display: flex; align-items: center; gap: 1.2rem; text-decoration: none; color: var(--obsidian); font-size: 0.88rem; padding: 1.3rem 0; border-bottom: 1px solid var(--rule-light); }
-    .contact-link:first-child { border-top: 1px solid var(--rule-light); }
-    .contact-link-label { font-family: 'Raleway', sans-serif; font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--obsidian-faint); width: 56px; }
+    #contact {
+      padding: 7rem 5rem 8rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
 
-    footer { padding: 1.6rem 5rem; border-top: 1px solid var(--rule-light); display: flex; justify-content: space-between; font-family: 'Raleway', sans-serif; font-size: 0.6rem; color: var(--obsidian-faint); letter-spacing: 0.12em; }
+    .contact-left h2 {
+      font-family: 'Merriweather', serif;
+      font-weight: 700;
+      font-size: clamp(1.9rem, 3.2vw, 2.8rem);
+      line-height: 1.12;
+      margin-bottom: 1.3rem;
+    }
+
+    .contact-left p {
+      font-size: 0.92rem;
+      color: var(--obsidian-muted);
+      line-height: 1.85;
+    }
+
+    .contact-links { display: flex; flex-direction: column; }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      text-decoration: none;
+      color: var(--obsidian);
+      font-size: 0.88rem;
+      transition: color 0.2s;
+      padding: 1.3rem 0;
+      border-bottom: 1px solid var(--rule-light);
+    }
+    .contact-link:first-child { border-top: 1px solid var(--rule-light); }
+    .contact-link:last-child { border-bottom: none; }
+    .contact-link:hover { color: var(--obsidian-muted); }
+
+    .contact-link-label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--obsidian-faint);
+      width: 56px;
+      flex-shrink: 0;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 1.6rem 5rem;
+      border-top: 1px solid var(--rule-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer span {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      color: var(--obsidian-faint);
+    }
+
+    /* SCROLL REVEAL */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.12s; }
+    .reveal-delay-2 { transition-delay: 0.24s; }
+    .reveal-delay-3 { transition-delay: 0.36s; }
+
+/* GALLERY */
+#gallery {
+  background: var(--bg-dark);
+  color: var(--off-white);
+  padding: 7rem 5rem;
+}
+
+.gallery-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+#gallery .section-label {
+  color: #6b6864;
+}
+#gallery .section-label::after {
+  background: #3a3835;
+}
+#gallery h2.section-title {
+  color: var(--off-white);
+  margin-bottom: 2rem;
+}
+
+.gallery-frame {
+  position: relative;
+  border-top: 1px solid var(--obsidian-soft);
+  border-left: 1px solid var(--obsidian-soft);
+  overflow: hidden;
+}
+
+.gallery-track {
+  display: flex;
+  transition: transform 1.1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gallery-slide {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  flex: 0 0 100%;
+  min-width: 100%;
+}
+
+.gallery-cell {
+  border-right: 1px solid var(--obsidian-soft);
+  border-bottom: 1px solid var(--obsidian-soft);
+  position: relative;
+  overflow: hidden;
+  display: block;
+  text-decoration: none;
+  background: var(--obsidian-soft);
+  aspect-ratio: 16 / 9;
+}
+
+.gallery-cell img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.45s ease;
+}
+
+.gallery-cell:hover img {
+  transform: scale(1.04);
+}
+
+.gallery-cell:hover {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.gallery-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1.6rem;
+}
+
+.gallery-counter {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #6b6864;
+}
+
+.gallery-arrows {
+  display: flex;
+}
+
+.gallery-arrow {
+  background: none;
+  border: 1px solid var(--obsidian-soft);
+  color: var(--obsidian-faint);
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.75rem;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: -1px;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.gallery-arrow:hover {
+  color: var(--off-white);
+  border-color: var(--obsidian-faint);
+  background: var(--obsidian-soft);
+}
+
+.gallery-arrow:disabled {
+  opacity: 0.28;
+  cursor: default;
+  pointer-events: none;
+}
+
+@media (max-width: 1100px) {
+  .gallery-slide {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+  }
+}
+@media (max-width: 860px) {
+  #gallery { padding-left: 2rem; padding-right: 2rem; }
+  .gallery-slide {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+  }
+}
+@media (max-width: 560px) {
+  .gallery-slide {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, 1fr);
+  }
+}
 
     /* RESPONSIVE */
     @media (max-width: 1100px) {
-      .exams-grid-index, .ec-grid, .gallery-slide { grid-template-columns: 1fr 1fr; }
+      .exams-grid-index { grid-template-columns: 1fr 1fr; }
+      .ec-grid { grid-template-columns: 1fr 1fr; }
+      .courses-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 860px) {
-      #hero, .section-wrap, #featured, #education, #service, #contact, footer { padding-left: 2rem; padding-right: 2rem; }
+      nav, #hero, .section-wrap, #featured, #education, #service, #contact, footer {
+        padding-left: 2rem; padding-right: 2rem;
+      }
       #hero { grid-template-columns: 1fr; }
       .hero-right { display: none; }
-      #about .about-inner, .writing-inner, .pillars-grid, .exams-grid-index, .service-inner, #contact { grid-template-columns: 1fr; }
-      .ec-grid { grid-template-columns: 1fr 1fr; }
-      .project-row { grid-template-columns: 1fr; gap: 0.4rem; }
-      .about-photo-col { flex-direction: row; flex-wrap: wrap; }
+      #about .about-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .about-photo-col { flex-direction: row; gap: 2rem; flex-wrap: wrap; }
       .about-photo { max-width: 180px; }
+      .writing-inner { grid-template-columns: 1fr; gap: 0; }
+      .writing-intro { position: static; margin-bottom: 2.5rem; }
+      .pillars-grid { grid-template-columns: 1fr; }
+      .pillar-stack { border-right: none; }
+      .exams-grid-index { grid-template-columns: 1fr; }
+      .courses-grid { grid-template-columns: 1fr; }
+      .ec-grid { grid-template-columns: 1fr 1fr; }
+      .service-inner { grid-template-columns: 1fr; gap: 3rem; }
+      #contact { grid-template-columns: 1fr; gap: 3rem; }
+      .project-row { grid-template-columns: 1fr; gap: 0.4rem; }
       .school-row { flex-wrap: wrap; gap: 0.8rem; }
-      .honors-pill { margin-left: 0; }
     }
-    
-    .reveal { opacity: 0; transform: translateY(20px); transition: 0.75s ease; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
   </style>
 </head>
 <body>
 
+  <!-- NAV -->
   <nav id="nav">
     <a href="#hero" class="nav-name">Raad Amin</a>
-    
-    <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
-    </button>
-
-    <ul class="nav-links" id="navLinks">
+    <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#featured">Work</a></li>
       <li><a href="#writing">Writing</a></li>
@@ -395,23 +1245,32 @@
     </ul>
   </nav>
 
+  <!-- HERO -->
   <section id="hero">
     <svg class="hero-diag" viewBox="0 0 1400 900" preserveAspectRatio="none" fill="none" aria-hidden="true">
       <line class="draw-path" x1="0" y1="900" x2="1400" y2="0" stroke="#dedad3" stroke-width="0.8"/>
     </svg>
     <div class="hero-line-h"></div>
+
     <div class="hero-content">
       <p class="hero-label">Sylvania, Ohio</p>
       <h1 class="hero-name">Raad<br>Amin</h1>
       <p class="hero-label">Aspiring Russian Oligarch</p>
     </div>
+
     <div class="hero-right">
       <div class="hero-geo-wrap">
-        <svg width="100%" height="100%" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <svg width="100%" height="100%" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position:absolute;inset:0;">
           <circle class="draw-arc" cx="310" cy="270" r="190" stroke="#c8c3bb" stroke-width="0.8" fill="none"/>
           <path class="draw-arc" d="M 140 430 A 170 170 0 0 1 490 290" stroke="#dedad3" stroke-width="0.6" fill="none"/>
           <polygon class="draw-path" points="410,55 478,415 90,390" stroke="#1a1917" stroke-width="1" fill="none"/>
+          <polygon points="385,82 428,155 342,155" fill="#1a1917" opacity="0.11"/>
+          <polygon points="120,205 150,205 135,182" fill="#1a1917" opacity="0.2"/>
           <line x1="70" y1="255" x2="195" y2="255" stroke="#c8c3bb" stroke-width="0.8"/>
+          <line x1="290" y1="55" x2="478" y2="135" stroke="#dedad3" stroke-width="0.7"/>
+          <path class="draw-arc" d="M 375 435 A 65 65 0 0 0 460 375" stroke="#1a1917" stroke-width="1" fill="none" opacity="0.28"/>
+          <polygon points="238,308 262,332 238,356 214,332" stroke="#1a1917" stroke-width="0.9" fill="none" opacity="0.32"/>
+          <path class="draw-arc" d="M 60 120 A 80 80 0 0 1 180 80" stroke="#c8c3bb" stroke-width="0.7" fill="none"/>
         </svg>
       </div>
     </div>
@@ -419,107 +1278,595 @@
 
   <div class="hr"></div>
 
+  <!-- ABOUT -->
   <section id="about">
     <div class="section-wrap reveal">
       <p class="section-label">About</p>
       <div class="about-inner">
         <div>
-          <blockquote class="about-quote">"I'm pretty sure he's an AI robot" — My government teacher</blockquote>
+          <blockquote class="about-quote">
+            "I'm pretty sure he's an AI robot" — My government teacher, after I disabled the Windows weather widget
+          </blockquote>
           <br>
-          <p>I'm a high school student in Sylvania, Ohio, noticed when things are broken and trying to fix them. From academic notes used by hundreds to building district-wide guides on AI detector failures.</p>
-          <p>Certification-wise, I'm a NOAA/NWS SKYWARN observer and a dedicated Quizbowl/Science Olympiad competitor.</p>
+          <p>I'm a high school student in Sylvania, Ohio, and just about everything I do traces back to the same habit: noticing when something's broken, and then trying to do something about it. Whether that be a deeply flawed AI detection system creating false positives, a gap in free, quality notes, or a neglected corner left of a club that could use some love.</p>          
+          <p>That's produced a 36-page academic honesty defense, a district-wide guide on fighting positives from erroneous AI detectors, an open-licensed notes program used by over 100 students, and a couple of editorials that ruffled a few feathers. In addition to that, I'm also a NOAA/NWS-certified SKYWARN severe weather observer, and a several years into a meteophotography archive documenting atmospheric events and cloud formations.</p>
+          <p>Extracurricular-wise I try to keep myself busy. I've competed in Science Olympiad and Quizbowl since the 6th grade alongside Speech &amp; Debate, Student Government, Powerlifting, and have made far more Wikipedia edits than I care to admit.</p>
+          <p>But through it all, despite the numerous articles and reports, I don't consider myself a writer. I'm more of a <i>hater,</i> discovering flaws and holes in systems to bring awareness, or resolve them myself. Whether through reporting, satire, archival, or personal advocacy, I strive to make sure things <i>work</i>.</p>
+          <p><br>(Yes, I use em-dashes—and ampersands—and no, I didn't have ChatGPT write this)</p>
         </div>
+
         <div class="about-photo-col">
-          <div class="about-photo"><img src="images/me.jpg" alt="Raad Amin"></div>
+          <div class="about-photo">
+            <img src="images/me.jpg" alt="Portrait Photo of Raad Amin" loading="lazy">
+          </div>
+<!-- ABOUT COLUMN -->
           <div class="about-aside">
-            <div class="about-stat"><div class="about-stat-num">100+</div><div class="about-stat-label">Noteshare Users</div></div>
-            <div class="about-stat"><div class="about-stat-num">955k+</div><div class="about-stat-label">Wiki Views</div></div>
+            <div class="about-stat">
+              <div class="about-stat-num">100+</div>
+              <div class="about-stat-label">Students using Noteshare</div>
+            </div>
+            <div class="about-stat">
+              <div class="about-stat-num">955,715+</div>
+              <div class="about-stat-label">Wikipedia contribution views</div>
+            </div>
+            <div class="about-stat">
+              <div class="about-stat-num">200+</div>
+              <div class="about-stat-label">Library patrons assisted</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
+  <div class="hr"></div>
+
+  <!-- PILLARS — dark band -->
   <section id="featured">
     <div class="featured-inner">
-      <p class="section-label reveal">Focus</p>
-      <h2 class="section-title reveal">Builder & Advocate.</h2>
+      <p class="section-label reveal">Three things worth knowing</p>
+      <h2 class="section-title reveal">A weather watcher, open-source builder, and student who pushes back.</h2>
+
       <div class="pillars-grid">
+
         <a href="projects.html#skywarn" class="pillar featured-pillar reveal">
+          <svg class="pillar-geo-bg" width="220" height="220" viewBox="0 0 220 220" fill="none" aria-hidden="true">
+            <circle cx="110" cy="110" r="100" stroke="#f5f2ed" stroke-width="1.5" fill="none"/>
+            <circle cx="110" cy="110" r="60" stroke="#f5f2ed" stroke-width="0.7" fill="none"/>
+            <polygon points="110,10 210,195 10,195" stroke="#f5f2ed" stroke-width="0.8" fill="none"/>
+          </svg>
           <p class="pillar-number">01</p>
-          <h3 class="pillar-title">SKYWARN & Meteorology</h3>
-          <p class="pillar-body">Certified observer and archive manager for severe weather atmospheric events.</p>
+          <h3 class="pillar-title">SKYWARN &amp; Meteorology</h3>
+          <p class="pillar-body">
+            <br>I've been a NOAA/NWS-certified severe weather observer since 2024. The certification matters less than the habit behind it: being informed on what's actually happening around me, and how it affects my community.
+            <br>I also manage an ongoing meteophotography archive. Dramatic cloud formations, atmospheric optics, or just a pretty sunset. Select images are released to the public domain via Wikimedia Commons or through Unsplash.
+            <br>Incidentally, my love of everything weather &amp; climate happened by chance—I was randmoly assigned to compete in Meteorology in Division B Science Olympiad—but I turned that chance assignment into real state-level placements, and a lifelong love for the sky.
+          </p>
+          <span class="pillar-tag">SKYWARN · NOAA/NWS · Meteophotography · Creative Commons</span>
+          <span class="pillar-caret">Read more →</span>
         </a>
+
         <div class="pillar-stack">
-          <a href="projects.html#noteshare" class="pillar reveal">
+          <a href="projects.html#noteshare" class="pillar reveal reveal-delay-1">
+            <svg class="pillar-geo-bg" width="150" height="140" viewBox="0 0 150 140" fill="none" aria-hidden="true">
+              <polygon points="75,5 145,135 5,135" stroke="#f5f2ed" stroke-width="1.2" fill="none"/>
+              <polygon points="75,30 115,110 35,110" fill="#f5f2ed" opacity="0.09"/>
+            </svg>
             <p class="pillar-number">02</p>
-            <h3 class="pillar-title">Noteshare Program</h3>
-            <p class="pillar-body">Collaborative open-source notes for AP and Honors courses.</p>
+            <h3 class="pillar-title">The Noteshare Program</h3>
+            <p class="pillar-body">
+              <br>There was a gap in accessible study resources and free material, so I took it upon myself to fill it with the "F.R. LLC Noteshare Program" (named after an inside joke). Structured, high-quality notes across a multitude of AP and Honors courses open-licensed CC BY-NC-SA 4.0, collaboratively maintained and shared among hundreds of students.
+              <br>Everything's free to use, share, and modify.
+            </p>
+            <span class="pillar-tag">CC BY-NC-SA · 100+ Students · Creative Commons</span>
+            <span class="pillar-caret">Read more →</span>
           </a>
-          <a href="projects.html#aidefense" class="pillar reveal">
+
+          <a href="projects.html#aidefense" class="pillar reveal reveal-delay-2">
+            <svg class="pillar-geo-bg" width="150" height="130" viewBox="0 0 150 130" fill="none" aria-hidden="true">
+              <rect x="10" y="10" width="130" height="110" stroke="#f5f2ed" stroke-width="0.8" fill="none"/>
+              <line x1="10" y1="10" x2="140" y2="120" stroke="#f5f2ed" stroke-width="0.6"/>
+              <line x1="140" y1="10" x2="10" y2="120" stroke="#f5f2ed" stroke-width="0.4" opacity="0.5"/>
+            </svg>
             <p class="pillar-number">03</p>
-            <h3 class="pillar-title">AI Detection Audit</h3>
-            <p class="pillar-body">Published investigative work on algorithmic failures in education.</p>
+            <h3 class="pillar-title">The AI Detection Audit</h3>
+            <p class="pillar-body">
+              <br>I was falsely flagged for AI use on my first-ever essay, but instead of rewriting it as offered, I built a 36-page defense that night and presented it in person the next morning. That report evolved into a published investigative editorial on algorithmic failures, a documented software flaw, procurement data review, a spot on the Speech & Debate team, and created district-wide awareness and support peers in similar situations.
+              <br>It was a busy week :)
+            </p>
+            <span class="pillar-tag">Investigative · Policy · Student Advocacy</span>
+            <span class="pillar-caret">Read more →</span>
           </a>
         </div>
+
       </div>
     </div>
   </section>
 
+  <div class="hr"></div>
+
+  <!-- WRITING -->
   <section id="writing">
     <div class="section-wrap full reveal">
       <div class="writing-inner">
+
         <div class="writing-intro">
           <p class="section-label">Writing</p>
-          <h2 class="section-title">Published Works</h2>
+          <h2 class="section-title" style="margin-bottom:0.8rem;">Published Works</h2>
+          <p>I'm the News Editor for <i>The Student Prints</i>, Northview High School's century-old (and still kicking!) newspaper. When taking a break from reporting the facts, I publish satire under <i>The Litter Box</i>. These are just a select few of my favorite articles.</p>
           <a href="articles/home-articles.html" class="writing-all-link">All writing →</a>
         </div>
+
         <div>
-          <p class="writing-group-label">News</p>
-          <a href="#" class="article-item">
-            <div>
-              <p class="article-meta">2026 · Student Prints</p>
-              <h3 class="article-title">District Seeks First Levy Since 2016</h3>
-              <p class="article-desc">An exploration of the $4 million deficit affecting Sylvania Schools.</p>
-            </div>
-            <span class="article-arrow">→</span>
-          </a>
+          <!-- NEWS -->
+          <div class="writing-group">
+            <p class="writing-group-label">News</p>
+            <a href="articles/tsp/news/tsp-budget.html" class="article-item">
+              <div>
+                <p class="article-meta"> March 2026 · <i>The Student Prints</i></p>
+                <h3 class="article-title">District Seeks First Levy Since 2016 Amid $4 Million Deficit</h3>
+                <p class="article-desc">Low per-pupil spending, tens of millions in reserve, and a AA credit rating might on paper sound like ideal finances for a school district, but a combination of hostile legislation alongside sharply increasing prices created the perfect storm pulling Sylvania Schools' budget apart. In this article, I explored the interplay between these factors, and how a failed May ballot could lead to over 160 layoffs and a dire crisis for students and staff alike.</p>
+              </div>
+              <span class="article-arrow">→</span>
+            </a>
+
+            <a href="articles/tsp/news/tsp-edshutdown.html" class="article-item">
+              <div>
+                <p class="article-meta"> May 2025 · <i>The Student Prints</i></p>
+                <h3 class="article-title">Trump Orders Education Department to Initiate Shut Down</h3>
+                <p class="article-desc">A presidential order to dismantle the Department of Education raises major questions about funding, oversight, and the future of public schools.</p>
+              </div>
+              <span class="article-arrow">→</span>
+            </a>
+          </div>
+
+          <!-- EDITORIAL -->
+          <div class="writing-group">
+            <p class="writing-group-label">Editorials</p>
+            <a href="articles/tsp/tsp-flagpole.html" class="article-item">
+              <div>
+                <p class="article-meta">Dec 2025 · <i>The Student Prints</i></p>
+                <h3 class="article-title">"The Land of Opportunity" — How a $75,000 Flagpole Only Raises Red Flags</h3>
+                <p class="article-desc">A $75,000 crowdfunding campaign raised barely $1,000. I examined the (lack of) financial logic and questioned what community investment actually looks like.</p>
+              </div>
+              <span class="article-arrow">→</span>
+            </a>
+
+            <a href="articles/tsp/tsp-detector.html" class="article-item">
+              <div>
+                <p class="article-meta"> Mar – Apr 2025 · <i>The Student Prints</i></p>
+                <h3 class="article-title">The District's AI Detector Doesn't Work.</h3>
+                <p class="article-desc">A firsthand false-positive on an essay revealed a deeper flaw into emergent AI detection technology obfuscated under layers of marketing and untrustworthy science.</p>
+              </div>
+              <span class="article-arrow">→</span>
+            </a>
+
+            <a href="articles/tsp/tsp-hb8.html" class="article-item">
+              <div>
+                <p class="article-meta">Sept 2025 · <i>The Student Prints</i></p>
+                <h3 class="article-title">House Bill 8 Strips Student Freedoms</h3>
+                <p class="article-desc">A deceptive bill disguised as a parents' rights measure erodes the rights and autonomy of students. Written with the help of a fellow editor, we examined how mandatory reporting, selective targeting, and hostile legislation work against long-standing district policy and student safety alike.</p>
+              </div>
+              <span class="article-arrow">→</span>
+            </a>
+          </div>
+
+          <!-- SATIRE -->
+          <div class="writing-group">
+            <p class="writing-group-label">Satire</p>
+            <a href="satire-flagpole.html" class="article-item">
+              <div>
+                <p class="article-meta">Administrative Satire · Spring 2025 · <i>The Litter Box</i></p>
+                <h3 class="article-title">School Raises $6.23 for $7,500,000 Flagpole: A Triumph</h3>
+                <p class="article-desc">Playing off the companion flagpole editorial, this piece takes administrative goals to their logical extreme in the ultimate show of patriotism.</p>
+              </div>
+              <span class="article-arrow">→</span>
+            </a>
+
+            <a href="satire-championship.html" class="article-item">
+              <div>
+                <p class="article-meta">Athletic Satire · Spring 2026 · <i>The Litter Box</i></p>
+                <h3 class="article-title">Quizbowl Team Charged with DUI Days before State Championship</h3>
+                <p class="article-desc">The hockey team was caught drinking and driving under the influence mere days before the state championship, yet administration postponed all disciplinary action until after competition. Will the same courtesy extend to Northview's critically-acclaimed Quizbowl team?</p>
+              </div>
+              <span class="article-arrow">→</span>
+            </a>
+
+            <a href="articles/tlb/thelitterbox.html" class="article-item">
+              <div>
+                <p class="article-meta">Satire Archive · <i>The Litter Box</i></p>
+                <h3 class="article-title">More from The Litter Box →</h3>
+                <p class="article-desc">Athletics, Administration, and Clubs &amp; Students — an anthology of shorter pieces each humoring the best (and worst) of Northview.</p>
+              </div>
+              <span class="article-arrow">→</span>
+            </a>
+          </div>
         </div>
+
       </div>
     </div>
   </section>
 
-  <section id="gallery">
-    <div class="gallery-inner">
-      <p class="section-label reveal">Gallery</p>
-      <h2 class="section-title reveal">Meteophotography</h2>
-      <div class="gallery-frame reveal">
-        <div class="gallery-track" id="galleryTrack">
-          <div class="gallery-slide">
-            <div class="gallery-cell"><img src="images/meteophoto/aquila.jpg" alt="Clouds"></div>
-            <div class="gallery-cell"><img src="images/meteophoto/arc.jpg" alt="Clouds"></div>
-            <div class="gallery-cell"><img src="images/meteophoto/bloom.jpg" alt="Clouds"></div>
+  <div class="hr"></div>
+
+<div class="hr"></div>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="gallery-inner">
+    <p class="section-label reveal">Gallery</p>
+    <h2 class="section-title reveal">Meteophotography</h2>
+
+    <div class="gallery-frame reveal">
+      <div class="gallery-track" id="galleryTrack">
+
+        <!-- SLIDE 1 -->
+        <div class="gallery-slide">
+          <div class="gallery-cell">
+            <img src="images/meteophoto/aquila.jpg" alt="Lenticular cloud over Lake Tahoe" loading="lazy">
+          </div>
+          <div class="gallery-cell">
+            <img src="images/meteophoto/arc.jpg" alt="Mammatus clouds at golden hour" loading="lazy">
+          </div>
+          <div class="gallery-cell">
+            <img src="images/meteophoto/bloom.jpg" alt="Cumulonimbus anvil backlit by afternoon sun" loading="lazy">
+          </div>
+          <div class="gallery-cell">
+            <img src="images/meteophoto/brushstroke.jpg" alt="Circumzenithal arc over suburban roofline" loading="lazy">
+          </div>
+          <div class="gallery-cell">
+            <img src="images/meteophoto/chiaroscuro.jpg" alt="Supercell at dusk" loading="lazy">
+          </div>
+          <div class="gallery-cell">
+            <img src="images/meteophoto/cirrussky.jpg" alt="Virga curtains over flat farmland" loading="lazy">
+          </div>
+        </div>
+
+        <!-- SLIDE 2-->
+        <div class="gallery-slide">
+          <div class="gallery-cell">
+            <img src="images/meteophoto/firebow.jpg" alt="Fire Rainbow Within Cirrus Unicus" loading="lazy">
+          </div>
+          <div class="gallery-cell">
+            <img src="images/meteophoto/goldencumulus.jpg" alt="Lenticular cloud over flatland" loading="lazy">
+          </div>
+          <div class="gallery-cell">
+            <img src="images/meteophoto/goldenhr.jpg" alt="Pileus cap cloud at sunset" loading="lazy">
+          </div>
+          <div class="gallery-cell">
+            <img src="images/meteophoto/maturing.jpg" alt="Fog bank rolling over highway" loading="lazy">
+          </div>
+          <div class="gallery-cell">
+            <img src="images/meteophoto/powerofthree.jpg" alt="Sun dog halo phenomenon" loading="lazy">
+          </div>
+          <div class="gallery-cell">
+            <img src="images/meteophoto/stormfactory.jpg" alt="Arcus cloud at storm base" loading="lazy">
+          </div>
+        </div>
+
+        <!-- SLIDE 3-->
+        <div class="gallery-slide">
+          <div class="gallery-cell">
+            <img src="images/meteophoto/roth.jpg" alt="Lightning strike over Lake Erie" loading="lazy">
+          </div>
+          <div class="gallery-cell">
+            <img src="images/meteophoto/snowymorn.jpg" alt="Lenticular cloud over flatland" loading="lazy">
+          </div>
+          <div class="gallery-cell">
+            <img src="images/meteophoto/fields.jpg" alt="Pileus cap cloud at sunset" loading="lazy">
+          </div>
+          <div class="gallery-cell">
+            <img src="images/meteophoto/wall.jpg" alt="Fog bank rolling over highway" loading="lazy">
+          </div>
+          <div class="gallery-cell">
+            <img src="images/meteophoto/sunbreak.jpg" alt="Sun dog halo phenomenon" loading="lazy">
+          </div>
+          <div class="gallery-cell">
+            <img src="images/meteophoto/dreamy.jpg" alt="Arcus cloud at storm base" loading="lazy">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="gallery-controls reveal">
+      <div style="display:flex;align-items:center;gap:1.6rem;">
+        <span class="gallery-counter" id="galleryCounter">01 / 02 / 03</span>
+        <div class="gallery-arrows">
+          <button class="gallery-arrow" id="galleryPrev" aria-label="Previous slide" disabled>←</button>
+          <button class="gallery-arrow" id="galleryNext" aria-label="Next slide">→</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-wrap narrow reveal">
+      <p class="section-label">Projects</p>
+      <h2 class="section-title">Built things</h2>
+
+      <div class="projects-list">
+        <a href="projects/projects-school.html#noteshare" class="project-row">
+          <div>
+            <h3 class="project-name">F.R. LLC Noteshare Program</h3>
+            <p class="project-date">Aug 2024 – Present</p>
+          </div>
+          <p class="project-desc">Open-licensed academic notes and study materials spanning every AP &amp; Honors course I've taken — AP World History, AP US History, AP Government, AP Seminar, and more. Collaboratively maintained, publicly shared, used by over 100 students. Licensed under CC BY-NC-SA 4.0.</p>
+          <span class="project-arrow">→</span>
+        </a>
+
+        <a href="projects/projects-school.html#aidefense" class="project-row">
+          <div>
+            <h3 class="project-name">Academic Honesty Defense Guide</h3>
+            <p class="project-date">Apr 2025</p>
+          </div>
+          <p class="project-desc">A publicly distributed guide on structuring a defense against false AI-use accusations. What evidence to gather, what tone to use, what rights students have, and how to explain personal writing choices clearly. Shared and utilized district-wide.</p>
+          <span class="project-arrow">→</span>
+        </a>
+
+        <a href="projects/projects-ec.html#scioly-web" class="project-row">
+          <div>
+            <h3 class="project-name">Team Websites</h3>
+            <p class="project-date">Ongoing</p>
+          </div>
+          <p class="project-desc">I've built and maintain the official websites for Northview Science Olympiad, Speech &amp; Debate, and the school newspaper. They cover competition schedules, results, team galleries, articles, logistics materials for hosted events, and most importantly, they preserves the amazing teammates and mentors that make success possible.</p>
+          <span class="project-arrow">→</span>
+        </a>
+
+        <a href="projects/projects-ec.html#yearbook" class="project-row">
+          <div>
+            <h3 class="project-name">Science Olympiad Yearbook</h3>
+            <p class="project-date">Annual</p>
+          </div>
+          <p class="project-desc">Annual physical yearbook designed in Adobe InDesign and Photoshop. Handmade layouts, yearly-changing thematic design, competition highlights, and behind-the-scenes documentation from build nights, practices, and travel to keep pieces of team memory alive forever.</p>
+          <span class="project-arrow">→</span>
+        </a>
+
+        <a href="projects/projects-personal.html#meteophotography" class="project-row">
+          <div>
+            <h3 class="project-name">Meteophotography Archive</h3>
+            <p class="project-date">Ongoing</p>
+          </div>
+          <p class="project-desc">An ever-growing collection of weather and atmospheric photography. Select images are in the publicly available via Unsplash &amp; Wikipedia Commons.</p>
+          <span class="project-arrow">→</span>
+        </a>
+
+        <a href="projects/projects-school.html#tlb" class="project-row">
+          <div>
+            <h3 class="project-name"><i>The Litter Box</i></h3>
+            <p class="project-date">Ongoing</p>
+          </div>
+          <p class="project-desc">A private satire label. Mostly an excuse to write things that are true, but funnier when framed as fiction. Subject matter ranges from school policy to local politics to things that just <i>needed</i> to be mocked.</p>
+          <span class="project-arrow">→</span>
+        </a>
+      </div>
+      <a href="projects.html" class="writing-all-link" style="margin-top:2rem;">Projects overview →</a>
+    </div>
+  
+  <!-- EDUCATION -->
+  </section>
+  <section id="education">
+    <div class="education-inner">
+      <p class="section-label reveal">Learning</p>
+      <h2 class="section-title reveal">Education &amp; Extracurriculars</h2>
+      <p class="education-intro reveal"><a href="education/education.html" style="color:var(--obsidian-faint);text-decoration:none;border-bottom:1px solid var(--obsidian-mid);">See the full record →</a></p>
+
+      <!-- School honors row -->
+      <div class="school-row reveal">
+        <div class="school-row-name">Sylvania Northview High School</div>
+        <div class="school-row-meta">Class of 2028</div>
+        <div style="margin-left:auto;display:flex;gap:0.5rem;flex-wrap:wrap;">
+          <span class="honors-pill">Highest Honors 2024–2025</span>
+          <span class="honors-pill">Highest Honors 2025–2026</span>
+          <span class="honors-pill">President's Ed. Award, Apr 2024</span>
+        </div>
+      </div>
+
+      <!-- Exams -->
+      <p class="edu-sub-label reveal">College Board Exams</p>
+      <div class="exams-grid-index">
+
+        <div class="exam-card-index reveal">
+          <p class="exam-status-index taken">Completed · May 2024</p>
+          <h3 class="exam-name-index">AP World History: Modern</h3>
+          <div class="exam-score-wrap-index">
+            <div class="exam-score-index">5</div>
+            <div><div class="exam-score-max-index">/ 5</div></div>
+            <span class="score-five-badge">Top Score</span>
+          </div>
+          <div class="exam-score-label-index">AP Score</div>
+        </div>
+
+        <div class="exam-card-index reveal reveal-delay-1">
+          <p class="exam-status-index taken">Completed · October 2024</p>
+          <h3 class="exam-name-index">PSAT/NMSQT</h3>
+          <div class="exam-score-wrap-index">
+            <div class="exam-score-index">1300</div>
+            <div><div class="exam-score-max-index">/ 1520</div></div>
+          </div>
+          <div class="exam-score-label-index">Composite Score</div>
+        </div>
+
+        <div class="exam-card-index reveal reveal-delay-2">
+          <p class="exam-status-index">Scheduled · May 2025</p>
+          <h3 class="exam-name-index">AP Seminar</h3>
+          <div class="exam-tbd-index">Score pending — Spring 2025</div>
+        </div>
+
+        <div class="exam-card-index reveal reveal-delay-3">
+          <p class="exam-status-index">Scheduled · May 2025</p>
+          <h3 class="exam-name-index">AP United States History</h3>
+          <div class="exam-tbd-index">Score pending — Spring 2025</div>
+        </div>
+
+
+
+      </div>
+
+      <!-- Extracurriculars -->
+      <p class="edu-sub-label reveal" style="margin-bottom:0;">Extracurriculars</p>
+      <div class="ec-grid">
+
+        <div class="ec-block reveal">
+          <div class="ec-block-name">Science Olympiad</div>
+          <div class="ec-block-years">Web Manager<br>2021 – Present</div>
+          <ul class="ec-block-highlights">
+            <li>5× Regional Finalist</li>
+            <li>3× State Finalist</li>
+            <li>Manage team website and annual yearbook</li>
+          </ul>
+        </div>
+
+        <div class="ec-block reveal reveal-delay-1">
+          <div class="ec-block-name">Speech &amp; Debate</div>
+          <div class="ec-block-years">Team Captain · Web Manager<br>2024 – Present</div>
+          <ul class="ec-block-highlights">
+            <li>2× Regional Qualifier</li>
+            <li>2× State Finalist</li>
+            <li>1× National Qualifier Finalist</li>
+            <li>OSDA Recognition of Excellence</li>
+            <li>NSDA Degree of Distinction</li>
+          </ul>
+        </div>
+
+        <div class="ec-block reveal reveal-delay-2">
+          <div class="ec-block-name">Quizbowl</div>
+          <div class="ec-block-years">2021 – Present</div>
+          <ul class="ec-block-highlights">
+            <li>Active for 5+ years</li>
+            <li>Astronomy, geoscience, history, and geography</li>
+            <li>Regional &amp; invitational competitor</li>
+          </ul>
+        </div>
+
+        <div class="ec-block reveal reveal-delay-3">
+          <div class="ec-block-name">Student Government</div>
+          <div class="ec-block-years">Representative<br>2024 – Present</div>
+          <ul class="ec-block-highlights">
+            <li>2× Chosen Representative</li>
+            <li>Led business-partnered fundraisers raising $100+/hour</li>
+            <li>Helped organize school-wide exam preparation events</li>
+          </ul>
+        </div>
+
+        <div class="ec-block reveal reveal-delay-3">
+          <div class="ec-block-name"><i>The Student Prints</i></div>
+          <div class="ec-block-years">News Editor<br>2024 – Present</div>
+          <ul class="ec-block-highlights">
+            <li>Reported and researched local and state developments directly affecting education for the school newspaper</li>
+            <li>Review articles to ensure factual, quality content</li>
+            <li>Trained new staff writers on AP journalistic standards</li>
+          </ul>
+        </div>
+
+        <div class="ec-block reveal reveal-delay-3">
+          <div class="ec-block-name"><i>The Litter Box</i></div>
+          <div class="ec-block-years">Independent Author/Publisher<br>2024 – Present</div>
+          <ul class="ec-block-highlights">
+            <li>Wrote and published original satirical content</li>
+            <li>Managed editing, formatting, and distribution of published works</li>
+            <li>Built an audience through physical &amp; online distribution</li>
+          </ul>
+        </div>
+
+        <div class="ec-block reveal reveal-delay-3">
+          <div class="ec-block-name">Powerlifting</div>
+          <div class="ec-block-years">2024 – Present</div>
+          <ul class="ec-block-highlights">
+            <li>Active competitor
+            <li> I could list my 1-rep maxes, but I'm not <i>that</i> much of a braggard, so not much else to list</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <a href="education/education.html" class="view-all-education reveal">Full education record →</a>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <!-- VOLUNTEER & CERTIFICATIONS — light band -->
+  <section id="service">
+    <div class="service-inner">
+
+      <div>
+        <p class="section-label reveal">Volunteer Work</p>
+        <div class="service-rows reveal">
+          <div class="service-row">
+            <div class="service-row-icon">Sylvania Public Library</div>
+            <div>
+              <div class="service-row-name">VolunTEEN | Toledo Lucas County Public Library</div>
+              <div class="service-row-detail">May 2024 – Present · 200+ patrons served</div>
+            </div>
+          </div>
+          <div class="service-row">
+            <div class="service-row-icon">Northview HS</div>
+            <div>
+              <div class="service-row-name">AP Gov. &amp; Politics Teacher Aide | Northview HS</div>
+              <div class="service-row-detail">Dec 2023 – Present · AP Notes built for Noteshare Program</div>
+            </div>
+          </div>
+          <div class="service-row">
+            <div class="service-row-icon">Wikimedia Foundation</div>
+            <div>
+              <div class="service-row-name">Wikipedia Copy Editor &amp; Photographer | Wikimedia Foundation</div>
+              <div class="service-row-detail">July 2024 – Present · 955,715+ contribution views</div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="gallery-controls reveal">
-        <span class="gallery-counter" id="galleryCounter">01 / 03</span>
-        <div class="gallery-arrows">
-          <button class="gallery-arrow" id="galleryPrev">←</button>
-          <button class="gallery-arrow" id="galleryNext">→</button>
+
+      <div>
+        <p class="section-label reveal">Certifications</p>
+        <div class="service-rows reveal reveal-delay-1">
+          <div class="service-row">
+            <div class="service-row-icon">NOAA/NWS</div>
+            <div>
+              <div class="service-row-name">SKYWARN Certified Weather Observer</div>
+              <div class="service-row-detail">May 2024 — Present · Severe weather spotting</div>
+            </div>
+          </div>
         </div>
       </div>
+
     </div>
   </section>
 
+  <div class="hr"></div>
+
+  <!-- CONTACT -->
   <section id="contact">
     <div class="contact-left reveal">
       <p class="section-label">Contact</p>
-      <h2>Get in touch</h2>
+      <h2>Get in<br>touch</h2>
+      <p>I always love talking about policy, problems, or even just the weather. Feel free to reach out!</p>
     </div>
-    <div class="contact-links reveal">
-      <a href="mailto:raadamin6101@gmail.com" class="contact-link"><span class="contact-link-label">Email</span> raadamin6101@gmail.com</a>
-      <a href="https://github.com/Raad-Amin" class="contact-link"><span class="contact-link-label">GitHub</span> Raad-Amin</a>
+    <div class="contact-links reveal reveal-delay-1">
+      <a href="mailto:raadamin6101@gmail.com" class="contact-link">
+        <span class="contact-link-label">Gmail</span>
+        raadamin6101@gmail.com
+      </a>
+      <a href="mailto:raadamin@proton.me" class="contact-link">
+        <span class="contact-link-label">Proton Mail</span>
+        raadamin@proton.me
+      </a>
+      <a href="https://www.linkedin.com/in/raad-amin-a0680235a" class="contact-link" target="_blank" rel="noopener">
+        <span class="contact-link-label">LinkedIn</span>
+        Raad Amin | Aspiring Russian Oligarch
+      </a>
+      <a href="https://github.com/Raad-Amin" class="contact-link" target="_blank" rel="noopener">
+        <span class="contact-link-label">GitHub</span>
+        Raad-Amin
+      </a>
+<!-- Phone Number -->
+      <!-- a href="tel:6143124139" class="contact-link">
+        <span class="contact-link-label">Phone</span>
+        614-312-4139
+      </a -->
     </div>
   </section>
 
@@ -529,86 +1876,56 @@
   </footer>
 
   <script>
-    // Navigation Scroll and Border logic
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 50);
+      nav.classList.toggle('scrolled', window.scrollY > 60);
     }, { passive: true });
 
-    // Mobile Menu Toggle logic
-    const menuToggle = document.getElementById('menuToggle');
-    const navLinks = document.getElementById('navLinks');
-    const links = document.querySelectorAll('.nav-links a');
-
-    menuToggle.addEventListener('click', () => {
-      menuToggle.classList.toggle('active');
-      navLinks.classList.toggle('active');
-      document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : 'auto';
-    });
-
-    links.forEach(link => {
-      link.addEventListener('click', () => {
-        menuToggle.classList.remove('active');
-        navLinks.classList.remove('active');
-        document.body.style.overflow = 'auto';
-      });
-    });
-
-    // Reveal animations
     const revealEls = document.querySelectorAll('.reveal');
     const revealObs = new IntersectionObserver((entries) => {
       entries.forEach(e => {
-        if (e.isIntersecting) { 
-          e.target.classList.add('visible'); 
-          revealObs.unobserve(e.target); 
-        }
+        if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.07 });
     revealEls.forEach(el => revealObs.observe(el));
 
-    // SVG Drawing animations
     const drawEls = document.querySelectorAll('.draw-path, .draw-arc');
     const drawObs = new IntersectionObserver((entries) => {
       entries.forEach(e => {
-        if (e.isIntersecting) { 
-          setTimeout(() => e.target.classList.add('drawn'), 150); 
-          drawObs.unobserve(e.target); 
-        }
+        if (e.isIntersecting) { setTimeout(() => e.target.classList.add('drawn'), 150); drawObs.unobserve(e.target); }
       });
     }, { threshold: 0.1 });
     drawEls.forEach(el => drawObs.observe(el));
 
-    // Immediate draw for hero
     document.querySelectorAll('#hero .draw-path, #hero .draw-arc').forEach(el => {
       setTimeout(() => el.classList.add('drawn'), 500);
     });
+    // Gallery slider
+  (function () {
+    const track   = document.getElementById('galleryTrack');
+    const prev    = document.getElementById('galleryPrev');
+    const next    = document.getElementById('galleryNext');
+    const counter = document.getElementById('galleryCounter');
+    if (!track) return;
 
-    // Gallery Slider logic
-    (function () {
-      const track = document.getElementById('galleryTrack');
-      const prev = document.getElementById('galleryPrev');
-      const next = document.getElementById('galleryNext');
-      const counter = document.getElementById('galleryCounter');
-      if (!track) return;
+   const slides = track.querySelectorAll('.gallery-slide');
+    const total  = slides.length;
+   let current  = 0;
 
-      const slides = track.querySelectorAll('.gallery-slide');
-      const total = slides.length;
-      let current = 0;
+   function go(n) {
+     current = n;
+      track.style.transform = `translateX(-${current * 100}%)`;
+      const pad = n => String(n).padStart(2, '0');
+     counter.textContent = `${pad(current + 1)} / ${pad(total)}`;
+     prev.disabled = current === 0;
+     next.disabled = current === total - 1;
+    }
 
-      function updateSlider(n) {
-        current = n;
-        track.style.transform = `translateX(-${current * 100}%)`;
-        counter.textContent = `${String(current + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
-        prev.disabled = current === 0;
-        next.disabled = current === total - 1;
-      }
-
-      if (prev && next) {
-        prev.addEventListener('click', () => updateSlider(current - 1));
-        next.addEventListener('click', () => updateSlider(current + 1));
-        updateSlider(0);
-      }
-    })();
+   prev.addEventListener('click', () => go(current - 1));
+    next.addEventListener('click', () => go(current + 1));
+   go(0);
+  })();
   </script>
+
 </body>
 </html>
