@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg:            #f5f2ed;
+      --bg:             #f5f2ed;
       --bg-2:          #eeeae3;
       --bg-dark:       #1a1917;
       --obsidian:      #1a1917;
@@ -72,6 +72,7 @@
       color: var(--obsidian-muted);
       text-decoration: none;
       transition: color 0.2s;
+      flex-shrink: 0;
     }
     .nav-links a:hover { color: var(--obsidian); }
     .nav-links a.active { color: var(--obsidian); }
@@ -169,7 +170,6 @@
     }
 
     @keyframes riseIn { to { opacity: 1; transform: translateY(0); } }
-    @keyframes fadeIn { to { opacity: 1; } }
 
     /* SECTION SCAFFOLD */
     .section-wrap {
@@ -225,7 +225,6 @@
     #exams .section-label::after { background: #3a3835; }
     #exams h2.section-title { color: var(--off-white); margin-bottom: 3rem; }
 
-    /* Exam sub-section dividers */
     .exams-sub-label {
       font-family: 'Raleway', sans-serif;
       font-size: 0.58rem;
@@ -273,9 +272,7 @@
       z-index: 2;
     }
 
-    .exam-card.planned {
-      opacity: 0.5;
-    }
+    .exam-card.planned { opacity: 0.5; }
 
     .exam-status {
       font-family: 'Raleway', sans-serif;
@@ -285,7 +282,6 @@
       color: #5a5855;
       margin-bottom: 1.2rem;
     }
-
     .exam-status.taken { color: #8a8784; }
 
     h3.exam-name {
@@ -296,10 +292,7 @@
       line-height: 1.3;
       margin-bottom: 0.5rem;
     }
-
-    .exam-card.planned h3.exam-name {
-      color: #9a9590;
-    }
+    .exam-card.planned h3.exam-name { color: #9a9590; }
 
     .exam-score-wrap {
       display: flex;
@@ -352,7 +345,6 @@
       color: #9a9590;
     }
 
-    /* FIVE badge */
     .score-five-badge {
       display: inline-block;
       margin-left: 0.5rem;
@@ -368,133 +360,10 @@
       top: -0.4rem;
     }
 
-    /* COURSE YEARS */
-    .year-block {
-      margin-bottom: 0;
-    }
-
-    .year-header {
-      display: flex;
-      align-items: baseline;
-      gap: 1.8rem;
-      padding: 2.5rem 0 1.2rem;
-      border-bottom: 1px solid var(--rule-light);
-    }
-
-    h3.year-title {
-      font-family: 'Merriweather', serif;
-      font-weight: 700;
-      font-size: 1.15rem;
-      color: var(--obsidian);
-    }
-
-    .year-meta {
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.6rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--obsidian-faint);
-    }
-
-    /* planned year style */
-    .year-block.planned .year-header {
-      border-bottom-color: var(--rule-light);
-    }
-
-    .year-block.planned h3.year-title {
-      color: var(--planned);
-    }
-
-    .year-block.planned .year-meta {
-      color: var(--planned-faint);
-    }
-
-    .planned-badge {
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.5rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--faint);
-      border: 1px solid var(--rule-light);
-      padding: 0.18rem 0.55rem;
-    }
-
-    /* Course rows */
-    .course-row {
-      display: grid;
-      grid-template-columns: 220px 1fr;
-      gap: 2rem;
-      padding: 1.8rem 0;
-      border-bottom: 1px solid var(--rule-light);
-      align-items: start;
-      transition: background 0.22s, transform 0.22s, box-shadow 0.22s;
-      will-change: transform;
-      cursor: default;
-    }
-
-    .course-row:hover {
-      background: #f0ece4;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 18px rgba(26,25,23,0.07);
-      z-index: 1;
-      position: relative;
-      padding-left: 0.5rem;
-      padding-right: 0.5rem;
-      margin-left: -0.5rem;
-      margin-right: -0.5rem;
-    }
-
-    .year-block.planned .course-row {
-      opacity: 0.5;
-    }
-
-    .course-name {
-      font-family: 'Merriweather', serif;
-      font-weight: 700;
-      font-size: 1.0rem;
-      color: var(--obsidian);
-      line-height: 1.4;
-    }
-
-    .course-tag {
-      display: inline-block;
-      margin-top: 0.35rem;
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.55rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--obsidian-faint);
-      border: 1px solid var(--rule-light);
-      padding: 0.15rem 0.5rem;
-    }
-
-    .course-ap .course-name { color: var(--obsidian); }
-    .course-ap .course-tag {
-      background: var(--obsidian);
-      color: var(--off-white);
-      border-color: var(--obsidian);
-    }
-
-    .course-desc {
-      font-size: 0.83rem;
-      line-height: 1.82;
-      color: var(--obsidian-muted);
-    }
-
-    .course-credits {
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.6rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--obsidian-faint);
-      text-align: right;
-      padding-top: 0.1rem;
-    }
-
-    /* COURSEWORK — dark */
+    /* COURSEWORK — Turned Light */
     #coursework {
-      background: var(--bg-dark);
-      color: var(--off-white);
+      background: var(--bg);
+      color: var(--obsidian);
       padding: 6rem 5rem;
     }
 
@@ -503,16 +372,16 @@
       margin: 0 auto;
     }
 
-    #coursework .section-label { color: #6b6864; }
-    #coursework .section-label::after { background: #3a3835; }
-    #coursework h2.section-title { color: var(--off-white); }
+    #coursework .section-label { color: var(--obsidian-faint); }
+    #coursework .section-label::after { background: var(--rule); }
+    #coursework h2.section-title { color: var(--obsidian); }
 
     .coursework-note {
       font-family: 'Merriweather', serif;
       font-style: italic;
       font-weight: 300;
       font-size: 0.85rem;
-      color: #6b6864;
+      color: var(--obsidian-muted);
       margin-bottom: 3rem;
       max-width: 520px;
       line-height: 1.8;
@@ -522,13 +391,13 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 0;
-      border-top: 1px solid #2e2c29;
-      border-left: 1px solid #2e2c29;
+      border-top: 1px solid var(--rule-light);
+      border-left: 1px solid var(--rule-light);
     }
 
     .course-year {
-      border-right: 1px solid #2e2c29;
-      border-bottom: 1px solid #2e2c29;
+      border-right: 1px solid var(--rule-light);
+      border-bottom: 1px solid var(--rule-light);
       padding: 2.8rem 2.6rem;
     }
 
@@ -537,7 +406,7 @@
       font-size: 0.6rem;
       letter-spacing: 0.24em;
       text-transform: uppercase;
-      color: #5a5855;
+      color: var(--obsidian-faint);
       margin-bottom: 0.5rem;
     }
 
@@ -545,9 +414,9 @@
       font-family: 'Merriweather', serif;
       font-weight: 700;
       font-size: 1.1rem;
-      color: #5a5855;
+      color: var(--obsidian-muted);
       margin-bottom: 2rem;
-      border-bottom: 1px solid #2e2c29;
+      border-bottom: 1px solid var(--rule-light);
       padding-bottom: 1rem;
     }
 
@@ -557,63 +426,64 @@
       align-items: baseline;
       gap: 1rem;
       padding: 0.85rem 0;
-      border-bottom: 1px solid #222120;
+      border-bottom: 1px solid var(--bg-2);
     }
-
     .course-row:last-child { border-bottom: none; }
 
     .course-name {
       font-family: 'Merriweather', serif;
       font-weight: 300;
       font-size: 0.82rem;
-      color: #6b6864;
+      color: var(--obsidian-muted);
       line-height: 1.4;
     }
 
-    .course-row.ap-course .course-name {
-      color: #8a8784;
-    }
+    .course-row.ap-course .course-name { color: var(--obsidian); }
 
     .course-ap-tag {
       font-family: 'Raleway', sans-serif;
       font-size: 0.58rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: #5a5855;
-      border: 1px solid #5a5855;
+      color: var(--obsidian-muted);
+      border: 1px solid var(--rule);
       padding: 0.12rem 0.5rem;
       flex-shrink: 0;
     }
 
-    /* EXTRACURRICULARS */
+    /* EXTRACURRICULARS — Turned Dark */
     #extracurriculars {
+      background: var(--bg-dark);
+      color: var(--off-white);
       padding: 6rem 5rem;
     }
+
+    #extracurriculars .section-label { color: #6b6864; }
+    #extracurriculars .section-label::after { background: #3a3835; }
+    #extracurriculars h2.section-title { color: var(--off-white); }
 
     .ec-inner {
       max-width: 1400px;
       margin: 0 auto;
     }
 
-    .ec-list {
-      margin-top: 0.5rem;
-    }
+    .ec-list { margin-top: 0.5rem; }
 
     .ec-row {
       display: grid;
       grid-template-columns: 220px 1fr;
       gap: 2rem;
       padding: 2.4rem 0;
-      border-bottom: 1px solid var(--rule-light);
+      border-bottom: 1px solid #2e2c29;
       align-items: start;
     }
-    .ec-row:first-child { border-top: 1px solid var(--rule-light); }
+    .ec-row:first-child { border-top: 1px solid #2e2c29; }
 
     .ec-name {
       font-family: 'Merriweather', serif;
       font-weight: 700;
       font-size: 1.25rem;
-      color: var(--obsidian);
+      color: var(--off-white);
       line-height: 1.4;
     }
 
@@ -622,14 +492,14 @@
       font-size: 0.64rem;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: var(--obsidian-faint);
+      color: #6b6864;
       margin-top: 0.35rem;
     }
 
     .ec-desc {
       font-size: 0.83rem;
       line-height: 1.82;
-      color: var(--obsidian-muted);
+      color: #9a9590;
       margin-bottom: 1rem;
     }
 
@@ -637,7 +507,7 @@
       display: flex;
       flex-direction: column;
       gap: 0;
-      border-top: 1px solid var(--rule-light);
+      border-top: 1px solid #2e2c29;
       margin-top: 0.2rem;
     }
 
@@ -646,15 +516,15 @@
       align-items: baseline;
       gap: 0.9rem;
       padding: 0.6rem 0;
-      border-bottom: 1px solid var(--rule-light);
+      border-bottom: 1px solid #2e2c29;
       font-size: 0.8rem;
-      color: var(--obsidian-soft);
+      color: #aba6a1;
       line-height: 1.55;
     }
 
     .ec-achievement::before {
       content: '—';
-      color: var(--rule);
+      color: #4a4844;
       font-size: 0.72rem;
       flex-shrink: 0;
     }
@@ -664,7 +534,7 @@
       font-size: 0.56rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--obsidian-faint);
+      color: #5a5855;
       margin: 1rem 0 0.3rem;
     }
 
@@ -675,9 +545,9 @@
       font-size: 0.55rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--obsidian-faint);
-      border: 1px solid var(--rule-light);
-      padding: 0.15rem 0.5rem;
+      color: #6b6864;
+      border: 1px solid #3a3835;
+      padding: 0.12rem 0.5rem;
     }
 
     /* FOOTER */
@@ -687,6 +557,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      background: var(--bg);
     }
     footer span {
       font-family: 'Raleway', sans-serif;
@@ -724,7 +595,6 @@
 </head>
 <body>
 
-  <!-- NAV -->
   <nav>
     <a href="index.html" class="nav-name">Raad Amin</a>
     <ul class="nav-links">
@@ -737,7 +607,6 @@
     </ul>
   </nav>
 
-  <!-- PAGE HEADER -->
   <header class="page-header">
     <svg class="page-header-geo" width="360" height="360" viewBox="0 0 360 360" fill="none" aria-hidden="true">
       <circle cx="180" cy="180" r="165" stroke="#1a1917" stroke-width="1"/>
@@ -763,7 +632,6 @@
     </div>
   </header>
 
-  <!-- EXAMS — dark band -->
   <section id="exams">
     <div class="exams-inner">
       <p class="section-label reveal">College Board</p>
@@ -772,7 +640,6 @@
       <p class="exams-sub-label">AP Exams</p>
       <div class="exams-grid">
 
-        <!-- APWH — taken, scored -->
         <div class="exam-card reveal">
           <p class="exam-status taken">Completed · May 2024</p>
           <h3 class="exam-name">AP World History:<br>Modern</h3>
@@ -785,7 +652,6 @@
           <p class="exam-note">Taken at the end of freshman year. The exam rewards the kind of comparative, pattern-spotting thinking I find natural — not raw memorization, but understanding how civilizations rise, trade, collapse, and repeat.</p>
         </div>
 
-        <!-- AP Seminar — upcoming -->
         <div class="exam-card reveal reveal-delay-1">
           <p class="exam-status">Scheduled · May 2025</p>
           <h3 class="exam-name">AP Seminar</h3>
@@ -793,7 +659,6 @@
           <p class="exam-note">The exam component of the AP Capstone program. Covers research methodology, argument construction, and cross-disciplinary synthesis. Pairs with AP Research junior year to complete the Capstone diploma.</p>
         </div>
 
-        <!-- APUSH — upcoming -->
         <div class="exam-card reveal reveal-delay-2">
           <p class="exam-status">Scheduled · May 2025</p>
           <h3 class="exam-name">AP United States History</h3>
@@ -806,7 +671,6 @@
       <p class="exams-sub-label" style="margin-top:2.8rem;">Standardized Tests</p>
       <div class="exams-grid">
 
-        <!-- PSAT -->
         <div class="exam-card reveal">
           <p class="exam-status taken">Completed · Fall 2024</p>
           <h3 class="exam-name">PSAT/NMSQT</h3>
@@ -818,7 +682,6 @@
           <p class="exam-note">Taken freshman year essentially on a whim — no prep, just curiosity. A useful baseline. Will retake fall of junior year with more intentional preparation behind it.</p>
         </div>
 
-        <!-- PSAT retake — planned -->
         <div class="exam-card planned reveal reveal-delay-1">
           <p class="exam-status">Planned · Fall 2026</p>
           <h3 class="exam-name">PSAT/NMSQT (Retake)</h3>
@@ -826,7 +689,6 @@
           <p class="exam-note">A deliberate second attempt with preparation. Targeting a score competitive for National Merit Scholarship consideration.</p>
         </div>
 
-        <!-- SAT — planned -->
         <div class="exam-card planned reveal reveal-delay-2">
           <p class="exam-status">Planned · Spring/Fall 2027</p>
           <h3 class="exam-name">SAT</h3>
@@ -834,7 +696,6 @@
           <p class="exam-note">The principal college admissions exam. Will approach with full preparation and likely multiple sittings to maximize the score heading into senior year applications.</p>
         </div>
 
-        <!-- ACT — planned -->
         <div class="exam-card planned reveal reveal-delay-3">
           <p class="exam-status">Planned · 2027</p>
           <h3 class="exam-name">ACT</h3>
@@ -848,8 +709,6 @@
 
   <div class="hr"></div>
 
-  <!-- COURSEWORK -->
-
   <section id="coursework">
     <div class="coursework-inner">
       <p class="section-label reveal">Planned</p>
@@ -858,7 +717,6 @@
 
       <div class="course-grid">
 
-        <!-- JUNIOR YEAR -->
         <div class="course-year reveal">
           <p class="course-year-label">2026–2027</p>
           <h3 class="course-year-title">Junior Year</h3>
@@ -893,7 +751,6 @@
           </div>
         </div>
 
-        <!-- SENIOR YEAR -->
         <div class="course-year reveal reveal-delay-1">
           <p class="course-year-label">2027–2028</p>
           <h3 class="course-year-title">Senior Year</h3>
@@ -931,9 +788,6 @@
     </div>
   </section>
 
-  <div class="hr"></div>
-
-  <!-- EXTRACURRICULARS -->
   <section id="extracurriculars">
     <div class="ec-inner">
       <p class="section-label reveal">Activities</p>
@@ -941,7 +795,6 @@
 
       <div class="ec-list">
 
-        <!-- SCIENCE OLYMPIAD -->
         <div class="ec-row reveal">
           <div class="ec-left">
             <div class="ec-name">Science Olympiad</div>
@@ -964,7 +817,6 @@
           </div>
         </div>
 
-        <!-- QUIZBOWL -->
         <div class="ec-row reveal">
           <div class="ec-left">
             <div class="ec-name">Quizbowl</div>
@@ -981,7 +833,6 @@
           </div>
         </div>
 
-        <!-- SPEECH & DEBATE -->
         <div class="ec-row reveal">
           <div class="ec-left">
             <div class="ec-name">Speech &amp; Debate</div>
@@ -999,7 +850,6 @@
           </div>
         </div>
 
-        <!-- STUDENT GOVERNMENT -->
         <div class="ec-row reveal">
           <div class="ec-left">
             <div class="ec-name">Student Government</div>
@@ -1015,7 +865,6 @@
           </div>
         </div>
 
-        <!-- POWERLIFTING -->
         <div class="ec-row reveal">
           <div class="ec-left">
             <div class="ec-name">Powerlifting</div>
