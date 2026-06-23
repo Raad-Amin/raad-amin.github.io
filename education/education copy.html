@@ -491,23 +491,34 @@
       padding-top: 0.1rem;
     }
 
-    /* COURSEWORK — dark */
-    #coursework {
+    /* middle school block */
+    #middle-school {
+      background: var(--bg-2);
+      padding: 5rem;
+    }
+
+    .middle-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* LOOKING AHEAD — dark */
+    #looking-ahead {
       background: var(--bg-dark);
       color: var(--off-white);
       padding: 6rem 5rem;
     }
 
-    .coursework-inner {
+    .ahead-inner {
       max-width: 1400px;
       margin: 0 auto;
     }
 
-    #coursework .section-label { color: #6b6864; }
-    #coursework .section-label::after { background: #3a3835; }
-    #coursework h2.section-title { color: var(--off-white); }
+    #looking-ahead .section-label { color: #6b6864; }
+    #looking-ahead .section-label::after { background: #3a3835; }
+    #looking-ahead h2.section-title { color: var(--off-white); }
 
-    .coursework-note {
+    .ahead-note {
       font-family: 'Merriweather', serif;
       font-style: italic;
       font-weight: 300;
@@ -518,7 +529,7 @@
       line-height: 1.8;
     }
 
-    .course-grid {
+    .ahead-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 0;
@@ -526,13 +537,13 @@
       border-left: 1px solid #2e2c29;
     }
 
-    .course-year {
+    .ahead-year {
       border-right: 1px solid #2e2c29;
       border-bottom: 1px solid #2e2c29;
       padding: 2.8rem 2.6rem;
     }
 
-    .course-year-label {
+    .ahead-year-label {
       font-family: 'Raleway', sans-serif;
       font-size: 0.6rem;
       letter-spacing: 0.24em;
@@ -541,7 +552,7 @@
       margin-bottom: 0.5rem;
     }
 
-    h3.course-year-title {
+    h3.ahead-year-title {
       font-family: 'Merriweather', serif;
       font-weight: 700;
       font-size: 1.1rem;
@@ -551,7 +562,7 @@
       padding-bottom: 1rem;
     }
 
-    .course-row {
+    .ahead-course-row {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
@@ -560,9 +571,9 @@
       border-bottom: 1px solid #222120;
     }
 
-    .course-row:last-child { border-bottom: none; }
+    .ahead-course-row:last-child { border-bottom: none; }
 
-    .course-name {
+    .ahead-course-name {
       font-family: 'Merriweather', serif;
       font-weight: 300;
       font-size: 0.82rem;
@@ -570,11 +581,11 @@
       line-height: 1.4;
     }
 
-    .course-row.ap-course .course-name {
+    .ahead-course-row.ap-course .ahead-course-name {
       color: #8a8784;
     }
 
-    .course-ap-tag {
+    .ahead-ap-tag {
       font-family: 'Raleway', sans-serif;
       font-size: 0.58rem;
       letter-spacing: 0.14em;
@@ -709,10 +720,10 @@
     /* RESPONSIVE */
     @media (max-width: 1100px) {
       .exams-grid { grid-template-columns: 1fr 1fr; }
-      .course-grid { grid-template-columns: 1fr; }
+      .ahead-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 860px) {
-      nav, .page-header, .section-wrap, #exams, #coursework, #extracurriculars, footer {
+      nav, .page-header, .section-wrap, #exams, #middle-school, #looking-ahead, #extracurriculars, footer {
         padding-left: 2rem; padding-right: 2rem;
       }
       .page-header { grid-template-columns: 1fr; }
@@ -849,81 +860,270 @@
   <div class="hr"></div>
 
   <!-- COURSEWORK -->
-
   <section id="coursework">
-    <div class="coursework-inner">
-      <p class="section-label reveal">Planned</p>
-      <h2 class="section-title reveal">Coursework</h2>
-      <p class="coursework-note reveal">Junior and senior schedules are subject to change, but this is the plan as it currently stands. Courses are listed in no particular order of priority.</p>
+    <div class="section-wrap reveal">
+      <p class="section-label">Coursework</p>
+      <h2 class="section-title">High School Courses</h2>
 
-      <div class="course-grid">
+      <!-- SOPHOMORE YEAR -->
+      <div class="year-block">
+        <div class="year-header">
+          <h3 class="year-title">Sophomore Year</h3>
+          <span class="year-meta">2025–2026 · Current</span>
+        </div>
+
+        <div class="course-row course-ap reveal">
+          <div>
+            <div class="course-name">AP Seminar</div>
+            <span class="course-tag">AP · Capstone</span>
+          </div>
+          <p class="course-desc">The first half of the AP Capstone diploma program. Taught me how to actually evaluate a source — not just cite it, but interrogate it. Heavy emphasis on argument structure, research ethics, and presenting complex ideas across multiple mediums. Probably the most transferable academic skill I've developed so far.</p>
+        </div>
+
+        <div class="course-row course-ap reveal">
+          <div>
+            <div class="course-name">AP United States History</div>
+            <span class="course-tag">AP · Social Studies</span>
+          </div>
+          <p class="course-desc">An in-depth examination of the American story from colonization through contemporary history. Strong focus on primary source analysis and the construction of evidence-based historical arguments — a natural extension of the comparative thinking I built in APWH. The document-based questions in particular are great practice for exactly how I already approach problems.</p>
+        </div>
+
+        <div class="course-row reveal">
+          <div>
+            <div class="course-name">Honors Algebra II</div>
+            <span class="course-tag">Honors · Math</span>
+          </div>
+          <p class="course-desc">Polynomial, rational, exponential, and logarithmic functions alongside complex numbers and conic sections. The first math course where I've really had to sit with abstraction rather than reach for a formula — useful, even when uncomfortable.</p>
+        </div>
+
+        <div class="course-row reveal">
+          <div>
+            <div class="course-name">Honors Biology</div>
+            <span class="course-tag">Honors · Science</span>
+          </div>
+          <p class="course-desc">Cellular biology, genetics, evolution, ecology, and the molecular mechanisms underlying life. Brought rigor to intuitions I'd already developed from years of environmental observation — the SKYWARN work and meteophotography gave me a head start on thinking systematically about natural systems.</p>
+        </div>
+
+        <div class="course-row reveal">
+          <div>
+            <div class="course-name">Honors English 10</div>
+            <span class="course-tag">Honors · English</span>
+          </div>
+          <p class="course-desc">Literature analysis, argumentative writing, and rhetorical strategies. Good at building precision in writing — important given how much of my other work depends on saying exactly what I mean, no more.</p>
+        </div>
+
+        <div class="course-row reveal">
+          <div>
+            <div class="course-name">Honors Journalism</div>
+            <span class="course-tag">Honors · Elective</span>
+          </div>
+          <p class="course-desc">Production of <i>The Student Prints</i>, Northview's school newspaper. I hold the News Editor role this year. Covers reporting, interviewing, editorial judgment, layout, and publication ethics — all applied in real time against real deadlines.</p>
+        </div>
+
+        <div class="course-row reveal">
+          <div>
+            <div class="course-name">Honors Spanish III</div>
+            <span class="course-tag">Honors · Language</span>
+          </div>
+          <p class="course-desc">Advanced grammar, composition, and conversation in Spanish. The third year of a sequence I started in middle school — by this point the focus has shifted from mechanics to expression, which is where language gets genuinely interesting.</p>
+        </div>
+
+        <div class="course-row reveal">
+          <div>
+            <div class="course-name">AP Gov. &amp; Politics Teacher Aide</div>
+            <span class="course-tag">Volunteer · Leadership</span>
+          </div>
+          <p class="course-desc">Academic support for an AP U.S. Government &amp; Politics course — grading, note-taking, and classroom engagement. I created and maintained reference notes for the class and helped sustain discussion when student participation flagged. Peer leadership and genuine attentiveness to the subject matter made the role feel less like an aide position and more like an unofficial co-teacher.</p>
+        </div>
+      </div>
+
+      <!-- FRESHMAN YEAR -->
+      <div class="year-block" style="margin-top:1rem;">
+        <div class="year-header">
+          <h3 class="year-title">Freshman Year</h3>
+          <span class="year-meta">2024–2025</span>
+        </div>
+
+        <div class="course-row course-ap reveal">
+          <div>
+            <div class="course-name">AP World History: Modern</div>
+            <span class="course-tag">AP · Social Studies</span>
+          </div>
+          <p class="course-desc">Civilizations, trade networks, revolutions, and global systems from 1200 CE to the present. The exam score (a 5) reflects what I found most useful about the course: it rewards pattern recognition and comparative thinking far more than rote recall. A strong conceptual foundation for everything in APUSH and beyond.</p>
+        </div>
+
+        <div class="course-row reveal">
+          <div>
+            <div class="course-name">Engineering Design</div>
+            <span class="course-tag">Elective · STEM</span>
+          </div>
+          <p class="course-desc">Introduced the design thinking cycle — problem scoping, iterative prototyping, and structured critique. Valuable less for any specific skill than for the habit of treating failure as information rather than verdict. Followed by Engineering Applications the next semester.</p>
+        </div>
+
+        <div class="course-row reveal">
+          <div>
+            <div class="course-name">Engineering Applications</div>
+            <span class="course-tag">Elective · STEM</span>
+          </div>
+          <p class="course-desc">Applied engineering principles with more emphasis on execution and real-world constraints — budgets, tolerances, material limitations. The practical complement to Engineering Design's theoretical framing.</p>
+        </div>
+
+        <div class="course-row reveal">
+          <div>
+            <div class="course-name">Honors English 9</div>
+            <span class="course-tag">Honors · English</span>
+          </div>
+          <p class="course-desc">Foundational literary analysis and composition at the honors level. The course where I had my first major run-in with the district's AI detection system — which, suffice it to say, produced a much more interesting education than the syllabus alone.</p>
+        </div>
+
+        <div class="course-row reveal">
+          <div>
+            <div class="course-name">Honors Geometry</div>
+            <span class="course-tag">Honors · Math</span>
+          </div>
+          <p class="course-desc">Formal proofs, coordinate geometry, and spatial reasoning at an accelerated pace. Proof-writing specifically was good training in structured argumentation — the logical skeleton of a geometry proof isn't all that different from an op-ed.</p>
+        </div>
+
+        <div class="course-row reveal">
+          <div>
+            <div class="course-name">Honors Physical Science</div>
+            <span class="course-tag">Honors · Science</span>
+          </div>
+          <p class="course-desc">Mechanics, thermodynamics, waves, and introductory chemistry. A broad survey that built the quantitative foundations I'll draw on more heavily in AP Physics junior year.</p>
+        </div>
+
+        <div class="course-row reveal">
+          <div>
+            <div class="course-name">Journalism</div>
+            <span class="course-tag">Elective</span>
+          </div>
+          <p class="course-desc">Introduction to reporting, interviewing, and publication workflow. This is where I started contributing to <i>The Student Prints</i> — and where I quickly learned that the most interesting stories aren't the ones assigned to you.</p>
+        </div>
+
+        <div class="course-row reveal">
+          <div>
+            <div class="course-name">Spanish II</div>
+            <span class="course-tag">Language</span>
+          </div>
+          <p class="course-desc">Continuation of the Spanish sequence. Solidified grammar and expanded vocabulary before transitioning into the Honors track for Spanish III.</p>
+        </div>
+
+        <div class="course-row reveal">
+          <div>
+            <div class="course-name">AP Gov. &amp; Politics Teacher Aide</div>
+            <span class="course-tag">Volunteer · Leadership</span>
+          </div>
+          <p class="course-desc">Academic support for an AP U.S. Government &amp; Politics course — grading, note-taking, and classroom engagement. I created and maintained reference notes for the class and helped sustain discussion when student participation flagged. Peer leadership and genuine attentiveness to the subject matter made the role feel less like an aide position and more like an unofficial co-teacher.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <!-- MIDDLE SCHOOL COURSES TAKEN EARLY -->
+  <section id="middle-school">
+    <div class="middle-inner">
+      <div class="section-wrap reveal" style="padding: 0;">
+        <p class="section-label">Early Credit</p>
+        <h2 class="section-title">High School Courses Taken in Middle School</h2>
+
+        <div class="course-row reveal">
+          <div>
+            <div class="course-name">Honors Algebra I</div>
+            <span class="course-tag">Honors · Math</span>
+          </div>
+          <p class="course-desc">Completed during middle school for high school credit — the first step into honors-level mathematics and the accelerated math sequence that continues through Calculus BC senior year.</p>
+        </div>
+
+        <div class="course-row reveal">
+          <div>
+            <div class="course-name">Spanish I</div>
+            <span class="course-tag">Language</span>
+          </div>
+          <p class="course-desc">The foundation of a Spanish sequence that I've carried through high school into Honors Spanish III. Starting early gave me a meaningful head start on the grammar and vocabulary the later courses build on.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <!-- LOOKING AHEAD — dark band -->
+  <section id="looking-ahead">
+    <div class="ahead-inner">
+      <p class="section-label reveal">Planned</p>
+      <h2 class="section-title reveal">Looking Ahead</h2>
+      <p class="ahead-note reveal">Junior and senior schedules are subject to change, but this is the plan as it currently stands. Courses are listed in no particular order of priority — just the full slate.</p>
+
+      <div class="ahead-grid">
 
         <!-- JUNIOR YEAR -->
-        <div class="course-year reveal">
-          <p class="course-year-label">2026–2027</p>
-          <h3 class="course-year-title">Junior Year</h3>
+        <div class="ahead-year reveal">
+          <p class="ahead-year-label">2026–2027</p>
+          <h3 class="ahead-year-title">Junior Year</h3>
 
-          <div class="course-row ap-course">
-            <span class="course-name">AP English Language &amp; Composition</span>
-            <span class="course-ap-tag">AP</span>
+          <div class="ahead-course-row ap-course">
+            <span class="ahead-course-name">AP English Language &amp; Composition</span>
+            <span class="ahead-ap-tag">AP</span>
           </div>
-          <div class="course-row ap-course">
-            <span class="course-name">AP Precalculus</span>
-            <span class="course-ap-tag">AP</span>
+          <div class="ahead-course-row ap-course">
+            <span class="ahead-course-name">AP Precalculus</span>
+            <span class="ahead-ap-tag">AP</span>
           </div>
-          <div class="course-row ap-course">
-            <span class="course-name">AP Physics 1</span>
-            <span class="course-ap-tag">AP</span>
+          <div class="ahead-course-row ap-course">
+            <span class="ahead-course-name">AP Physics 1</span>
+            <span class="ahead-ap-tag">AP</span>
           </div>
-          <div class="course-row ap-course">
-            <span class="course-name">AP Research</span>
-            <span class="course-ap-tag">AP · Capstone</span>
+          <div class="ahead-course-row ap-course">
+            <span class="ahead-course-name">AP Research</span>
+            <span class="ahead-ap-tag">AP · Capstone</span>
           </div>
-          <div class="course-row ap-course">
-            <span class="course-name">AP Microeconomics</span>
-            <span class="course-ap-tag">AP · Sem 1</span>
+          <div class="ahead-course-row ap-course">
+            <span class="ahead-course-name">AP Microeconomics</span>
+            <span class="ahead-ap-tag">AP · Sem 1</span>
           </div>
-          <div class="course-row ap-course">
-            <span class="course-name">AP Macroeconomics</span>
-            <span class="course-ap-tag">AP · Sem 2</span>
+          <div class="ahead-course-row ap-course">
+            <span class="ahead-course-name">AP Macroeconomics</span>
+            <span class="ahead-ap-tag">AP · Sem 2</span>
           </div>
-          <div class="course-row">
-            <span class="course-name">Honors Journalism</span>
-            <span class="course-ap-tag">Honors</span>
+          <div class="ahead-course-row">
+            <span class="ahead-course-name">Honors Journalism</span>
+            <span class="ahead-ap-tag">Honors</span>
           </div>
         </div>
 
         <!-- SENIOR YEAR -->
-        <div class="course-year reveal reveal-delay-1">
-          <p class="course-year-label">2027–2028</p>
-          <h3 class="course-year-title">Senior Year</h3>
+        <div class="ahead-year reveal reveal-delay-1">
+          <p class="ahead-year-label">2027–2028</p>
+          <h3 class="ahead-year-title">Senior Year</h3>
 
-          <div class="course-row ap-course">
-            <span class="course-name">AP English Literature &amp; Composition</span>
-            <span class="course-ap-tag">AP</span>
+          <div class="ahead-course-row ap-course">
+            <span class="ahead-course-name">AP English Literature &amp; Composition</span>
+            <span class="ahead-ap-tag">AP</span>
           </div>
-          <div class="course-row ap-course">
-            <span class="course-name">AP Statistics</span>
-            <span class="course-ap-tag">AP</span>
+          <div class="ahead-course-row ap-course">
+            <span class="ahead-course-name">AP Statistics</span>
+            <span class="ahead-ap-tag">AP</span>
           </div>
-          <div class="course-row ap-course">
-            <span class="course-name">AP Calculus BC</span>
-            <span class="course-ap-tag">AP</span>
+          <div class="ahead-course-row ap-course">
+            <span class="ahead-course-name">AP Calculus BC</span>
+            <span class="ahead-ap-tag">AP</span>
           </div>
-          <div class="course-row ap-course">
-            <span class="course-name">AP Government &amp; Politics</span>
-            <span class="course-ap-tag">AP</span>
+          <div class="ahead-course-row ap-course">
+            <span class="ahead-course-name">AP Government &amp; Politics</span>
+            <span class="ahead-ap-tag">AP</span>
           </div>
-          <div class="course-row ap-course">
-            <span class="course-name">AP Art History</span>
-            <span class="course-ap-tag">AP</span>
+          <div class="ahead-course-row ap-course">
+            <span class="ahead-course-name">AP Art History</span>
+            <span class="ahead-ap-tag">AP</span>
           </div>
-          <div class="course-row">
-            <span class="course-name">Technical Writing</span>
+          <div class="ahead-course-row">
+            <span class="ahead-course-name">Technical Writing</span>
           </div>
-          <div class="course-row">
-            <span class="course-name">Honors Journalism</span>
-            <span class="course-ap-tag">Honors</span>
+          <div class="ahead-course-row">
+            <span class="ahead-course-name">Honors Journalism</span>
+            <span class="ahead-ap-tag">Honors</span>
           </div>
         </div>
 
